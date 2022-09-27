@@ -6,6 +6,11 @@ const app = express();
 const controller = require('../controllers/controller.js');
 
 app.get('/', controller.getIndex);
-app.post('/test', controller.getTest);
+app.get('/test', controller.getTest);
+app.post('/registeruser', controller.registerUser);
+app.get('/login', controller.getLogin);
+app.post('/loginpost', controller.loginUser);
+app.get('/register', controller.getRegister);
+
 
 module.exports = app;

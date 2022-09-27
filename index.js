@@ -1,11 +1,37 @@
 
 //Express for server functions (Ports, etc.)
 const express = require(`express`);
+const mongoose = require('./models/connection');
+
+
 
 //File Upload - I'm assuming that users can upload a picture of their car/what they want fixed
 const fileUpload = require('express-fileupload'); 
 
 const app = express();
+
+//Sessions for Login
+const session = require(`express-session`);
+const MongoStore = require(`connect-mongo`);
+
+url = 'mongodb://localhost:27017/carRepair';
+
+app.use(session({
+    secret: 'AutoWork',
+    store: MongoStore.create({mongoUrl: url}),
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 }
+  }));
+
+//For flashing error messages!
+const flash = require('connect-flash');
+app.use(flash());
+app.use((req, res, next) => {
+res.locals.success_msg = req.flash('success_msg');
+res.locals.error_msg = req.flash('error_msg');
+next();
+});
 
 //Parsing body. Used for getting info from forms, etc.
 const bodyParser = require(`body-parser`); 
