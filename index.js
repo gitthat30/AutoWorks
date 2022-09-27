@@ -9,6 +9,8 @@ const mongoose = require('./models/connection');
 const fileUpload = require('express-fileupload'); 
 
 const app = express();
+app.use(fileUpload()); 
+app.use(express.static('public')); 
 
 //Sessions for Login
 const session = require(`express-session`);
