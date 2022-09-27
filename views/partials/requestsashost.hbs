@@ -5,4 +5,11 @@ Request Date: {{date}} <br><br>
 Request Status: {{status}} <br><br>
 Request Price: {{price}} <br><br>
 Appointment Date: {{appdate}} <br><br>
+<form method = "post" action = "/acceptreq">
+    <input type="hidden" name="reqid" value= "{{_id}}">
+    <input type="number" name="price" required>
+    <input type="text" name="appdate" required>
+    <button type = "submit">Accept</button>
+</form>
+
 _________________________________ <br><br>

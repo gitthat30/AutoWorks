@@ -8,8 +8,7 @@ var RequestSchema = new mongoose.Schema({
     date: String,
     status: String,
     price: Number,
-    appdate: String,
-    paiddate: String
+    appdate: String
 });
 
 module.exports = mongoose.model('Request', RequestSchema);

@@ -1,8 +1,6 @@
 
 //Express for server functions (Ports, etc.)
 const express = require(`express`);
-const mongoose = require('./models/connection');
-
 
 
 //File Upload - I'm assuming that users can upload a picture of their car/what they want fixed

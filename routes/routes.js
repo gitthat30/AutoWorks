@@ -19,10 +19,16 @@ app.get('/logout', isPrivate, controller.logoutUser);
 
 app.get("/crequests", isPrivate, controller.getUserRequestCreation);
 app.get("/vrequestsu", isPrivate, controller.getUserRequests);
+app.get("/varequestsu", isPrivate, controller.getUserAcceptedRequests);
 
 app.post("/submitrequest", isPrivate, controller.submitRequest);
 
 
+app.get("/viewpending", isHost, controller.getPendingRequests);
+app.get("/settletrans", isHost, controller.settleTransaction);
+app.get("/viewtrans", isHost, controller.viewSettled);
+app.post("/acceptreq", isHost, controller.acceptRequest);
+app.post("/settle", isHost, controller.settleTransactionFinish);
 
 
 

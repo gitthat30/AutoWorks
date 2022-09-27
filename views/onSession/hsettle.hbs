@@ -7,8 +7,11 @@
 	</head>
 
 	<body>
-		<a href = "/login">LOGIN</ahref><br><br>
-		<a href = "/register">REGISTER</ahref><br><br>
+		{{#each req}}
+			{{>settlehost}}
+		{{/each}}
+		<a href = "/logout">Logout</ahref>
+
 	</body>
 
 </html>

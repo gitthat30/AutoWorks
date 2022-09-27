@@ -4,5 +4,10 @@ Request Desc:{{description}} <br><br>
 Request Date: {{date}} <br><br>
 Request Status: {{status}} <br><br>
 Request Price: {{price}} <br><br>
-Appointment Date: {{appdate}} <br><br>
+Appointment Date: {{appdate}}
+<form method = "post" action = "/settle">
+    <input type="hidden" name="reqid" value= "{{_id}}">
+    <button type = "submit">Paid</button>
+</form>
+
 _________________________________ <br><br>
