@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 
-const url = 'mongodb://localhost:27017/carRepair';
+const url = 'mongodb://127.0.0.1/carRepair';
 
 const options = {
     useUnifiedTopology: true,

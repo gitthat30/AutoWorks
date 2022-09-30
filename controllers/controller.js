@@ -129,6 +129,10 @@ const controller = {
         res.render('./onSession/hsettled', {total: total, req: requests});
     },
 
+    viewSuppliers: async function(req, res) {
+        res.render('./onSession/hsuppliers');
+    },
+
     registerUser: async function(req, res) {
         var user = req.body.name;
         var pass = req.body.pass;

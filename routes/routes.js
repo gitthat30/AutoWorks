@@ -29,6 +29,7 @@ app.get("/settletrans", isHost, controller.settleTransaction);
 app.get("/viewtrans", isHost, controller.viewSettled);
 app.post("/acceptreq", isHost, controller.acceptRequest);
 app.post("/settle", isHost, controller.settleTransactionFinish);
+app.get("/viewsuppliers", isHost, controller.viewSuppliers);
 
 
 
