@@ -31,6 +31,8 @@ app.post("/acceptreq", isHost, controller.acceptRequest);
 app.post("/settle", isHost, controller.settleTransactionFinish);
 app.get("/viewsuppliers", isHost, controller.viewSuppliers);
 
+app.post("/sendmesage", isPublic, controller.sendMessage);
+
 
 
 module.exports = app;

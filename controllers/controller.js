@@ -202,6 +202,17 @@ const controller = {
     getRegister: async function(req, res) {
         res.render('register');
     },
+
+    // To update to use AJAX/fetch
+    sendMessage: function(req, res) {
+        var message = {
+            authoruserid: req.session.user,
+            content: req.body.content,
+            sentdate: new Date()
+        };
+        db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}});
+        // res.render();
+    }
 }
 
 module.exports = controller;

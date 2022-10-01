@@ -9,7 +9,13 @@ var RequestSchema = new mongoose.Schema({
     status: String,
     price: Number,
     appdate: String,
-    paiddate: String
+    paiddate: String,
+
+    messages: [{
+        authoruserid: String,
+        content: String,
+        sentdate: Date,
+    }]
 });
 
 module.exports = mongoose.model('Request', RequestSchema);
