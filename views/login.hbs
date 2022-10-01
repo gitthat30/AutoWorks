@@ -1,18 +1,10 @@
-<!DOCTYPE html>
+{{> wrapper_header}}
 
-<html>
+LOGIN<br><br>
+<form action = "/loginpost" method = "POST">
+	Username: <input type="text" name="name"><br><br>
+	Password: <input type="text" name="pass"><br><br>
+	<button type = "submit">Enter</button>
+</form>
 
-	<head>
-		<title>AutoWorks</title>
-	</head>
-
-	<body>
-		LOGIN<br><br>
-		<form action = "/loginpost" method = "POST">
-			Username: <input type="text" name="name"><br><br>
-			Password: <input type="text" name="pass"><br><br>
-			<button type = "submit">test</button>
-		</form>
-	</body>
-
-</html>
+{{> wrapper_footer}}

@@ -1,27 +1,18 @@
-<!DOCTYPE html>
+{{> wrapper_header}}
 
-<html>
+<h1>Generate Report</h1>
 
-	<head>
-		<title>AutoWorks</title>
-	</head>
+<form action="/generatereport">
+    <select name="year">
+        <option value="" hidden selected>Year...</option>
+        <option value=""></option>
+    </select>
+    <select name="month">
+        <option value="" hidden selected>Month...</option>
+    </select>
+    <button type="submit">Enter</button>
+</form>
 
-	<body>
-        <h1>Generate Report</h1>
+<a href = "/logout">Logout</ahref>
 
-        <form action="/generatereport">
-            <select name="year">
-                <option value="" hidden selected>Year...</option>
-                <option value=""></option>
-            </select>
-            <select name="month">
-                <option value="" hidden selected>Month...</option>
-            </select>
-            <button type="submit">Enter</button>
-        </form>
-
-
-		<a href = "/logout">Logout</ahref>
-	</body>
-
-</html>
+{{> wrapper_footer}}

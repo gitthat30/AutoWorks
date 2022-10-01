@@ -1,17 +1,9 @@
-<!DOCTYPE html>
+{{> wrapper_header}}
 
-<html>
+{{#each active}}
+	{{>activeasclient}}
+{{/each}}
 
-	<head>
-		<title>AutoWorks</title>
-	</head>
+<a href = "/logout">Logout</ahref>
 
-	<body>
-		{{#each active}}
-			{{>activeasclient}}
-		{{/each}}
-		<a href = "/logout">Logout</ahref>
-
-	</body>
-
-</html>
+{{> wrapper_footer}}

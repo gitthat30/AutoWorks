@@ -23,12 +23,9 @@ app.get("/varequestsu", isPrivate, controller.getUserAcceptedRequests);
 
 app.post("/submitrequest", isPrivate, controller.submitRequest);
 
-
 app.get("/viewpending", isHost, controller.getPendingRequests);
-app.get("/settletrans", isHost, controller.settleTransaction);
-app.get("/viewtrans", isHost, controller.viewSettled);
 app.post("/acceptreq", isHost, controller.acceptRequest);
-app.post("/settle", isHost, controller.settleTransactionFinish);
+app.post("/settle", isHost, controller.settleRequest);
 
 app.post("/addpaidbalance", isHost, controller.addPaidBalance);
 app.get("/viewactive", isHost, controller.viewActiveRequests);

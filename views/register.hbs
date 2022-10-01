@@ -1,19 +1,11 @@
-<!DOCTYPE html>
+{{> wrapper_header}}
 
-<html>
+{{error_msg}}
+REGISTER<br><br>
+<form action = "/registeruser" method = "POST">
+	Username: <input type="text" name="name"><br><br>
+	Password: <input type="text" name="pass"><br><br>
+	<button type = "submit">test</button>
+</form>
 
-	<head>
-		<title>AutoWorks</title>
-	</head>
-
-	<body>
-		{{error_msg}}
-		REGISTER<br><br>
-		<form action = "/registeruser" method = "POST">
-			Username: <input type="text" name="name"><br><br>
-			Password: <input type="text" name="pass"><br><br>
-			<button type = "submit">test</button>
-		</form>
-	</body>
-
-</html>
+{{> wrapper_footer}}

@@ -105,12 +105,7 @@ const controller = {
         
     },
 
-    settleTransaction: async function(req, res) {
-        var requests = await request.find({status: 'Accepted'});
-        res.render('./onSession/hsettle', {req: requests});
-    },
-
-    settleTransactionFinish: async function(req, res) {
+    settleRequest: async function(req, res) {
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth();
@@ -120,17 +115,6 @@ const controller = {
         db.updateOne(request, {_id: req.body.reqid}, {status: 'Settled', paiddate: today}, (result) => {
             res.redirect('/viewactive');
         });
-    },
-
-    viewSettled: async function(req, res) {
-        var requests = await request.find({status: 'Settled'});
-        total = 0;
-        requests.forEach(function(payment) {
-            total += payment.price;
-        })
-
-        console.log(total);
-        res.render('./onSession/hsettled', {total: total, req: requests});
     },
 
     addPaidBalance: async function(req, res) {
@@ -150,6 +134,7 @@ const controller = {
         res.render('./onSession/hactiverequests', {req: requests});
     },
 
+    // Not done
     viewGenerateReport: async function(req, res) {
         // var request = await request.find();
         res.render('./onSession/hreport');

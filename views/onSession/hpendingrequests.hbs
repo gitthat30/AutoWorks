@@ -1,18 +1,9 @@
-<!DOCTYPE html>
+{{> wrapper_header}}
 
-<html>
+{{#each req}}
+	{{>requestsashost}}
+{{/each}}
 
-	<head>
-		<title>AutoWorks</title>
-		<link rel="stylesheet" href="CSS/global.css">
-	</head>
+<a href = "/logout">Logout</ahref>
 
-	<body>
-		{{#each req}}
-			{{>requestsashost}}
-		{{/each}}
-		<a href = "/logout">Logout</ahref>
-
-	</body>
-
-</html>
+{{> wrapper_footer}}
