@@ -4,12 +4,11 @@
 
 	<head>
 		<title>AutoWorks</title>
-		<link rel="stylesheet" href="CSS/global.css">
 	</head>
 
 	<body>
-		{{#each req}}
-			{{>requestsashost}}
+		{{#each active}}
+			{{>activeasclient}}
 		{{/each}}
 		<a href = "/logout">Logout</ahref>
 

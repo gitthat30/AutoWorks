@@ -6,19 +6,39 @@
 		<title>AutoWorks</title>
 	</head>
 
-	{{!-- Temporarily here for now--}}
-	<style>
-		table, th, td {
-			border: 1px solid;
-		}
-		.exotic {
-
-		}
-	</style>
-
 	<body>
+		<h1>View Suppliers' Contact</h1>
 
-		<h2>Supplier Contacts</h2>
+		<form action="/viewsupplier">
+			<select name="type">
+				<option value="" disabled selected>Select supply type...</option>
+				<option value="windshield">Glass - Windshield</option>
+				<option value="window">Glass - Door window</option>
+				<option value="parts">Spare Parts</option>
+				<option value="paint">Paint</option>
+			</select>
+
+			<select name="supplier">
+				<option value="" disabled selected>Pick supplier...</option>
+				<option value="Ben Dover o_o">Ben Dover o.o</option>
+				<option value="Paint Supply">Paint Supply</option>
+			</select>
+
+			<button type="submit">Enter</button>
+		</form>
+
+		<p>CONTACT DETAILS</p>
+		<div>
+			<p>{{supplier}}</p>
+			<p>{{number}}</p>
+			<p>{{address}}</p>
+		</div>
+
+
+
+
+
+
 		<table> 
 			<tr>
 				<th>Type</th>

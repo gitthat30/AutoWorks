@@ -1,4 +1,5 @@
 const { connect } = require('mongoose');
+const { ObjectId } = require('mongodb');
 const app = require('../routes/routes.js');
 const db = require('../models/db.js');
 const path = require('path');
@@ -57,14 +58,17 @@ const controller = {
         var yyyy = today.getFullYear();
         today = yyyy+'-'+mm+'-'+dd;
 
-        nrequest = {
+        var nrequest = {
             userid: req.session.user,
-            name: req.body.rname,
+            car: req.body.rcar,
+            type: req.body.rtype,
             description: req.body.rdesc,
             image: 'uploaded/'+image.name,
             date: today,
             status: 'Pending',
             price: -1,
+            paid: 0,
+            oustanding: -1,
             appdate: 'N/A',
             paiddate: 'N/A'
         }
@@ -78,31 +82,31 @@ const controller = {
     },
     
     getUserRequests: async function(req, res) {
-        requests = await request.find({userid: req.session.user, status: 'Pending'});
+        var requests = await request.find({userid: req.session.user, status: 'Pending'});
         console.log(requests);
-        res.render('./onSession/uviewrequests', {req: requests});
+        res.render('./onSession/uviewpending', {req: requests});
     },
 
     getUserAcceptedRequests: async function(req, res) {
-        requests = await request.find({userid: req.session.user, status: 'Accepted'});
+        var requests = await request.find({userid: req.session.user, status: 'Accepted'});
         console.log(requests);
-        res.render('./onSession/uviewrequests', {req: requests});
+        res.render('./onSession/uviewongoing', {active: requests});
     },
 
     getPendingRequests: async function(req, res) {
-        requests = await request.find({status: 'Pending'});
+        var requests = await request.find({status: 'Pending'});
         res.render('./onSession/hpendingrequests', {req: requests});
     },
 
     acceptRequest: async function(req, res) {
-        db.updateOne(request, {_id: req.body.reqid}, {status: 'Accepted', price: req.body.price, appdate: req.body.appdate}, (result) => {
+        db.updateOne(request, {_id: req.body.reqid}, {status: 'Accepted', price: req.body.price, outstanding: req.body.price, appdate: req.body.appdate}, (result) => {
             res.redirect('/viewpending');
         });
         
     },
 
     settleTransaction: async function(req, res) {
-        requests = await request.find({status: 'Accepted'});
+        var requests = await request.find({status: 'Accepted'});
         res.render('./onSession/hsettle', {req: requests});
     },
 
@@ -113,13 +117,13 @@ const controller = {
         var yyyy = today.getFullYear();
         today = yyyy+'-'+mm+'-'+dd;
 
-        db.updateOne(request, {_id: req.body.reqid}, {status: 'Settled', price: req.body.price, appdate: req.body.appdate, paiddate: today}, (result) => {
-            res.redirect('/settletrans');
+        db.updateOne(request, {_id: req.body.reqid}, {status: 'Settled', paiddate: today}, (result) => {
+            res.redirect('/viewactive');
         });
     },
 
     viewSettled: async function(req, res) {
-        requests = await request.find({status: 'Settled'});
+        var requests = await request.find({status: 'Settled'});
         total = 0;
         requests.forEach(function(payment) {
             total += payment.price;
@@ -127,6 +131,32 @@ const controller = {
 
         console.log(total);
         res.render('./onSession/hsettled', {total: total, req: requests});
+    },
+
+    addPaidBalance: async function(req, res) {
+        var amountPaid = req.body.amount;
+        db.updateOne(request, {_id: req.body.reqid}, {$inc: {paid: amountPaid, outstanding: (-1 * amountPaid)}}, (result) => {
+            res.redirect('/viewactive');
+        });
+    },
+
+    viewActiveRequests: async function(req, res) {
+        var requests = await request.find({status: 'Accepted'});
+        requests.forEach(async function(r) {
+            var user = await account.findOne({_id: r.userid});
+            r.username = user.username;
+            r.canSettle = (r.paid >= r.price);
+        })
+        res.render('./onSession/hactiverequests', {req: requests});
+    },
+
+    viewGenerateReport: async function(req, res) {
+        // var request = await request.find();
+        res.render('./onSession/hreport');
+    },
+
+    generateReport: async function(req, res) {
+        res.send("Nothing yet");
     },
 
     viewSuppliers: async function(req, res) {

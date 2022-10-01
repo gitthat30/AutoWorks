@@ -8,10 +8,18 @@
 
 	<body>
 		<form action = "/submitrequest" method = "POST" enctype="multipart/form-data">
-			<input type="text" name="rname"><br><br>
-			<input type="text" name="rdesc" size="50" style="height:50px"><br><br>
+			<input type="text" name="rcar" placeholder="Car Model/manufacturer"> <br><br>
+			<select name="rtype">
+				<option value="" selected hidden>Select job type...</option>
+				<option value="paint">Paint</option>
+				<option value="wheels">Wheels</option>
+				<option value="rim">Rim</option>
+				<option value="hood">Hood</option>
+				<option value="engine">Engine</option>
+			</select> <br><br>
+			<input type="text" name="rdesc" size="50" style="height:50px" placeholder="Description..."><br><br>
 			<input type="file" name="image"><br><br>
-			<button type = "submit">test</button>
+			<button type = "submit">SUBMIT</button>
 		</form>
 		<a href = "/logout">Logout</ahref>
 
