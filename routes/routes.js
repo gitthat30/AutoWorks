@@ -29,10 +29,12 @@ app.post("/settle", isHost, controller.settleRequest);
 
 app.post("/addpaidbalance", isHost, controller.addPaidBalance);
 app.get("/viewactive", isHost, controller.viewActiveRequests);
+app.get("/viewactivereq", isHost, controller.viewActiveRequestsPage);
 
 app.get("/viewgeneratereport", isHost, controller.viewGenerateReport);
 app.get("/generatereport", isHost, controller.generateReport);
 app.get("/viewsuppliers", isHost, controller.viewSuppliers);
+app.get("/viewreq", isHost, controller.viewRequest);
 
 app.post("/sendmesage", isPublic, controller.sendMessage);
 

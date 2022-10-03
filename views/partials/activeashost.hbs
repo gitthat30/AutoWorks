@@ -1,21 +1,13 @@
-Client: {{username}} <br><br>
-Car: {{car}} <br><br>
-Job Type: {{type}} <br><br>
-Quotation Amount: ₱{{price}} <br><br>
-Paid Balance: ₱{{paid}} <br><br>
-Outstanding Balance: ₱{{outstanding}} <br><br><br>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+<script>
+    function test() {
+        $(event.currentTarget).closest('.test').find('.myform').submit();
+    }
+</script>
 
-<form action="/addpaidbalance" method="POST">
-    Add Paid Balance: <br>
-    <input type="number" min="0" name="amount">
-    <input type="hidden" name="reqid" value="{{_id}}">
-    <button type="submit">ENTER</button>
-</form>
-
-{{#if canSettle}}
-    <form action="/settle" method="POST">
-        <input type="hidden" name="reqid" value="{{_id}}">
-        <button type="submit">SETTLE</button>
+<div class ="test">
+    <form class="myform" method="GET" action="/viewactivereq">
+        <input type="hidden" name="reqid" value= "{{_id}}">
+        <button onclick="test()">{{username}} | {{car}} {{type}} | {{date}}</a>
     </form>
-{{/if}}
-_________________________________ <br><br>
+</div>

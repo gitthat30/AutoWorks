@@ -1,16 +1,14 @@
-Car: {{car}} <br><br>
-Request Type: {{type}} <br><br>
-Request Desc:{{description}} <br><br>
-<img src="{{image}}"> <br><br>
-Request Date: {{date}} <br><br>
-Request Status: {{status}} <br><br>
-Request Price: {{price}} <br><br>
-Appointment Date: {{appdate}} <br><br>
-<form method = "post" action = "/acceptreq">
-    <input type="hidden" name="reqid" value= "{{_id}}">
-    <input type="number" name="price" required><br><br>
-    <input type="date" name="appdate" required><br><br>
-    <button type = "submit">Accept</button>
-</form>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+<script>
+    function test() {
+        $(event.currentTarget).closest('.test').find('.myform').submit();
+    }
+</script>
 
-_________________________________ <br><br>
+<div class ="test">
+    <form class="myform" method="GET" action="/viewreq">
+        <input type="hidden" name="reqid" value= "{{_id}}">
+        <button onclick="test()">{{username}} | {{car}} {{type}} | {{date}}</a>
+    </form>
+</div>
+

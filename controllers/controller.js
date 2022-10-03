@@ -60,6 +60,7 @@ const controller = {
 
         var nrequest = {
             userid: req.session.user,
+            username: req.session.name,
             car: req.body.rcar,
             type: req.body.rtype,
             description: req.body.rdesc,
@@ -102,7 +103,18 @@ const controller = {
         db.updateOne(request, {_id: req.body.reqid}, {status: 'Accepted', price: req.body.price, outstanding: req.body.price, appdate: req.body.appdate}, (result) => {
             res.redirect('/viewpending');
         });
-        
+    },
+
+    viewRequest: async function(req, res) {
+        console.log(req.query.reqid);
+        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
+            if (result) {
+                res.render('./onSession/hviewrequest', {car: result.car, type: result.type, description: result.description, image: result.image, date: result.date, status: result.status, price: result.price, appdate: result.appdate, _id: result._id})
+            }
+            else {
+                console.log("failed");
+            }
+        })     
     },
 
     settleRequest: async function(req, res) {
@@ -120,18 +132,26 @@ const controller = {
     addPaidBalance: async function(req, res) {
         var amountPaid = req.body.amount;
         db.updateOne(request, {_id: req.body.reqid}, {$inc: {paid: amountPaid, outstanding: (-1 * amountPaid)}}, (result) => {
+            console.log(result);
             res.redirect('/viewactive');
         });
     },
 
     viewActiveRequests: async function(req, res) {
         var requests = await request.find({status: 'Accepted'});
-        requests.forEach(async function(r) {
-            var user = await account.findOne({_id: r.userid});
-            r.username = user.username;
-            r.canSettle = (r.paid >= r.price);
-        })
         res.render('./onSession/hactiverequests', {req: requests});
+    },
+
+    viewActiveRequestsPage: async function(req, res) {
+        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
+            if (result) {
+                canSettle = result.paid >= result.price;
+                res.render('./onSession/hviewactiverequest', {username: result.username, car: result.car, type: result.type, description: result.description, image: result.image, date: result.date, status: result.status, price: result.price, appdate: result.appdate, _id: result._id, paid: result.paid, outstanding: result.outstanding, canSettle: canSettle})
+            }
+            else {
+                console.log("failed");
+            }
+        })    
     },
 
     // Not done

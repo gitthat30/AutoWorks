@@ -1,0 +1,18 @@
+Car: {{car}} <br><br>
+Request Type: {{type}} <br><br>
+Request Desc:{{description}} <br><br>
+<img src="{{image}}"> <br><br>
+Request Date: {{date}} <br><br>
+Request Status: {{status}} <br><br>
+Request Price: {{price}} <br><br>
+Appointment Date: {{appdate}} <br><br>
+<form method = "post" action = "/acceptreq">
+    <input type="hidden" name="reqid" value= "{{_id}}">
+    <input type="number" name="price" required><br><br>
+    <input type="date" name="appdate" required><br><br>
+    <button type = "submit">Accept</button>
+</form>
+
+_________________________________ <br><br>
+
+<a href = "/logout">Logout</ahref>
