@@ -22,6 +22,7 @@ app.get("/vrequestsu", isPrivate, controller.getUserRequests);
 app.get("/varequestsu", isPrivate, controller.getUserAcceptedRequests);
 
 app.post("/submitrequest", isPrivate, controller.submitRequest);
+app.get("/uviewreq", isPrivate, controller.userRenderRequests);
 
 app.get("/viewpending", isHost, controller.getPendingRequests);
 app.post("/acceptreq", isHost, controller.acceptRequest);

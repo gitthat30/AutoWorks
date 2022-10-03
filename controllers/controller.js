@@ -89,9 +89,26 @@ const controller = {
     },
 
     getUserAcceptedRequests: async function(req, res) {
-        var requests = await request.find({userid: req.session.user, status: 'Accepted'});
-        console.log(requests);
-        res.render('./onSession/uviewongoing', {active: requests});
+        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
+            if (result) {
+                canSettle = result.paid >= result.price;
+                res.render('./onSession/hviewactiverequest', {username: result.username, car: result.car, type: result.type, description: result.description, image: result.image, date: result.date, status: result.status, price: result.price, appdate: result.appdate, _id: result._id, paid: result.paid, outstanding: result.outstanding, canSettle: canSettle})
+            }
+            else {
+                console.log("failed");
+            }
+        })   
+    },
+
+    userRenderRequests: async function(req, res) {
+        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
+            if (result) {
+                res.render('./onSession/uviewrequest', {car: result.car, type: result.type, description: result.description, image: result.image, date: result.date, status: result.status, price: result.price, appdate: result.appdate, _id: result._id})
+            }
+            else {
+                console.log("failed");
+            }
+        })   
     },
 
     getPendingRequests: async function(req, res) {
