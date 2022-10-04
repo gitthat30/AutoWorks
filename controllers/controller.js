@@ -54,7 +54,7 @@ const controller = {
         //Getting Date
         var today = new Date();
         var dd = today.getDate();
-        var mm = today.getMonth();
+        var mm = today.getMonth() + 1;
         var yyyy = today.getFullYear();
         today = yyyy+'-'+mm+'-'+dd;
 
@@ -103,7 +103,7 @@ const controller = {
     userRenderRequests: async function(req, res) {
         db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
             if (result) {
-                res.render('./onSession/uviewrequest', {car: result.car, type: result.type, description: result.description, image: result.image, date: result.date, status: result.status, price: result.price, appdate: result.appdate, _id: result._id})
+                res.render('./onSession/uviewrequest', result)
             }
             else {
                 console.log("failed");
@@ -123,10 +123,9 @@ const controller = {
     },
 
     viewRequest: async function(req, res) {
-        console.log(req.query.reqid);
-        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
-            if (result) {
-                res.render('./onSession/hviewrequest', {car: result.car, type: result.type, description: result.description, image: result.image, date: result.date, status: result.status, price: result.price, appdate: result.appdate, _id: result._id})
+        db.findOne(request, {_id: req.query.reqid}, {}, async (result) => {
+            if (result) {                
+                res.render('./onSession/hviewrequest', result)
             }
             else {
                 console.log("failed");
@@ -137,7 +136,7 @@ const controller = {
     settleRequest: async function(req, res) {
         var today = new Date();
         var dd = today.getDate();
-        var mm = today.getMonth();
+        var mm = today.getMonth() + 1;
         var yyyy = today.getFullYear();
         today = yyyy+'-'+mm+'-'+dd;
 
@@ -255,15 +254,32 @@ const controller = {
         res.render('register');
     },
 
-    // To update to use AJAX/fetch
+    // To update to use AJAX/fetch, [edit: if may time : D]
     sendMessage: function(req, res) {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        var hr = today.getHours();
+        var min = today.getMinutes();
+        today = yyyy+'-'+mm+'-'+dd +' ('+hr+':'+min+')';
+
         var message = {
-            authoruserid: req.session.user,
+            username: req.session.name,
             content: req.body.content,
-            sentdate: new Date()
+            sentdate: today
         };
-        db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}});
-        // res.render();
+
+        console.log("MESSAGE: " + message.username)
+
+        db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function() {
+            if(req.session.host)
+                res.redirect('/viewreq?reqid=' + req.body.reqid); // is this too hardcode-y?
+            else
+                res.redirect('/uviewreq?reqid=' + req.body.reqid);
+        });
+
+        
     }
 }
 

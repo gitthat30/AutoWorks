@@ -1,11 +1,17 @@
 <div>
     <h2>Messages Thread</h2>
+    <div class="thread">
     {{#each messages}}
-        {{>message}}
-	{{/each}}
+        <div class="thread-message">
+            <h3>{{username}}:</h3>
+            <p>{{content}}</p>
+            <p>sent {{sentdate}}</p>
+        </div>
+    {{/each}}
+    </div>
 
     <form action="/sendmessage" method="POST">
-        <input type="hidden" name="reqid" value="{{reqid}}">
+        <input type="hidden" name="reqid" value="{{_id}}">
         <textarea name="content" placeholder="Write your message here..."></textarea>
         <button type="submit">SEND</button>
     </form>

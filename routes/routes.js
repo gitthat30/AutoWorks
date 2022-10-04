@@ -37,7 +37,7 @@ app.get("/generatereport", isHost, controller.generateReport);
 app.get("/viewsuppliers", isHost, controller.viewSuppliers);
 app.get("/viewreq", isHost, controller.viewRequest);
 
-app.post("/sendmesage", isPublic, controller.sendMessage);
+app.post("/sendmessage", isPrivate, controller.sendMessage);
 
 
 

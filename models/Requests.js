@@ -16,9 +16,9 @@ var RequestSchema = new mongoose.Schema({
     paiddate: String,
 
     messages: [{
-        authoruserid: String,
+        username: String,
         content: String,
-        sentdate: Date,
+        sentdate: String,
     }]
 });
 
