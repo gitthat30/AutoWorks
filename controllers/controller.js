@@ -27,161 +27,10 @@ const controller = {
         
     },
 
-    getUser: async function(req, res) {
-        console.log(req.session.name);
-        res.render('./onSession/uhome');
-    },
-
-    getHost: async function(req, res) {
-        console.log(req.session.name);
-        res.render('./onSession/hhome');
-    },
-
     getTest: async function(req, res) {
         one = req.session.name;
         two = req.session.user;
         res.render('test', {one: one, two: two});
-    },
-
-    getUserRequestCreation: async function(req, res) {
-        res.render('./onSession/ucreaterequest');
-    },
-
-    submitRequest: async function(req, res) {
-        //CCAPDEV thing to get the image dir
-        const {image} = req.files;
-
-        //Getting Date
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-        var yyyy = today.getFullYear();
-        today = yyyy+'-'+mm+'-'+dd;
-
-        var nrequest = {
-            userid: req.session.user,
-            username: req.session.name,
-            car: req.body.rcar,
-            type: req.body.rtype,
-            description: req.body.rdesc,
-            image: 'uploaded/'+image.name,
-            date: today,
-            status: 'Pending',
-            price: -1,
-            paid: 0,
-            oustanding: -1,
-            appdate: 'N/A',
-            paiddate: 'N/A'
-        }
-
-        image.mv(path.resolve(__dirname,'../public/uploaded',image.name),(error) => {
-            request.create(nrequest, (error,request) => {
-                res.redirect('/home');
-            })
-          })
-
-    },
-    
-    getUserRequests: async function(req, res) {
-        var requests = await request.find({userid: req.session.user, status: 'Pending'});
-        console.log(requests);
-        res.render('./onSession/uviewpending', {req: requests});
-    },
-
-    getUserAcceptedRequests: async function(req, res) {
-        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
-            if (result) {
-                canSettle = result.paid >= result.price;
-                res.render('./onSession/hviewactiverequest', {username: result.username, car: result.car, type: result.type, description: result.description, image: result.image, date: result.date, status: result.status, price: result.price, appdate: result.appdate, _id: result._id, paid: result.paid, outstanding: result.outstanding, canSettle: canSettle})
-            }
-            else {
-                console.log("failed");
-            }
-        })   
-    },
-
-    userRenderRequests: async function(req, res) {
-        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
-            if (result) {
-                res.render('./onSession/uviewrequest', result)
-            }
-            else {
-                console.log("failed");
-            }
-        })   
-    },
-
-    getPendingRequests: async function(req, res) {
-        var requests = await request.find({status: 'Pending'});
-        res.render('./onSession/hpendingrequests', {req: requests});
-    },
-
-    acceptRequest: async function(req, res) {
-        db.updateOne(request, {_id: req.body.reqid}, {status: 'Accepted', price: req.body.price, outstanding: req.body.price, appdate: req.body.appdate}, (result) => {
-            res.redirect('/viewpending');
-        });
-    },
-
-    viewRequest: async function(req, res) {
-        db.findOne(request, {_id: req.query.reqid}, {}, async (result) => {
-            if (result) {                
-                res.render('./onSession/hviewrequest', result)
-            }
-            else {
-                console.log("failed");
-            }
-        })     
-    },
-
-    settleRequest: async function(req, res) {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-        var yyyy = today.getFullYear();
-        today = yyyy+'-'+mm+'-'+dd;
-
-        db.updateOne(request, {_id: req.body.reqid}, {status: 'Settled', paiddate: today}, (result) => {
-            res.redirect('/viewactive');
-        });
-    },
-
-    addPaidBalance: async function(req, res) {
-        var amountPaid = req.body.amount;
-        db.updateOne(request, {_id: req.body.reqid}, {$inc: {paid: amountPaid, outstanding: (-1 * amountPaid)}}, (result) => {
-            console.log(result);
-            res.redirect('/viewactive');
-        });
-    },
-
-    viewActiveRequests: async function(req, res) {
-        var requests = await request.find({status: 'Accepted'});
-        res.render('./onSession/hactiverequests', {req: requests});
-    },
-
-    viewActiveRequestsPage: async function(req, res) {
-        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
-            if (result) {
-                canSettle = result.paid >= result.price;
-                res.render('./onSession/hviewactiverequest', {username: result.username, car: result.car, type: result.type, description: result.description, image: result.image, date: result.date, status: result.status, price: result.price, appdate: result.appdate, _id: result._id, paid: result.paid, outstanding: result.outstanding, canSettle: canSettle})
-            }
-            else {
-                console.log("failed");
-            }
-        })    
-    },
-
-    // Not done
-    viewGenerateReport: async function(req, res) {
-        // var request = await request.find();
-        res.render('./onSession/hreport');
-    },
-
-    generateReport: async function(req, res) {
-        res.send("Nothing yet");
-    },
-
-    viewSuppliers: async function(req, res) {
-        res.render('./onSession/hsuppliers');
     },
 
     registerUser: async function(req, res) {
@@ -206,6 +55,10 @@ const controller = {
                 res.redirect('/');
             }
         })        
+    },
+
+    getLogin: async function(req, res) {
+        res.render('login');
     },
 
     loginUser: async function(req, res) {
@@ -236,6 +89,20 @@ const controller = {
         })        
     },
 
+    getRegister: async function(req, res) {
+        res.render('register');
+    },
+
+    getUser: async function(req, res) {
+        console.log(req.session.name);
+        res.render('./onSession/uhome');
+    },
+
+    getHost: async function(req, res) {
+        console.log(req.session.name);
+        res.render('./onSession/hhome');
+    },
+
     logoutUser: function(req, res) {
         // Destroy the session and redirect to login page
           if (req.session) {
@@ -244,14 +111,6 @@ const controller = {
               res.redirect('/');
             });
           }
-    },
-    
-    getLogin: async function(req, res) {
-        res.render('login');
-    },
-
-    getRegister: async function(req, res) {
-        res.render('register');
     },
 
     // To update to use AJAX/fetch, [edit: if may time : D]
@@ -270,17 +129,159 @@ const controller = {
             sentdate: today
         };
 
-        console.log("MESSAGE: " + message.username)
-
         db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function() {
             if(req.session.host)
-                res.redirect('/viewreq?reqid=' + req.body.reqid); // is this too hardcode-y?
+                res.redirect('/hviewpending?reqid=' + req.body.reqid); // is this too hardcode-y?
             else
-                res.redirect('/uviewreq?reqid=' + req.body.reqid);
+                res.redirect('/uviewpending?reqid=' + req.body.reqid);
+        });
+    },
+
+    getUserRequestCreation: async function(req, res) {
+        res.render('./onSession/ucreaterequest');
+    },
+
+    submitRequest: async function(req, res) {
+        //CCAPDEV thing to get the image dir
+        const {image} = req.files;
+
+        //Getting Date
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        today = yyyy+'-'+mm+'-'+dd;
+
+        var nrequest = {
+            userid: req.session.user,
+            username: req.session.name,
+            car: req.body.rcar,
+            type: req.body.rtype,
+            description: req.body.rdesc,
+            image: 'uploaded/'+image.name,
+            date: today,
+            status: 'Pending',
+            price: -1,
+            paid: 0,
+            oustanding: -1,
+            paiddate: 'N/A'
+        }
+
+        image.mv(path.resolve(__dirname,'../public/uploaded',image.name),(error) => {
+            request.create(nrequest, (error,request) => {
+                res.redirect('/home');
+            })
+          })
+
+    },
+    
+    getUserRequests: async function(req, res) {
+        var requests = await request.find({userid: req.session.user, status: 'Pending'});
+        console.log(requests);
+        res.render('./onSession/uviewpending', {req: requests});
+    },
+
+    renderUserRequest: async function(req, res) {
+        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
+            if (result) {
+                res.render('./onSession/uviewrequest', result)
+            }
+            else {
+                console.log("failed");
+            }
+        })   
+    },
+
+    acceptRequest: function(req, res) {
+        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
+            // If request has been quoted already
+            if (result.price != -1) {
+                db.updateOne(request, {_id: req.query.reqid}, {status: "Accepted"}, (result) => {
+                    res.redirect('/uviewallpending');
+                });
+            }
+            else
+                res.redirect('/uviewallpending');
+        });
+        
+    },
+
+    declineRequest: function(req, res) {
+        res.send("What happens when it gets declined?");
+    },
+
+    getUserAcceptedRequests: async function(req, res) {
+        var requests = await request.find({userid: req.session.user, status: 'Accepted'});
+        res.render('./onSession/uviewongoing', {req: requests}); 
+    },
+
+    getPendingRequests: async function(req, res) {
+        var requests = await request.find({status: 'Pending'});
+        res.render('./onSession/hpendingrequests', {req: requests});
+    },
+
+    viewRequest: async function(req, res) {
+        db.findOne(request, {_id: req.query.reqid}, {}, async (result) => {
+            if (result) {                
+                res.render('./onSession/hviewrequest', result)
+            }
+            else {
+                console.log("failed");
+            }
+        })     
+    },
+
+    sendQuotation: async function(req, res) {
+        db.updateOne(request, {_id: req.body.reqid}, {price: req.body.price, outstanding: req.body.price}, (result) => {
+            res.redirect('/hviewpending?reqid=' + req.body.reqid);
+        });
+    },
+
+    addPaidBalance: async function(req, res) {
+        var amountPaid = req.body.amount;
+        db.updateOne(request, {_id: req.body.reqid}, {$inc: {paid: amountPaid, outstanding: (-1 * amountPaid)}}, (result) => {
+            console.log(result);
+            res.redirect('/hviewactive');
+        });
+    },
+
+    settleRequest: async function(req, res) {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        today = yyyy+'-'+mm+'-'+dd;
+
+        db.updateOne(request, {_id: req.body.reqid}, {status: 'Settled', paiddate: today}, (result) => {
+            res.redirect('/hviewactive');
+        });
+    },
+
+    // Might remove canSettle field if not needed in design
+    viewActiveRequests: async function(req, res) {
+        var requests = await request.find({status: 'Accepted'});
+
+        requests.forEach(r => {
+            if (r.outstanding == 0)
+                r.canSettle = true;
         });
 
-        
-    }
+        res.render('./onSession/hactiverequests', {req: requests});
+    },
+
+    // Not done
+    viewGenerateReport: async function(req, res) {
+        // var request = await request.find();
+        res.render('./onSession/hreport');
+    },
+
+    generateReport: async function(req, res) {
+        res.send("Nothing yet");
+    },
+
+    viewSuppliers: async function(req, res) {
+        res.render('./onSession/hsuppliers');
+    },
 }
 
 module.exports = controller;

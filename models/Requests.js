@@ -12,7 +12,6 @@ var RequestSchema = new mongoose.Schema({
     price: Number,
     paid: Number,
     outstanding: Number,
-    appdate: String,
     paiddate: String,
 
     messages: [{

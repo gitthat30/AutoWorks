@@ -16,29 +16,37 @@ app.get('/register', isPublic, controller.getRegister);
 app.get('/home', isPrivate, controller.getUser);
 app.get('/hhome', isHost, controller.getHost);
 app.get('/logout', isPrivate, controller.logoutUser);
-
-app.get("/crequests", isPrivate, controller.getUserRequestCreation);
-app.get("/vrequestsu", isPrivate, controller.getUserRequests);
-app.get("/varequestsu", isPrivate, controller.getUserAcceptedRequests);
-
-app.post("/submitrequest", isPrivate, controller.submitRequest);
-app.get("/uviewreq", isPrivate, controller.userRenderRequests);
-
-app.get("/viewpending", isHost, controller.getPendingRequests);
-app.post("/acceptreq", isHost, controller.acceptRequest);
-app.post("/settle", isHost, controller.settleRequest);
-
-app.post("/addpaidbalance", isHost, controller.addPaidBalance);
-app.get("/viewactive", isHost, controller.viewActiveRequests);
-app.get("/viewactivereq", isHost, controller.viewActiveRequestsPage);
-
-app.get("/viewgeneratereport", isHost, controller.viewGenerateReport);
-app.get("/generatereport", isHost, controller.generateReport);
-app.get("/viewsuppliers", isHost, controller.viewSuppliers);
-app.get("/viewreq", isHost, controller.viewRequest);
-
 app.post("/sendmessage", isPrivate, controller.sendMessage);
 
+// [CLIENT] Create Estimation Request
+app.get("/createreq", isPrivate, controller.getUserRequestCreation);
+app.post("/submitreq", isPrivate, controller.submitRequest);
+
+// [CLIENT] Pending for Confirmation
+app.get("/uviewallpending", isPrivate, controller.getUserRequests);
+app.get("/uviewpending", isPrivate, controller.renderUserRequest);
+app.get("/acceptreq", isPrivate, controller.acceptRequest);
+app.get("/declinereq", isPrivate, controller.declineRequest);
+
+// [CLIENT] Active Jobs
+app.get("/uviewactive", isPrivate, controller.getUserAcceptedRequests);
+
+// [HOST] Customer Estimation Requests
+app.get("/hviewallpending", isHost, controller.getPendingRequests);
+app.get("/hviewpending", isHost, controller.viewRequest);
+app.post("/sendquotation", isHost, controller.sendQuotation);
+app.post("/addpaidbalance", isHost, controller.addPaidBalance);
+app.post("/settle", isHost, controller.settleRequest);
+
+// [HOST] Active Jobs
+app.get("/hviewactive", isHost, controller.viewActiveRequests);
+
+// [HOST] Generate Report
+app.get("/viewgeneratereport", isHost, controller.viewGenerateReport);
+app.get("/generatereport", isHost, controller.generateReport);
+
+// [HOST] View Suppliers' Contacts
+app.get("/viewsuppliers", isHost, controller.viewSuppliers);
 
 
 module.exports = app;
