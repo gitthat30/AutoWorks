@@ -1,0 +1,21 @@
+{{> wrapper_header}}
+
+<form action = "/ueditrequestconfirm" method = "POST" enctype="multipart/form-data">
+	<input type="text" name="rcar" placeholder="Car Model/manufacturer" value="{{car}}" required> <br><br>
+	<select name="rtype" value="{{type}}" required>
+		<option value="" selected hidden>Select job type...</option>
+		<option value="paint">Paint</option>
+		<option value="wheels">Wheels</option>
+		<option value="rim">Rim</option>
+		<option value="hood">Hood</option>
+		<option value="engine">Engine</option>
+	</select> <br><br>
+	<input type="text" name="rdesc" size="50" style="height:50px" placeholder="Description..." value="{{description}}" required><br><br>
+	<input type="file" name="image"><br><br>
+	<input type="hidden" name="ogid" value="{{ogid}}">
+	<input type="hidden" name="ogpic" value="{{image}}">
+	<button type = "submit">EDIT</button>
+</form>
+<a href = "/logout">Logout</ahref>
+
+{{> wrapper_footer}}

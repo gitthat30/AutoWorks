@@ -6,9 +6,9 @@
 
 <div class ="test">
     <p>Job Type: {{type}}, Date: {{date}}</p>
-    <p>Client: {{username}}</p>
+    <p>Client: {{username}} | Contact: {{contact}}</p>
     <form class="myform" method="GET" action="/hviewpending">
         <input type="hidden" name="reqid" value= "{{_id}}">
-        <button onclick="test()">View Request</a>
+        <button onclick="test()">View Request</button>
     </form>
 </div>

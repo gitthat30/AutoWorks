@@ -52,6 +52,11 @@ const path = require('path');
 
 //Handlebars for rendering views
 const hbs = require(`hbs`);
+//Handlebar helper. Used this so if a price has been set, the user can't edit the request anymore (./onSession/uviewrequest)
+hbs.registerHelper('Equal', function(x, y) {
+  return (x == y) ? true : false;
+});
+
 
 app.set(`view engine`, `hbs`); 
 hbs.registerPartials(__dirname + `/views/partials`);

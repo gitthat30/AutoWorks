@@ -36,6 +36,7 @@ const controller = {
     registerUser: async function(req, res) {
         var user = req.body.name;
         var pass = req.body.pass;
+        var con = req.body.contact;
         
         db.findOne(account, {username: user}, {}, (result) => {
             if (result) {
@@ -48,6 +49,7 @@ const controller = {
                 newuser = {
                     username: user,
                     password: pass,
+                    contact: con,
                     host: false,
                 }
 
@@ -72,6 +74,7 @@ const controller = {
                     req.session.user = result._id;
                     req.session.name = result.username;
                     req.session.host = result.host;
+                    req.session.contact = result.contact;
                     console.log(req.session);
 
                     if(result.host)
@@ -155,6 +158,7 @@ const controller = {
         var nrequest = {
             userid: req.session.user,
             username: req.session.name,
+            contact: req.session.contact,
             car: req.body.rcar,
             type: req.body.rtype,
             description: req.body.rdesc,
@@ -208,6 +212,80 @@ const controller = {
 
     declineRequest: function(req, res) {
         res.send("What happens when it gets declined?");
+    },
+
+    getEditRequest: function(req, res) {
+        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
+            if (result) {
+                res.render("./onSession/ueditrequest", {car: result.car, type: result.type, description: result.description, ogid:result._id});
+            }
+            else
+                res.redirect('/uviewallpending');
+        });
+    },
+
+    getEditRequestAction: function(req, res) {
+        useogpic = false;
+
+        if(!req.files)
+            useogpic = true;
+
+        //Getting Date
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        today = yyyy+'-'+mm+'-'+dd;
+
+        if(!useogpic) {
+            const {image} = req.files;
+            var nrequest = {
+                userid: req.session.user,
+                username: req.session.name,
+                contact: req.session.contact,
+                car: req.body.rcar,
+                type: req.body.rtype,
+                description: req.body.rdesc,
+                image: 'uploaded/'+image.name,
+                date: today,
+                status: 'Pending',
+                price: -1,
+                paid: 0,
+                oustanding: -1,
+                paiddate: 'N/A'
+            }
+        }
+        else {
+            var nrequest = {
+                userid: req.session.user,
+                username: req.session.name,
+                contact: req.session.contact,
+                car: req.body.rcar,
+                type: req.body.rtype,
+                description: req.body.rdesc,
+                image: req.body.ogpic,
+                date: today,
+                status: 'Pending',
+                price: -1,
+                paid: 0,
+                oustanding: -1,
+                paiddate: 'N/A'
+            }
+        }
+
+        db.updateOne(request, {_id: req.body.ogid}, 
+            {userid: req.session.user,
+            username: req.session.name,
+            contact: req.session.contact,
+            car: nrequest.car,
+            type: nrequest.type,
+            description: nrequest.description,
+            image: nrequest.image,
+            date: nrequest.date,
+            status: 'Pending'
+            }, (result) => {
+            res.redirect('/uviewallpending');
+        });
     },
 
     getUserAcceptedRequests: async function(req, res) {

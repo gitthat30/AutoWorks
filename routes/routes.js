@@ -27,6 +27,8 @@ app.get("/uviewallpending", isPrivate, controller.getUserRequests);
 app.get("/uviewpending", isPrivate, controller.renderUserRequest);
 app.get("/acceptreq", isPrivate, controller.acceptRequest);
 app.get("/declinereq", isPrivate, controller.declineRequest);
+app.get("/ueditrequest", isPrivate, controller.getEditRequest);
+app.post("/ueditrequestconfirm", isPrivate, controller.getEditRequestAction);
 
 // [CLIENT] Active Jobs
 app.get("/uviewactive", isPrivate, controller.getUserAcceptedRequests);

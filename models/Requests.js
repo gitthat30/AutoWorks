@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var RequestSchema = new mongoose.Schema({
     userid: String,
     username: String,
+    contact: String,
     car: String,
     type: String,
     description: String,

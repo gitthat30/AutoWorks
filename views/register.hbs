@@ -3,8 +3,10 @@
 {{error_msg}}
 REGISTER<br><br>
 <form action = "/registeruser" method = "POST">
-	Username: <input type="text" name="name"><br><br>
-	Password: <input type="text" name="pass"><br><br>
+	Username: <input type="text" name="name" required><br><br>
+	Password: <input type="text" name="pass" required><br><br>
+	Contact No: <input type="tel" name="contact" size="25" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}|[0-9]{4}-[0-9]{4}" placeholder="09XX-XXX-XXXX or 8XXX-XXXX" required><br><br>
+	
 	<button type = "submit">test</button>
 </form>
 

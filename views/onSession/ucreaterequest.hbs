@@ -1,8 +1,8 @@
 {{> wrapper_header}}
 
 <form action = "/submitreq" method = "POST" enctype="multipart/form-data">
-	<input type="text" name="rcar" placeholder="Car Model/manufacturer"> <br><br>
-	<select name="rtype">
+	<input type="text" name="rcar" placeholder="Car Model/manufacturer" required> <br><br>
+	<select name="rtype" required>
 		<option value="" selected hidden>Select job type...</option>
 		<option value="paint">Paint</option>
 		<option value="wheels">Wheels</option>
@@ -10,8 +10,8 @@
 		<option value="hood">Hood</option>
 		<option value="engine">Engine</option>
 	</select> <br><br>
-	<input type="text" name="rdesc" size="50" style="height:50px" placeholder="Description..."><br><br>
-	<input type="file" name="image"><br><br>
+	<input type="text" name="rdesc" size="50" style="height:50px" placeholder="Description..." required><br><br>
+	<input type="file" name="image" required><br><br>
 	<button type = "submit">SUBMIT</button>
 </form>
 
