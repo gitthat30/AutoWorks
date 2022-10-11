@@ -393,8 +393,8 @@ const controller = {
             }
             
         })
-
-        res.render('./onSession/hviewreport', {num: num, total: total, total2: total2, isHost: true, username: req.session.name});
+        
+        res.render('./onSession/hviewreport', {date: req.query.date, num: num, total: total, total2: total2, isHost: true, username: req.session.name});
     },
 
     viewSuppliers: async function(req, res) {
