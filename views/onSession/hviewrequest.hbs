@@ -1,24 +1,29 @@
 {{> wrapper_header}}
-Client: {{username}} <br><br>
-Contact No: {{contact}} <br><br>
-Car: {{car}} <br><br>
-Request Type: {{type}} <br><br>
-Request Desc:{{description}} <br><br>
-<img src="{{image}}"> <br><br>
-Request Date: {{date}} <br><br>
-Request Status: {{status}} <br><br>
-Request Price: {{price}} <br><br>
 
-<form method = "post" action = "/sendquotation">
-    <input type="hidden" name="reqid" value= "{{_id}}">
-    <input type="number" name="price" required><br><br>
-    <button type = "submit">SEND</button>
-</form>
+<h1 class="title">View Request Information</h1>
 
-_________________________________ <br><br>
+<div class="view-request-container">
+    <div class="request-info">
+        <p>Job Type: {{type}}, Date: {{date}}</p>
+        <p>Description: {{description}}</p>
+        <p>Car: {{car}}</p>
+        <p>Client: {{client_username}}</p>
+        <p>Contact No: {{contact}}</p>
+        <p>Request status: {{status}}</p>
+        <p>Request Price: {{price}}</p>
+        <div class="request-images">
+            <img src="{{image}}" alt="job-image">
+        </div>
+        <form method = "post" action = "/sendquotation">
+            <input type="hidden" name="reqid" value= "{{_id}}">
+            <div class="quotation-input">
+                <input type="number" name="price" placeholder="Input quotation..." required>
+                <button class="global-button" type = "submit">SEND</button>
+            </div>
+        </form>
+    </div>
 
-{{> thread}}
-
-<a href = "/logout">Logout</ahref>
+    {{> thread}}
+</div>
 
 {{> wrapper_footer}}

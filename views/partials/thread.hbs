@@ -1,9 +1,9 @@
-<div>
-    <h2>Messages Thread</h2>
+<div class="thread-container">
+    <h2 class="messages-thread-text">Messages Thread</h2>
     <div class="thread">
     {{#each messages}}
         <div class="thread-message">
-            <h3>{{username}}:</h3>
+            <p>{{username}}:</p>
             <p>{{content}}</p>
             <p>sent {{sentdate}}</p>
         </div>
@@ -12,7 +12,9 @@
 
     <form action="/sendmessage" method="POST">
         <input type="hidden" name="reqid" value="{{_id}}">
-        <textarea name="content" placeholder="Write your message here..."></textarea>
-        <button type="submit">SEND</button>
+        <div class="message-input">
+            <textarea name="content" placeholder="Write your message here..."></textarea>
+            <button class="global-button" type="submit">SEND</button>
+        </div>
     </form>
 </div>

@@ -2,6 +2,23 @@
 <html>
 	<head>
 		<title>AutoWorks</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@500&family=Roboto:wght@700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="CSS/global.css">
+		<link rel="stylesheet" href="CSS/components.css">
 	</head>
 	<body>
+		<div class="on-session-header">
+			<img class="logo" src="images/AutoWork.png" alt="AutoWorks Logo">
+			<div class="user-info">
+				<p>WELCOME,</p>
+				<p>{{username}}</p>
+				{{#if isHost}}
+				<p>(ADMIN)</p>
+				{{/if}}
+				<a href="/logout">SIGN-OUT</a>
+			</div>
+			
+		</div>
+		<hr class="long-hr">

@@ -1,10 +1,27 @@
-{{> wrapper_header}}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>AutoWorks</title>
+        <link rel="stylesheet" href="CSS/global.css">
+		<link rel="stylesheet" href="CSS/offSession.css">
+	</head>
+	<body>
+		<img class="logo" src="IMAGES/AutoWork.png" alt="logo">
+		<div class="login-info">
+			<p>LOGIN</p>
+			<form action = "/loginpost" method = "POST">
+				<input type="text" name="name" placeholder="USERNAME"><br>
+				<input type="password" name="pass" placeholder="PASSWORD"><br>
+				<button type = "submit" class="global-button">LOGIN</button>
+			</form>
 
-LOGIN<br><br>
-<form action = "/loginpost" method = "POST">
-	Username: <input type="text" name="name"><br><br>
-	Password: <input type="text" name="pass"><br><br>
-	<button type = "submit">Enter</button>
-</form>
+			<hr class="short-hr">
 
-{{> wrapper_footer}}
+			<a href = "/register" class="global-button">CREATE NEW ACCOUNT</a>
+		</div>
+		
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <script src="JS/script.js"></script>
+    </body>
+</html>

@@ -5,12 +5,13 @@ const db = require('../models/db.js');
 const path = require('path');
 const account = require('../models/Accounts.js');
 const request = require('../models/Requests.js');
+const { response } = require('../routes/routes.js');
 
 const controller = {
     getIndex: async function(req, res) {
         db.findOne(account, {username: 'HOST', host: true}, {}, (result) => {
             if (result) {
-                res.render('home');
+                res.render('login');
             }
             else {
                 console.log(result);
@@ -21,7 +22,7 @@ const controller = {
                 }
 
                 account.create(newuser);
-                res.render('home');
+                res.render('login');
             }
         })     
         
@@ -98,12 +99,12 @@ const controller = {
 
     getUser: async function(req, res) {
         console.log(req.session.name);
-        res.render('./onSession/uhome');
+        res.render('./onSession/uhome', {isHost: false, username: req.session.name});
     },
 
     getHost: async function(req, res) {
         console.log(req.session.name);
-        res.render('./onSession/hhome');
+        res.render('./onSession/hhome', {isHost: true, username: req.session.name});
     },
 
     logoutUser: function(req, res) {
@@ -141,7 +142,7 @@ const controller = {
     },
 
     getUserRequestCreation: async function(req, res) {
-        res.render('./onSession/ucreaterequest');
+        res.render('./onSession/ucreaterequest', {isHost: false, username: req.session.name});
     },
 
     submitRequest: async function(req, res) {
@@ -182,13 +183,23 @@ const controller = {
     getUserRequests: async function(req, res) {
         var requests = await request.find({userid: req.session.user, status: 'Pending'});
         console.log(requests);
-        res.render('./onSession/uviewpending', {req: requests});
+        res.render('./onSession/uviewpending', {req: requests, isHost: false, username: req.session.name});
     },
 
     renderUserRequest: async function(req, res) {
         db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
             if (result) {
-                res.render('./onSession/uviewrequest', result)
+                var response = {
+                    car: result.car,
+                    type: result.type,
+                    description: result.description,
+                    date: result.date,
+                    status: result.status,
+                    price: result.price,
+                    isHost: false,
+                    username: req.session.name
+                };
+                res.render('./onSession/uviewrequest', response)
             }
             else {
                 console.log("failed");
@@ -217,7 +228,7 @@ const controller = {
     getEditRequest: function(req, res) {
         db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
             if (result) {
-                res.render("./onSession/ueditrequest", {car: result.car, type: result.type, description: result.description, ogid:result._id});
+                res.render("./onSession/ueditrequest", {car: result.car, type: result.type, description: result.description, ogid:result._id, isHost: false, username: req.session.name});
             }
             else
                 res.redirect('/uviewallpending');
@@ -290,18 +301,29 @@ const controller = {
 
     getUserAcceptedRequests: async function(req, res) {
         var requests = await request.find({userid: req.session.user, status: 'Accepted'});
-        res.render('./onSession/uviewongoing', {req: requests}); 
+        res.render('./onSession/uviewongoing', {req: requests, isHost: false, username: req.session.name}); 
     },
 
     getPendingRequests: async function(req, res) {
         var requests = await request.find({status: 'Pending'});
-        res.render('./onSession/hpendingrequests', {req: requests});
+        res.render('./onSession/hpendingrequests', {req: requests, isHost: false, username: req.session.name});
     },
 
     viewRequest: async function(req, res) {
         db.findOne(request, {_id: req.query.reqid}, {}, async (result) => {
-            if (result) {                
-                res.render('./onSession/hviewrequest', result)
+            if (result) {        
+                var response = {
+                    car: result.car,
+                    type: result.type,
+                    description: result.description,
+                    client_username: result.username,
+                    date: result.date,
+                    status: result.status,
+                    price: result.price,
+                    isHost: true,
+                    username: req.session.name
+                };        
+                res.render('./onSession/hviewrequest', response)
             }
             else {
                 console.log("failed");
@@ -344,13 +366,13 @@ const controller = {
                 r.canSettle = true;
         });
 
-        res.render('./onSession/hactiverequests', {req: requests});
+        res.render('./onSession/hactiverequests', {req: requests, isHost: false, username: req.session.name});
     },
 
     // Not done
     viewGenerateReport: async function(req, res) {
         // var request = await request.find();
-        res.render('./onSession/hreport');
+        res.render('./onSession/hreport', {isHost: false, username: req.session.name});
     },
 
     generateReport: async function(req, res) {
@@ -358,7 +380,7 @@ const controller = {
     },
 
     viewSuppliers: async function(req, res) {
-        res.render('./onSession/hsuppliers');
+        res.render('./onSession/hsuppliers', {isHost: false, username: req.session.name});
     },
 }
 

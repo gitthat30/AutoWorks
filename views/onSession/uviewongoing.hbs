@@ -1,9 +1,11 @@
 {{> wrapper_header}}
 
-{{#each req}}
-	{{>activeasclient}}
-{{/each}}
+<div class="title">Ongoing Jobs</div>
 
-<a href = "/logout">Logout</ahref>
+<div class="container">
+	{{#each req}}
+		{{>activeasclient}}
+	{{/each}}
+</div>
 
 {{> wrapper_footer}}

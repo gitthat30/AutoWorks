@@ -5,27 +5,31 @@
     }
 </script>
 
-Car: {{car}} <br><br>
-Request Type: {{type}} <br><br>
-Request Desc:{{description}} <br><br>
-<img src="{{image}}"> <br><br>
-Request Date: {{date}} <br><br>
-Request Status: {{status}} <br><br>
-Request Price: {{price}} <br><br>
+<h1 class="title">View Request Information</h1>
 
-{{#if (Equal price -1)}}
-<div class ="test">
-    <form class="myform" method="GET" action="/ueditrequest">
-        <input type="hidden" name="reqid" value= "{{_id}}">
-        <button onclick="test()">Edit Request</button>
-    </form>
+<div class="view-request-container">
+    <div class="request-info">
+        <p>Car: {{car}}</p>
+        <p>Request Type: {{type}}</p>
+        <p>Request Description: {{description}}</p>
+        <p>Request Date: {{date}}</p>
+        <p>Request Status: {{status}}</p>
+        <p>Request Price: {{price}}</p>
+        <div class="request-images">
+            <img src="{{image}}" alt="job-image">
+        </div>
+
+        {{#if (Equal price -1)}}
+        <div class ="test">
+            <form class="myform" method="GET" action="/ueditrequest">
+                <input type="hidden" name="reqid" value= "{{_id}}">
+                <button class="global-button edit-button" onclick="test()">Edit Request</button>
+            </form>
+        </div>
+        {{/if}}
+    </div>
+
+    {{> thread}}
 </div>
-{{/if}}
-
-_________________________________ <br><br>
-
-{{> thread}}
-
-<a href = "/logout">Logout</ahref>
 
 {{> wrapper_footer}}
