@@ -1,4 +1,81 @@
-img {
-    height: 250px;
-    width: 250px;
+/* General styles */
+* {
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
+
+a {
+    text-decoration: none;
+}
+
+.global-button {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: white;
+    /* margin: 10px 0; */
+}
+
+.container {
+    width: max-content;
+    margin: auto;
+    margin-top: 30px;
+}
+/* End of General styles */
+
+
+
+/* For On-session Header */
+.on-session-header {
+    width: 100vw;
+    position: relative;
+}
+
+.logo {
+    height: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.user-info {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+
+.long-hr {
+    border: 2px solid black;
+    margin: 0 20px;
+}
+/* End of On-session Header */
+
+
+
+/* Title bars and navigation buttons */
+.title {
+    font-size: 22px;
+    width: max-content;
+    margin: 30px auto;
+}
+
+.title, .nav-button-container a {
+    background-color: #DFE3E8;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.nav-button-container {
+    width: max-content;
+}
+
+.nav-button-container a {
+    display: block;
+    margin-bottom: 7px;
+    text-align: center;
+}
+/* End of Title bars and navigation buttons */

@@ -1,0 +1,157 @@
+/* Request as host on view pending requests */
+.request-host {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px 50px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+/* End of Request as host on view pending requests */
+
+
+
+/* View request as host and message thread */
+.view-request-container {
+    display: flex;
+    gap: 20px;
+    width: min(100% - 2rem, 1000px);
+    margin-inline: auto;
+}
+
+.request-info, .thread-container {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.request-info {
+    width: 60%;
+    position: relative;
+}
+
+.request-images img {
+    width: 180px;
+    height: 180px;
+}
+
+.quotation-input {
+    position: absolute;
+    bottom: 10px;
+}
+
+.quotation-input input {
+    height: 30px;
+    width: 300px;
+    margin-right: 5px;
+}
+
+/* Messages */
+.messages-thread-text {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.thread-container {
+    position: relative;
+    width: 40%;
+}
+
+.thread {
+    height: 300px;
+    overflow-y: auto;
+    margin: 5px 0;
+}
+
+.thread-message {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.message-input {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.message-input textarea {
+    resize: none;
+    width: 100%;
+}
+/* End of View request as host and message thread */
+
+
+
+/* Active requests as host (where you can add paid balances) */
+.active-host {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+}
+
+.active-host form input[type=number]{
+    height: 30px;
+}
+/* End of Active requests as host */
+
+
+
+/* Request as client on view pending requests */
+.request-user {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.request-user a {
+    display: inline-block;
+    margin: 5px 5px 0;
+}
+/* End of Request as client on view pending requests */
+
+
+
+/* Ongoing requests as client */
+.active-user {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+/* End of Ongoing requests as client */
+
+
+
+/* Create/edit request */
+.create-edit-req {
+    position: relative;
+}
+
+.create-edit-req textarea {
+    resize: none;
+}
+
+.create-edit-req input[type=text], .create-edit-req select , .create-edit-req textarea{
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.create-edit-req button {
+    position: absolute;
+    right: 0;
+}
+
+.edit-button {
+    position: absolute;
+    bottom: 10px;
+}
+/* End of Create/edit request */

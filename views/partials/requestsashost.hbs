@@ -4,11 +4,11 @@
     }
 </script>
 
-<div class ="test">
+<div class ="test request-host">
     <p>Job Type: {{type}}, Date: {{date}}</p>
     <p>Client: {{username}} | Contact: {{contact}}</p>
     <form class="myform" method="GET" action="/hviewpending">
         <input type="hidden" name="reqid" value= "{{_id}}">
-        <button onclick="test()">View Request</button>
+        <button onclick="test()" class="global-button">View Request</button>
     </form>
 </div>

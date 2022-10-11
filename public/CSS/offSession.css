@@ -1,0 +1,30 @@
+/* For styling login, signup, and forgot password pages */
+
+.login-info {
+    text-align: center;
+}
+
+.login-info p {
+    font-size: 22px;
+    font-weight: semibold;
+    margin-bottom: 5px;
+}
+
+.login-info button, .login-info a {
+    background-color: #DFE3E8;
+}
+
+.login-info form input {
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+    height: 30px;
+    width: 300px;
+}
+
+.short-hr {
+    border: 1px solid black;
+    width: 300px;
+    margin: 20px auto;
+}

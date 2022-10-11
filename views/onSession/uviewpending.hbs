@@ -1,9 +1,11 @@
 {{> wrapper_header}}
 
-{{#each req}}
-	{{>requestsasuser}}
-{{/each}}
+<h1 class="title">Pending for Confirmation</h1>
 
-<a href = "/logout">Logout</ahref>
+<div class="container">
+	{{#each req}}
+		{{>requestsasuser}}
+	{{/each}}
+</div>
 
 {{> wrapper_footer}}

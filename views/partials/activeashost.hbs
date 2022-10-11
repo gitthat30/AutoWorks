@@ -1,22 +1,25 @@
-Client: {{username}} <br><br>
-Contact No: {{contact}} <br><br>
-Car: {{car}} <br><br>
-Job Type: {{type}} <br><br>
-Quotation Amount: ₱{{price}} <br><br>
-Paid Balance: ₱{{paid}} <br><br>
-Outstanding Balance: ₱{{outstanding}} <br><br><br>
+<div class="active-host">
+    <div class="active-host-info">
+        <p>Client: {{username}}</p>
+        <p>Contact No: {{contact}}</p>
+        <p>Car: {{car}}</p>
+        <p>Job Type: {{type}}</p> <br>
+        <p>Quotation Amount: ₱{{price}}</p>
+        <p>Paid Balance: ₱{{paid}}</p>
+        <p>Outstanding Balance: ₱{{outstanding}}</p>
+    </div>
 
-<form action="/addpaidbalance" method="POST">
-    Add Paid Balance: <br>
-    <input type="number" min="0" name="amount">
-    <input type="hidden" name="reqid" value="{{_id}}">
-    <button type="submit">ENTER</button>
-</form>
+    <form action="/addpaidbalance" method="POST">
+        <p>Add Paid Balance:</p>
+        <input type="number" min="0" name="amount" placeholder="Enter amount here...">
+        <input type="hidden" name="reqid" value="{{_id}}">
+        <button type="submit" class="global-button">ENTER</button>
+    </form>
+</div>
 
-{{#if canSettle}}
+{{!-- {{#if canSettle}}
     <form action="/settle" method="POST">
         <input type="hidden" name="reqid" value="{{_id}}">
         <button type="submit">SETTLE</button>
     </form>
-{{/if}}
-_________________________________ <br><br>
+{{/if}} --}}
