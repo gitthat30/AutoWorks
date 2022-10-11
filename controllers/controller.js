@@ -5,6 +5,7 @@ const db = require('../models/db.js');
 const path = require('path');
 const account = require('../models/Accounts.js');
 const request = require('../models/Requests.js');
+const { totalmem } = require('os');
 
 const controller = {
     getIndex: async function(req, res) {
@@ -354,7 +355,23 @@ const controller = {
     },
 
     generateReport: async function(req, res) {
-        res.send("Nothing yet");
+
+        var requests = await request.find({status: 'Settled'});
+        year = parseInt(req.query.date.substring(0,4));
+        month = parseInt(req.query.date.substring(5,7));
+        total = 0;
+        num = 0;
+
+        requests.forEach(r => {
+            tempdate = new Date(r.date);
+            if(tempdate.getFullYear() <= year && tempdate.getMonth() <= month)  {
+                total += r.price;
+                num++;
+            }
+            
+        })
+
+        res.render('./onSession/hviewreport', {num: num, total: total});
     },
 
     viewSuppliers: async function(req, res) {
