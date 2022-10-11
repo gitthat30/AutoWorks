@@ -1,32 +1,32 @@
 {{> wrapper_header}}
 
-<h1>View Suppliers' Contact</h1>
+<h1 class="title">View Suppliers' Contact</h1>
 
-<form action="/viewsupplier">
-	<select name="type">
-		<option value="" disabled selected>Select supply type...</option>
-		<option value="windshield">Glass - Windshield</option>
-		<option value="window">Glass - Door window</option>
-		<option value="parts">Spare Parts</option>
-		<option value="paint">Paint</option>
-	</select>
+<div class="container">
+	<form action="/viewsupplier">
+		<select name="type">
+			<option value="" disabled selected>Select supply type...</option>
+			<option value="windshield">Glass - Windshield</option>
+			<option value="window">Glass - Door window</option>
+			<option value="parts">Spare Parts</option>
+			<option value="paint">Paint</option>
+		</select> <br>
 
-	<select name="supplier">
-		<option value="" disabled selected>Pick supplier...</option>
-		<option value="Ben Dover o_o">Ben Dover o.o</option>
-		<option value="Paint Supply">Paint Supply</option>
-	</select>
+		<select name="supplier">
+			<option value="" disabled selected>Pick supplier...</option>
+			<option value="Paint Supply">Paint Supply</option>
+		</select> <br>
 
-	<button type="submit">Enter</button>
-</form>
+		<button type="submit" class="global-button">Enter</button>
+	</form>
 
-<p>CONTACT DETAILS</p>
-<div>
-	<p>{{supplier}}</p>
-	<p>{{number}}</p>
-	<p>{{address}}</p>
+	<p>CONTACT DETAILS</p>
+	<div>
+		<p>{{supplier}}</p>
+		<p>{{number}}</p>
+		<p>{{address}}</p>
+	</div>
 </div>
 
-<a href = "/logout">Logout</ahref>
 
 {{> wrapper_footer}}

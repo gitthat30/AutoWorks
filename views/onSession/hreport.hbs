@@ -1,18 +1,10 @@
 {{> wrapper_header}}
 
-<h1>Generate Report</h1>
+<h1 class="title">Generate Report</h1>
 
-<form action="/generatereport">
-    <select name="year">
-        <option value="" hidden selected>Year...</option>
-        <option value=""></option>
-    </select>
-    <select name="month">
-        <option value="" hidden selected>Month...</option>
-    </select>
-    <button type="submit">Enter</button>
+<form action="/generatereport" class="container">
+    <input type="month" name="date">
+    <button type="submit" class="global-button">Enter</button>
 </form>
-
-<a href = "/logout">Logout</ahref>
 
 {{> wrapper_footer}}

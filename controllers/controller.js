@@ -5,7 +5,7 @@ const db = require('../models/db.js');
 const path = require('path');
 const account = require('../models/Accounts.js');
 const request = require('../models/Requests.js');
-const { response } = require('../routes/routes.js');
+const { totalmem } = require('os');
 
 const controller = {
     getIndex: async function(req, res) {
@@ -366,21 +366,35 @@ const controller = {
                 r.canSettle = true;
         });
 
-        res.render('./onSession/hactiverequests', {req: requests, isHost: false, username: req.session.name});
+        res.render('./onSession/hactiverequests', {req: requests, isHost: true, username: req.session.name});
     },
 
-    // Not done
     viewGenerateReport: async function(req, res) {
-        // var request = await request.find();
-        res.render('./onSession/hreport', {isHost: false, username: req.session.name});
+        res.render('./onSession/hreport', {isHost: true, username: req.session.name});
     },
 
     generateReport: async function(req, res) {
-        res.send("Nothing yet");
+
+        var requests = await request.find({status: 'Settled'});
+        year = parseInt(req.query.date.substring(0,4));
+        month = parseInt(req.query.date.substring(5,7));
+        total = 0;
+        num = 0;
+
+        requests.forEach(r => {
+            tempdate = new Date(r.date);
+            if(tempdate.getFullYear() <= year && tempdate.getMonth() <= month)  {
+                total += r.price;
+                num++;
+            }
+            
+        })
+
+        res.render('./onSession/hviewreport', {num: num, total: total, isHost: true, username: req.session.name});
     },
 
     viewSuppliers: async function(req, res) {
-        res.render('./onSession/hsuppliers', {isHost: false, username: req.session.name});
+        res.render('./onSession/hsuppliers', {isHost: true, username: req.session.name});
     },
 }
 
