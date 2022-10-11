@@ -356,22 +356,26 @@ const controller = {
 
     generateReport: async function(req, res) {
 
-        var requests = await request.find({status: 'Settled'});
+        var requests = await request.find();
         year = parseInt(req.query.date.substring(0,4));
         month = parseInt(req.query.date.substring(5,7));
         total = 0;
+        total2 = 0;
         num = 0;
 
         requests.forEach(r => {
             tempdate = new Date(r.date);
             if(tempdate.getFullYear() <= year && tempdate.getMonth() <= month)  {
-                total += r.price;
+                if(r.status == 'Settled')
+                    total += r.price;
+                    
+                total2 += r.paid;
                 num++;
             }
             
         })
 
-        res.render('./onSession/hviewreport', {num: num, total: total});
+        res.render('./onSession/hviewreport', {num: num, total: total, total2: total2});
     },
 
     viewSuppliers: async function(req, res) {
