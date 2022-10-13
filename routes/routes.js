@@ -4,51 +4,52 @@ const app = express();
 const { isPublic, isPrivate, isHost } = require('../middlewares/sessionCheck.js');
 
 // import module `controller` from `../controllers/controller.js`
-const controller = require('../controllers/controller.js');
+const PublicController = require('../controllers/PublicController.js');
+const UserController = require('../controllers/UserController.js');
+const HostController = require('../controllers/HostController.js');
 
-app.get('/', isPublic, controller.getIndex);
-app.get('/test', controller.getTest);
-app.post('/registeruser', isPublic, controller.registerUser);
-app.get('/login', isPublic, controller.getLogin);
-app.post('/loginpost', isPublic, controller.loginUser);
-app.get('/register', isPublic, controller.getRegister);
+app.get('/', isPublic, PublicController.getIndex);
+app.post('/registeruser', isPublic, PublicController.registerUser);
+app.get('/login', isPublic, PublicController.getLogin);
+app.post('/loginpost', isPublic, PublicController.loginUser);
+app.get('/register', isPublic, PublicController.getRegister);
 
-app.get('/home', isPrivate, controller.getUser);
-app.get('/hhome', isHost, controller.getHost);
-app.get('/logout', isPrivate, controller.logoutUser);
-app.post("/sendmessage", isPrivate, controller.sendMessage);
+app.get('/home', isPrivate, UserController.getUser);
+app.get('/hhome', isHost, HostController.getHost);
+app.get('/logout', isPrivate, UserController.logoutUser);
+app.post("/sendmessage", isPrivate, UserController.sendMessage);
 
 // [CLIENT] Create Estimation Request
-app.get("/createreq", isPrivate, controller.getUserRequestCreation);
-app.post("/submitreq", isPrivate, controller.submitRequest);
+app.get("/createreq", isPrivate, UserController.getUserRequestCreation);
+app.post("/submitreq", isPrivate, UserController.submitRequest);
 
 // [CLIENT] Pending for Confirmation
-app.get("/uviewallpending", isPrivate, controller.getUserRequests);
-app.get("/uviewpending", isPrivate, controller.renderUserRequest);
-app.get("/acceptreq", isPrivate, controller.acceptRequest);
-app.get("/declinereq", isPrivate, controller.declineRequest);
-app.get("/ueditrequest", isPrivate, controller.getEditRequest);
-app.post("/ueditrequestconfirm", isPrivate, controller.getEditRequestAction);
+app.get("/uviewallpending", isPrivate, UserController.getUserRequests);
+app.get("/uviewpending", isPrivate, UserController.renderUserRequest);
+app.get("/acceptreq", isPrivate, UserController.acceptRequest);
+app.get("/declinereq", isPrivate, UserController.declineRequest);
+app.get("/ueditrequest", isPrivate, UserController.getEditRequest);
+app.post("/ueditrequestconfirm", isPrivate, UserController.getEditRequestAction);
 
 // [CLIENT] Active Jobs
-app.get("/uviewactive", isPrivate, controller.getUserAcceptedRequests);
+app.get("/uviewactive", isPrivate, UserController.getUserAcceptedRequests);
 
 // [HOST] Customer Estimation Requests
-app.get("/hviewallpending", isHost, controller.getPendingRequests);
-app.get("/hviewpending", isHost, controller.viewRequest);
-app.post("/sendquotation", isHost, controller.sendQuotation);
-app.post("/addpaidbalance", isHost, controller.addPaidBalance);
-app.post("/settle", isHost, controller.settleRequest);
+app.get("/hviewallpending", isHost, HostController.getPendingRequests);
+app.get("/hviewpending", isHost, HostController.viewRequest);
+app.post("/sendquotation", isHost, HostController.sendQuotation);
+app.post("/addpaidbalance", isHost, HostController.addPaidBalance);
+app.post("/settle", isHost, HostController.settleRequest);
 
 // [HOST] Active Jobs
-app.get("/hviewactive", isHost, controller.viewActiveRequests);
+app.get("/hviewactive", isHost, HostController.viewActiveRequests);
 
 // [HOST] Generate Report
-app.get("/viewgeneratereport", isHost, controller.viewGenerateReport);
-app.get("/generatereport", isHost, controller.generateReport);
+app.get("/viewgeneratereport", isHost, HostController.viewGenerateReport);
+app.get("/generatereport", isHost, HostController.generateReport);
 
 // [HOST] View Suppliers' Contacts
-app.get("/viewsuppliers", isHost, controller.viewSuppliers);
+app.get("/viewsuppliers", isHost, HostController.viewSuppliers);
 
 
 module.exports = app;

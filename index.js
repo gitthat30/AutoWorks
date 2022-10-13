@@ -57,7 +57,9 @@ hbs.registerHelper('Equal', function(x, y) {
   return (x == y) ? true : false;
 });
 
-
+hbs.registerHelper('canSettle', function(x) {
+  return (x == 0) ? true : false;
+});
 app.set(`view engine`, `hbs`); 
 hbs.registerPartials(__dirname + `/views/partials`);
 
