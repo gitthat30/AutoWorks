@@ -136,7 +136,9 @@ const UserController = {
     },
 
     declineRequest: function(req, res) {
-        res.send("What happens when it gets declined?");
+        db.deleteOne(request, {_id: req.query.reqid}, (error) => {
+            res.redirect("/uviewallpending");
+        });
     },
 
     getEditRequest: function(req, res) {

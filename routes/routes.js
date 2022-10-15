@@ -40,6 +40,7 @@ app.get("/hviewpending", isHost, HostController.viewRequest);
 app.post("/sendquotation", isHost, HostController.sendQuotation);
 app.post("/addpaidbalance", isHost, HostController.addPaidBalance);
 app.post("/settle", isHost, HostController.settleRequest);
+app.get("/deletereq", isHost, HostController.hostDeleteRequest);
 
 // [HOST] Active Jobs
 app.get("/hviewactive", isHost, HostController.viewActiveRequests);

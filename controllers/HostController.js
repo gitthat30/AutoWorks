@@ -1,4 +1,4 @@
-const { connect } = require('mongoose');
+    const { connect } = require('mongoose');
 const { ObjectId } = require('mongodb');
 const app = require('../routes/routes.js');
 const db = require('../models/db.js');
@@ -108,6 +108,12 @@ const HostController = {
 
     viewSuppliers: async function(req, res) {
         res.render('./onSession/hsuppliers', {isHost: true, username: req.session.name});
+    },
+
+    hostDeleteRequest: async function(req, res) {
+        db.deleteOne(request, {_id: req.query.reqid}, (error) => {
+            res.redirect("/hviewallpending");
+        });
     },
 }
 
