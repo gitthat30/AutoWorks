@@ -1,7 +1,11 @@
 /* For styling login, signup, and forgot password pages */
 
-.login-info {
+.login-info, .error-msg {
     text-align: center;
+}
+
+.error-msg {
+    margin-bottom: 10px;
 }
 
 .login-info p {
