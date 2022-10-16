@@ -78,11 +78,9 @@ const PublicController = {
                         res.redirect('/home');
                 }
                 else {
-                    console.log("work2");
+                    req.flash('error_msg', 'This user does not exist. Please register.');   
+                    res.redirect('/login');
                 }
-            }
-            else {
-                console.log("nw2");
             }
         })        
     },

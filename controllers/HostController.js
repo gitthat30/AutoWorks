@@ -27,6 +27,7 @@ const HostController = {
                     image: result.image,
                     description: result.description,
                     client_username: result.username,
+                    contact: result.contact,
                     date: result.date,
                     status: result.status,
                     price: result.price,
