@@ -78,9 +78,13 @@ const PublicController = {
                         res.redirect('/home');
                 }
                 else {
-                    req.flash('error_msg', 'This user does not exist. Please register.');   
+                    req.flash('error_msg', 'Incorrect password.');   
                     res.redirect('/login');
                 }
+            }
+            else {
+                req.flash('error_msg', 'This user does not exist. Please register.');
+                res.redirect('/login');
             }
         })        
     },
