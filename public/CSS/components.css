@@ -97,6 +97,7 @@
 
 .active-host form input[type=number]{
     height: 30px;
+    width: 150px;
 }
 /* End of Active requests as host */
 

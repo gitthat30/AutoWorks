@@ -92,16 +92,13 @@ const HostController = {
 
         requests.forEach(r => {
             tempdate = new Date(r.date);
-            if(tempdate.getFullYear() <= year && tempdate.getMonth() <= month)  {
+            if(tempdate.getFullYear() <= year && tempdate.getMonth() <= month) {
                 if(r.status == 'Settled')
                     total += r.price;
                     
                 total2 += r.paid;
                 num++;
-
-
             }
-            
         })
         
         res.render('./onSession/hviewreport', {date: req.query.date, num: num, total: total, total2: total2, isHost: true, username: req.session.name});

@@ -11,14 +11,11 @@
 
     <form action="/addpaidbalance" method="POST">
         <p>Add Paid Balance:</p>
-        <input type="number" min="0" name="amount" placeholder="Enter amount here...">
+        <input type="number" min="0" max="{{outstanding}}" name="amount" placeholder="Enter amount here..." required>
         <input type="hidden" name="reqid" value="{{_id}}">
         <button type="submit" class="global-button">ENTER</button>
     </form>
 </div>
-<br>
-
-<br>
 
 <!--
 {{#if (canSettle outstanding)}}

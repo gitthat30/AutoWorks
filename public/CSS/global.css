@@ -11,6 +11,10 @@ a {
     text-decoration: none;
 }
 
+p {
+    word-wrap: break-word;
+}
+
 .global-button {
     border: 1px solid black;
     border-radius: 10px;
