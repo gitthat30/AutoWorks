@@ -1,5 +1,67 @@
-$('.contact-num').click(function(e) {
-    var num = $(this).text();
+var supplyData = [
+    {
+        supply_type: ['windshield', 'paint'],
+        exotic: true,
+        name: 'ABC supply',
+        number: '09111111111',
+        address: 'ABC add',
+    },
+    {
+        supply_type: ['window', 'parts', 'paint'],
+        exotic: false,
+        name: 'DEF supply',
+        number: '09222222222',
+        address: 'DEF add',
+    },
+    {
+        supply_type: ['paint'],
+        exotic: true,
+        name: 'GHI supply',
+        number: '09333333333',
+        address: 'GHI add',
+    },
+    {
+        supply_type: ['paint', 'parts', 'window'],
+        exotic: true,
+        name: 'JKL supply',
+        number: '09444444444',
+        address: 'JKL add',
+    }
+];
+
+// Checks if a supply type was chosen
+$('#select-supply-type').change(function() {
+    var supply_type = $(this).find('option:selected').attr('value');
+    $('#select-supplier option[value!=""]').remove();
+
+    // Enables supplier selection based on chosen supply type
+    $('#select-supplier').removeAttr('disabled');
+    for(let i = 0; i < supplyData.length; i++) {
+        if(supplyData[i].supply_type.includes(supply_type)) {
+            var supplierOption = $('<option></option>');
+            supplierOption.text(supplyData[i].name);
+            supplierOption.attr('value', i);
+
+            if(supplyData[i].exotic)
+                supplierOption.addClass('exotic-supplier');
+
+            $('#select-supplier').append(supplierOption);
+        }
+    }
+});
+
+// Checks if a supplier was chosen
+$('#select-supplier').change(function() {
+    //Gets supplier data based on chosen supplier 'value' attribute (index)
+    var supplyIndex = parseInt($(this).find('option:selected').attr('value'));
+    $('#sname').attr('value', supplyData[supplyIndex].name);
+    $('#snumber').attr('value', supplyData[supplyIndex].number);
+    $('#saddress').attr('value', supplyData[supplyIndex].address);
+});
+
+// Checks if "Copy Number to Clipboard" button was clicked
+$('#copy-number').click(function() {
+    var num = $('#supplier-number').text();
     navigator.clipboard.writeText(num);
     alert("Copied " + num + " to clipboard!");
 });

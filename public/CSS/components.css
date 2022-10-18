@@ -157,3 +157,37 @@
     bottom: 10px;
 }
 /* End of Create/edit request */
+
+
+
+/* For Supplier page */
+#supplier-form {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#supplier-form select{
+    width: 230px;
+}
+
+#supplier-form button {
+    margin-top: 10px;
+}
+
+#supplier-details {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px 40px;
+    text-align: center;
+}
+
+#copy-number {
+    margin-top: 10px;
+}
+
+.exotic-supplier {
+    background-color: yellow;
+}
+
+
+/* End of Supplier page */

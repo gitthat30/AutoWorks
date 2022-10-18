@@ -105,6 +105,10 @@ const HostController = {
         res.render('./onSession/hsuppliers', {isHost: true, username: req.session.name});
     },
 
+    viewSupplier: function(req, res) {
+        res.render('./onSession/hsuppliers', {name: req.query.sname, number: req.query.snumber, address: req.query.saddress, isHost: true, username: req.session.name});
+    },
+
     hostDeleteRequest: async function(req, res) {
         db.deleteOne(request, {_id: req.query.reqid}, (error) => {
             res.redirect("/hviewallpending");

@@ -3,29 +3,36 @@
 <h1 class="title">View Suppliers' Contact</h1>
 
 <div class="container">
-	<form action="/viewsupplier">
-		<select name="type">
-			<option value="" disabled selected>Select supply type...</option>
+	<form id="supplier-form" action="/viewsupplier" method="GET">
+		<select name="supply-type" id="select-supply-type" required>
+			<option value="" selected hidden>Select supply type...</option>
 			<option value="windshield">Glass - Windshield</option>
 			<option value="window">Glass - Door window</option>
 			<option value="parts">Spare Parts</option>
 			<option value="paint">Paint</option>
 		</select> <br>
 
-		<select name="supplier">
-			<option value="" disabled selected>Pick supplier...</option>
-			<option value="Paint Supply">Paint Supply</option>
+		<select name="supplier" id="select-supplier" disabled required>
+			<option value="" selected hidden>Pick supplier...</option>
 		</select> <br>
+
+		<input type="hidden" name="sname" id="sname">
+		<input type="hidden" name="snumber" id="snumber">
+		<input type="hidden" name="saddress" id="saddress">
 
 		<button type="submit" class="global-button">Enter</button>
 	</form>
 
+	{{#if name}}
 	<p>CONTACT DETAILS</p>
-	<div>
-		<p>{{supplier}}</p>
-		<p>{{number}}</p>
+	<div id="supplier-details">
+		<p>{{name}}</p>
+		<p id="supplier-number">{{number}}</p>
 		<p>{{address}}</p>
+
+		<button id="copy-number" class="global-button">Copy Number to Clipboard</button>
 	</div>
+	{{/if}}
 </div>
 
 
