@@ -73,7 +73,6 @@ const HostController = {
     // Might remove canSettle field if not needed in design
     viewActiveRequests: async function(req, res) {
         var requests = await request.find({status: 'Accepted'});
-
         res.render('./onSession/hactiverequests', {req: requests, isHost: true, username: req.session.name});
     },
 
@@ -82,26 +81,24 @@ const HostController = {
     },
 
     generateReport: async function(req, res) {
-
         var requests = await request.find();
-        year = parseInt(req.query.date.substring(0,4));
-        month = parseInt(req.query.date.substring(5,7));
-        total = 0;
-        total2 = 0;
-        num = 0;
+        var year = parseInt(req.query.date.substring(0,4));
+        var month = parseInt(req.query.date.substring(5,7));
+        var revenue = 0;
+        var outstanding = 0;
+
 
         requests.forEach(r => {
             tempdate = new Date(r.date);
             if(tempdate.getFullYear() <= year && tempdate.getMonth() <= month) {
-                if(r.status == 'Settled')
-                    total += r.price;
-                    
-                total2 += r.paid;
-                num++;
+                if(r.status == 'Accepted' || r.status == 'Settled') {
+                    revenue += r.price;
+                    if(r.status == 'Accepted')
+                        outstanding += r.outstanding;
+                }
             }
         })
-        
-        res.render('./onSession/hviewreport', {date: req.query.date, num: num, total: total, total2: total2, isHost: true, username: req.session.name});
+        res.render('./onSession/hviewreport', {date: req.query.date, outstanding, revenue, isHost: true, username: req.session.name});
     },
 
     viewSuppliers: async function(req, res) {

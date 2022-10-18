@@ -1,11 +1,9 @@
 {{> wrapper_header}}
 
-<h1 class="title">Generated Report | {{date}}</h1>
-<div class="container">    
-    <p>Number of Transactions: {{num}}</p><br>
-    <p>Total Outstanding: {{total}}</p>
-    <p>(Revenue from Settled Transactions)</p><br>
-    <p>Total Amount Paid by Clients: {{total2}}</p>
+<h1 class="title">Report for {{date}}</h1>
+<div class="container">
+    <p>Revenue: ₱{{revenue}}</p>
+    <p>Outstanding Balance: ₱{{outstanding}}</p>
 </div>
 
 {{> wrapper_footer}}
