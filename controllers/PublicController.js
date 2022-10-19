@@ -32,11 +32,14 @@ const PublicController = {
         var user = req.body.name;
         var pass = req.body.pass;
         var con = req.body.contact;
-        
-        db.findOne(account, {username: user}, {}, (result) => {
+
+        db.findOne(account, { $or: [{username: user}, {contact: con}]}, {}, (result) => {
             if (result) {
                 console.log(result);
-                req.flash('error_msg', 'User already exists. Please login.');            
+                if (result.username == user)
+                    req.flash('error_msg', 'User already exists. Please login.');
+                else if (result.contact == con)
+                    req.flash('error_msg', 'This contact number is already registered');
                 res.redirect('/register');
             }
             else {

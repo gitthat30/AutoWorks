@@ -97,3 +97,11 @@ select {
     text-align: center;
 }
 /* End of Title bars and navigation buttons */
+
+
+
+/* For flash error messages */
+.error-msg {
+    margin-bottom: 10px;
+}
+/* End of flash error messages */

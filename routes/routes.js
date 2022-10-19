@@ -1,9 +1,7 @@
-// import module `express`
 const express = require('express');
 const app = express();
 const { isPublic, isPrivate, isHost } = require('../middlewares/sessionCheck.js');
 
-// import module `controller` from `../controllers/controller.js`
 const PublicController = require('../controllers/PublicController.js');
 const UserController = require('../controllers/UserController.js');
 const HostController = require('../controllers/HostController.js');

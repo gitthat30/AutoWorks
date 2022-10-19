@@ -23,7 +23,6 @@ const UserController = {
           }
     },
 
-    // To update to use AJAX/fetch, [edit: if may time : D]
     sendMessage: function(req, res) {
         var today = new Date();
         var dd = today.getDate();
@@ -45,7 +44,7 @@ const UserController = {
 
         db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function() {
             if(req.session.host)
-                res.redirect('/hviewpending?reqid=' + req.body.reqid); // is this too hardcode-y?
+                res.redirect('/hviewpending?reqid=' + req.body.reqid);
             else
                 res.redirect('/uviewpending?reqid=' + req.body.reqid);
         });
@@ -129,8 +128,10 @@ const UserController = {
                     res.redirect('/uviewallpending');
                 });
             }
-            else
+            else {
+                req.flash('error_msg', 'This request has not yet been quoted.');
                 res.redirect('/uviewallpending');
+            }
         });
         
     },
