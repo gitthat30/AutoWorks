@@ -102,6 +102,7 @@ select {
 
 /* For flash error messages */
 .error-msg {
+    color: #BF0000;
     margin-bottom: 10px;
 }
 /* End of flash error messages */

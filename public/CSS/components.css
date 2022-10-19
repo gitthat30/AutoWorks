@@ -134,6 +134,11 @@
 /* Create/edit request */
 .create-edit-req {
     position: relative;
+    text-align: center;
+}
+
+.create-edit-req div {
+    text-align: left;
 }
 
 .create-edit-req textarea {

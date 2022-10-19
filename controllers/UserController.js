@@ -58,35 +58,40 @@ const UserController = {
         //CCAPDEV thing to get the image dir
         const {image} = req.files;
 
-        //Getting Date
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-        var yyyy = today.getFullYear();
-        today = yyyy+'-'+mm+'-'+dd;
+        if(image.mimetype.startsWith('image')) {
+            //Getting Date
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+            today = yyyy+'-'+mm+'-'+dd;
 
-        var nrequest = {
-            userid: req.session.user,
-            username: req.session.name,
-            contact: req.session.contact,
-            car: req.body.rcar,
-            type: req.body.rtype,
-            description: req.body.rdesc,
-            image: 'uploaded/'+image.name,
-            date: today,
-            status: 'Pending',
-            price: -1,
-            paid: 0,
-            oustanding: -1,
-            paiddate: 'N/A'
+            var nrequest = {
+                userid: req.session.user,
+                username: req.session.name,
+                contact: req.session.contact,
+                car: req.body.rcar,
+                type: req.body.rtype,
+                description: req.body.rdesc,
+                image: 'uploaded/'+image.name,
+                date: today,
+                status: 'Pending',
+                price: -1,
+                paid: 0,
+                oustanding: -1,
+                paiddate: 'N/A'
+            }
+
+            image.mv(path.resolve(__dirname,'../public/uploaded',image.name),(error) => {
+                request.create(nrequest, (error,request) => {
+                    res.redirect('/home');
+                })
+            })   
         }
-
-        image.mv(path.resolve(__dirname,'../public/uploaded',image.name),(error) => {
-            request.create(nrequest, (error,request) => {
-                res.redirect('/home');
-            })
-        })
-
+        else {
+            req.flash('error_msg', 'Only select image files.');
+            res.redirect('/createreq');
+        }
     },
     
     getUserRequests: async function(req, res) {
@@ -143,7 +148,6 @@ const UserController = {
     },
 
     getEditRequest: function(req, res) {
-        console.log("Here");
         console.log(req.query.reqid);
         db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
             if (result) {
@@ -156,88 +160,44 @@ const UserController = {
     },
 
     getEditRequestAction: function(req, res) {
-        useogpic = false;
+        var updatedReq = {
+            car: req.body.rcar,
+            type: req.body.rtype,
+            description: req.body.rdesc,
+        };
 
-        if(!req.files)
-            useogpic = true;
-
-        console.log("testogpic2")
-        console.log(req.body.rcar)
-        console.log("testogpic2")
-
-        //Getting Date
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-        var yyyy = today.getFullYear();
-        today = yyyy+'-'+mm+'-'+dd;
-
-        if(!useogpic) {
-            const {image} = req.files;
-            var nrequest = {
-                userid: req.session.user,
-                username: req.session.name,
-                contact: req.session.contact,
-                car: req.body.rcar,
-                type: req.body.rtype,
-                description: req.body.rdesc,
-                image: 'uploaded/'+image.name,
-                date: today,
-                status: 'Pending',
-                price: -1,
-                paid: 0,
-                oustanding: -1,
-                paiddate: 'N/A'
-            }
-
-            image.mv(path.resolve(__dirname,'../public/uploaded',image.name),(error) => {
-                db.updateOne(request, {_id: req.body.ogid}, 
-                    {userid: req.session.user,
-                    username: req.session.name,
-                    contact: req.session.contact,
-                    car: nrequest.car,
-                    type: nrequest.type,
-                    description: nrequest.description,
-                    image: nrequest.image,
-                    date: nrequest.date,
-                    status: 'Pending'
-                    }, (result) => {
-                    res.redirect('/uviewallpending');
-                });
-            })
-        }
-        else {
-            var nrequest = {
-                userid: req.session.user,
-                username: req.session.name,
-                contact: req.session.contact,
-                car: req.body.rcar,
-                type: req.body.rtype,
-                description: req.body.rdesc,
-                image: req.body.ogpic,
-                date: today,
-                status: 'Pending',
-                price: -1,
-                paid: 0,
-                oustanding: -1,
-                paiddate: 'N/A'
-            }
-
-            db.updateOne(request, {_id: req.body.ogid}, 
-                {userid: req.session.user,
-                username: req.session.name,
-                contact: req.session.contact,
-                car: nrequest.car,
-                type: nrequest.type,
-                description: nrequest.description,
-                image: nrequest.image,
-                date: nrequest.date,
-                status: 'Pending'
-                }, (result) => {
+        // If no new image
+        if(!req.files) {
+            console.log("Updating with no new image");
+            db.updateOne(request, {_id: req.body.ogid}, updatedReq, (result) => {
                 res.redirect('/uviewallpending');
             });
         }
+        // If have new image
+        else {
+            console.log('Updating with new image')
+            const {image} = req.files;
+            if(image.mimetype.startsWith('image')) {
+                //Getting Date
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1;
+                var yyyy = today.getFullYear();
+                today = yyyy+'-'+mm+'-'+dd;
 
+                updatedReq['image'] = 'uploaded/'+image.name
+
+                image.mv(path.resolve(__dirname,'../public/uploaded',image.name),(error) => {
+                    db.updateOne(request, {_id: req.body.ogid}, updatedReq, (result) => {
+                        res.redirect('/uviewallpending');
+                    });
+                })
+            }
+            else {
+                req.flash('error_msg', 'Only select image files.');
+                res.redirect('/ueditrequest?reqid=' + req.body.ogid);
+            }
+        }
         
     },
 
