@@ -105,7 +105,7 @@ const HostController = {
 
         requests.forEach(r => {
             tempdate = new Date(r.date);
-            if(tempdate.getFullYear() <= year && tempdate.getMonth() <= month) {
+            if(tempdate.getFullYear() <= year && tempdate.getMonth() + 1 <= month) {
                 if(r.status == 'Accepted' || r.status == 'Settled') {
                     revenue += r.paid;
                     total += r.price;
