@@ -73,7 +73,7 @@ const UserController = {
                 car: req.body.rcar,
                 type: req.body.rtype,
                 description: req.body.rdesc,
-                image: 'uploaded/'+image.name,
+                image: 'UPLOADED/'+image.name,
                 date: today,
                 status: 'Pending',
                 price: -1,
@@ -82,7 +82,7 @@ const UserController = {
                 paiddate: 'N/A'
             }
 
-            image.mv(path.resolve(__dirname,'../public/uploaded',image.name),(error) => {
+            image.mv(path.resolve(__dirname,'../public/UPLOADED',image.name),(error) => {
                 request.create(nrequest, (error,request) => {
                     res.redirect('/home');
                 })
@@ -185,9 +185,9 @@ const UserController = {
                 var yyyy = today.getFullYear();
                 today = yyyy+'-'+mm+'-'+dd;
 
-                updatedReq['image'] = 'uploaded/'+image.name
+                updatedReq['image'] = 'UPLOADED/'+image.name
 
-                image.mv(path.resolve(__dirname,'../public/uploaded',image.name),(error) => {
+                image.mv(path.resolve(__dirname,'../public/UPLOADED',image.name),(error) => {
                     db.updateOne(request, {_id: req.body.ogid}, updatedReq, (result) => {
                         res.redirect('/uviewallpending');
                     });
