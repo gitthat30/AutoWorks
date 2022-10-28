@@ -1,13 +1,3 @@
-.list {
-    width: 500px;
-}
-
-@media only screen and (max-width: 530px) {
-    .list {
-        width: 100%;
-    }
-}
-
 /* Request as host on view pending requests */
 .request-host {
     border: 1px solid black;
@@ -15,7 +5,7 @@
     padding: 10px 30px;
     text-align: center;
     margin-bottom: 10px;
-    /* width: max-content; */
+    width: min(400px, 100%);
 }
 /* End of Request as host on view pending requests */
 
@@ -25,8 +15,8 @@
 .view-request-container {
     display: flex;
     gap: 20px;
-    width: min(100% - 2rem, 1000px);
-    margin-inline: auto;
+    width: min(100%, 1000px);
+    /* margin-inline: auto; */
 }
 
 .request-info, .thread-container {
@@ -87,17 +77,23 @@
 }
 
 .message-input textarea {
+    padding: 5px;
     resize: none;
     width: 100%;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 750px) {
     .view-request-container {
         flex-direction: column;
     }
 
     .request-info, .thread-container {
         width: 100%;
+    }
+
+    .quotation-input {
+        margin-top: 10px;
+        position: static;
     }
 }
 /* End of View request as host and message thread */
@@ -111,7 +107,7 @@
     margin-bottom: 10px;
     padding: 10px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-end;
     gap: 30px;
     width: 506px;
@@ -137,9 +133,10 @@
 .request-user {
     border: 1px solid black;
     border-radius: 5px;
-    margin-bottom: 10px;
     padding: 10px;
+    margin-bottom: 10px;
     text-align: center;
+    width: min(310px, 100%);
 }
 
 .request-user a {
@@ -154,8 +151,9 @@
 .active-user {
     border: 1px solid black;
     border-radius: 5px;
-    margin-bottom: 10px;
     padding: 10px;
+    margin-bottom: 10px;
+    width: min(300px, 100%);
 }
 /* End of Ongoing requests as client */
 
@@ -164,7 +162,6 @@
 /* Create/edit request */
 .create-edit-req {
     position: relative;
-    text-align: center;
 }
 
 .create-edit-req div {
@@ -173,6 +170,7 @@
 
 .create-edit-req textarea {
     resize: none;
+    width: 500px;
 }
 
 .create-edit-req input[type=text], .create-edit-req select , .create-edit-req textarea{
@@ -190,6 +188,19 @@
 .edit-button {
     position: absolute;
     bottom: 10px;
+}
+
+@media only screen and (max-width: 750px) {
+    .edit-button {
+        margin-top: 10px;
+        position: static;
+    }
+}
+
+@media only screen and (max-width: 530px) {
+    .create-edit-req, .create-edit-req textarea {
+        width: 100%;
+    }
 }
 /* End of Create/edit request */
 
@@ -223,6 +234,20 @@
 .exotic-supplier {
     background-color: yellow;
 }
-
-
 /* End of Supplier page */
+
+
+
+/* For report pages */
+.report-form input {
+    margin-bottom: 10px;
+    width: 250px;
+}
+
+.report {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px 30px;
+    text-align: left;
+}
+/* End of Generate report page */

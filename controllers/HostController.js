@@ -15,7 +15,7 @@ const HostController = {
 
     getPendingRequests: async function(req, res) {
         var requests = await request.find({status: 'Pending'});
-        res.render('./onSession/hpendingrequests', {req: requests, isHost: false, username: req.session.name});
+        res.render('./onSession/hpendingrequests', {req: requests, isHost: true, username: req.session.name});
     },
 
     viewRequest: async function(req, res) {

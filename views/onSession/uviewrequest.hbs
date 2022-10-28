@@ -5,30 +5,33 @@
     }
 </script>
 
-<div class="view-request-container">
+<div class="container">
     <h1 class="title">View Request Information</h1>
-    <div class="request-info">
-        <p>Car: {{car}}</p>
-        <p>Request Type: {{type}}</p>
-        <p>Request Description: {{description}}</p>
-        <p>Request Date: {{date}}</p>
-        <p>Request Status: {{status}}</p>
-        <p>Request Price: {{price}}</p>
-        <div class="request-images">
-            <img src="{{image}}" alt="job-image">
+    <div class="view-request-container">
+        <div class="request-info">
+            <p>Car: {{car}}</p>
+            <p>Request Type: {{type}}</p>
+            <p>Request Description: {{description}}</p>
+            <p>Request Date: {{date}}</p>
+            <p>Request Status: {{status}}</p>
+            <p>Request Price: {{price}}</p>
+            <div class="request-images">
+                <img src="{{image}}" alt="job-image">
+            </div>
+
+            {{#if (Equal price -1)}}
+            <div class = "test">
+                <form class="myform" method="GET" action="/ueditrequest?reqid={{_id}}">
+                    <input type="hidden" name="reqid" value= "{{_id}}">
+                    <button class="global-button edit-button" onclick="test()">Edit Request</button>
+                </form>
+            </div>
+            {{/if}}
         </div>
 
-        {{#if (Equal price -1)}}
-        <div class = "test">
-            <form class="myform" method="GET" action="/ueditrequest?reqid={{_id}}">
-                <input type="hidden" name="reqid" value= "{{_id}}">
-                <button class="global-button edit-button" onclick="test()">Edit Request</button>
-            </form>
-        </div>
-        {{/if}}
+        {{> thread}}
     </div>
-
-    {{> thread}}
 </div>
+
 
 {{> wrapper_footer}}

@@ -1,22 +1,24 @@
 {{> wrapper_header}}
 
-<form class="create-edit-req container" action = "/submitreq" method = "POST" enctype="multipart/form-data">
+<div class="container">
 	<h1 class="title">Create Estimation Request</h1>
-	<p class="error-msg">{{error_msg}}</p>
-	<div>
-		<input type="text" name="rcar" placeholder="Car Model/manufacturer" required> <br>
-		<select name="rtype" required>
-			<option value="" selected hidden>Select job type...</option>
-			<option value="Paint">Paint</option>
-			<option value="Wheels">Wheels</option>
-			<option value="Rim">Rim</option>
-			<option value="Hood">Hood</option>
-			<option value="Engine">Engine</option>
-		</select> <br>
-		<textarea name="rdesc" cols="60" rows="10" placeholder="Optional description..."></textarea> <br>
-		<input type="file" name="image" accept="image/*" required>
-		<button type = "submit" class="global-button">SUBMIT</button>
-	</div>
-</form>
+	<form class="create-edit-req " action = "/submitreq" method = "POST" enctype="multipart/form-data">
+		<p class="error-msg">{{error_msg}}</p>
+		<div>
+			<input type="text" name="rcar" placeholder="Car Model/manufacturer" required> <br>
+			<select name="rtype" required>
+				<option value="" selected hidden>Select job type...</option>
+				<option value="Paint">Paint</option>
+				<option value="Wheels">Wheels</option>
+				<option value="Rim">Rim</option>
+				<option value="Hood">Hood</option>
+				<option value="Engine">Engine</option>
+			</select> <br>
+			<textarea name="rdesc" rows="10" placeholder="Optional description..."></textarea> <br>
+			<input type="file" name="image" accept="image/*" required>
+			<button type = "submit" class="global-button">SUBMIT</button>
+		</div>
+	</form>
+</div>
 
 {{> wrapper_footer}}

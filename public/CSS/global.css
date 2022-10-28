@@ -32,7 +32,6 @@ select {
 .container {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
     padding: 15px;
 }
@@ -118,16 +117,21 @@ select {
     text-align: center;
 }
 
+.nav-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    width: min(350px, 100%);
+    margin: 20px auto;
+}
+
 .title, .nav-button-container a {
     background-color: #DFE3E8;
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px 10px;
 }
-
-/* .nav-button-container {
-    width: max-content;
-} */
 
 .nav-button-container a {
     /* display: block; */
