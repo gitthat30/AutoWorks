@@ -1,29 +1,32 @@
 {{> wrapper_header}}
 
-<h1 class="title">View Request Information</h1>
-
-<div class="view-request-container">
-    <div class="request-info">
-        <p>Job Type: {{type}}, Date: {{date}}</p>
-        <p>Description: {{description}}</p>
-        <p>Car: {{car}}</p>
-        <p>Client: {{client_username}}</p>
-        <p>Contact No: {{contact}}</p>
-        <p>Request status: {{status}}</p>
-        <p>Request Price: {{price}}</p>
-        <div class="request-images">
-            <img src="{{image}}" alt="job-image">
-        </div>
-        <form method = "post" action = "/sendquotation">
-            <input type="hidden" name="reqid" value= "{{_id}}">
-            <div class="quotation-input">
-                <input type="number" name="price" placeholder="Input quotation..." min="0" required>
-                <button class="global-button" type = "submit">SEND</button>
+<div class="container">
+    <h1 class="title">View Request Information super habaaaaaaaaaaa</h1>
+    <div class="view-request-container">
+        <div class="request-info">
+            <p>Job Type: {{type}}, Date: {{date}}</p>
+            <p>Description: {{description}}</p>
+            <p>Car: {{car}}</p>
+            <p>Client: {{client_username}}</p>
+            <p>Contact No: {{contact}}</p>
+            <p>Request status: {{status}}</p>
+            <p>Request Price: {{price}}</p>
+            <div class="request-images">
+                <img src="{{image}}" alt="job-image">
             </div>
-        </form>
-    </div>
+            <form method = "post" action = "/sendquotation">
+                <input type="hidden" name="reqid" value= "{{_id}}">
+                <div class="quotation-input">
+                    <input type="number" name="price" placeholder="Input quotation..." min="0" required>
+                    <button class="global-button" type = "submit">SEND</button>
+                </div>
+            </form>
+        </div>
 
-    {{> thread}}
+        {{> thread}}
+    </div>
 </div>
+
+
 
 {{> wrapper_footer}}

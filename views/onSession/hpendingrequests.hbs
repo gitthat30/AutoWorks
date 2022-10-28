@@ -1,11 +1,13 @@
 {{> wrapper_header}}
 
-<h1 class="title">Customer Estimation Requests</h1>
-
 <div class="container">
-{{#each req}}
-	{{>requestsashost}}
-{{/each}}
+	<h1 class="title">Customer Estimation Requests</h1>
+	<div class="list">
+		{{#each req}}
+			{{>requestsashost}}
+		{{/each}}
+	</div>
+	
 </div>
 
 {{> wrapper_footer}}

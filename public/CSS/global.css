@@ -30,9 +30,17 @@ select {
 }
 
 .container {
-    width: max-content;
-    margin: auto;
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    padding: 15px;
+}
+
+.logo-off-session {
+    display: block;
+    margin: 0 auto;
+    height: 150px;
 }
 /* End of General styles */
 
@@ -41,33 +49,63 @@ select {
 /* For On-session Header */
 .on-session-header {
     width: 100vw;
-    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
 }
 
 .logo {
     height: 150px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    grid-column-start: 2;
 }
 
 .user-info {
-    position: absolute;
-    right: 30px;
-    top: 45px;
     text-align: center;
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-left: auto;
 }
 
 .user-info a {
+    margin-right: 20px;
     font-size: 10px;
 }
 
 .long-hr {
     border: 2px solid black;
     margin: 0 20px;
+}
+
+@media only screen and (max-width: 800px) {
+    .on-session-header {
+        grid-template-columns: 1fr;
+    }
+
+    .logo {
+        height: 120px;
+        grid-column-start: 1;
+    }
+
+    .user-info {
+        width: 100vw;
+        margin: 0 0 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+    }
+
+    .user-info p {
+        display: inline;
+    }
+
+    .user-info div {
+        grid-column-start: 2;
+    }
+
+    .user-info a {
+        margin-left: auto;
+    }
 }
 /* End of On-session Header */
 
@@ -76,8 +114,8 @@ select {
 /* Title bars and navigation buttons */
 .title {
     font-size: 22px;
-    width: max-content;
     margin: 30px auto;
+    text-align: center;
 }
 
 .title, .nav-button-container a {
@@ -87,12 +125,12 @@ select {
     padding: 5px 10px;
 }
 
-.nav-button-container {
+/* .nav-button-container {
     width: max-content;
-}
+} */
 
 .nav-button-container a {
-    display: block;
+    /* display: block; */
     margin-bottom: 7px;
     text-align: center;
 }

@@ -1,10 +1,21 @@
+.list {
+    width: 500px;
+}
+
+@media only screen and (max-width: 530px) {
+    .list {
+        width: 100%;
+    }
+}
+
 /* Request as host on view pending requests */
 .request-host {
     border: 1px solid black;
     border-radius: 5px;
-    padding: 10px 50px;
+    padding: 10px 30px;
     text-align: center;
     margin-bottom: 10px;
+    /* width: max-content; */
 }
 /* End of Request as host on view pending requests */
 
@@ -41,7 +52,7 @@
 
 .quotation-input input {
     height: 30px;
-    width: 300px;
+    width: 200px;
     margin-right: 5px;
 }
 
@@ -79,6 +90,16 @@
     resize: none;
     width: 100%;
 }
+
+@media only screen and (max-width: 800px) {
+    .view-request-container {
+        flex-direction: column;
+    }
+
+    .request-info, .thread-container {
+        width: 100%;
+    }
+}
 /* End of View request as host and message thread */
 
 
@@ -90,14 +111,23 @@
     margin-bottom: 10px;
     padding: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-end;
     gap: 30px;
+    width: 506px;
 }
 
 .active-host form input[type=number]{
     height: 30px;
     width: 150px;
+}
+
+@media only screen and (max-width: 535px) {
+    .active-host {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
 }
 /* End of Active requests as host */
 
