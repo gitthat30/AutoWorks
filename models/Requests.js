@@ -8,6 +8,7 @@ var RequestSchema = new mongoose.Schema({
     type: String,
     description: String,
     image: String,
+    image_id: String,
     date: String,
     status: String,
     price: Number,
