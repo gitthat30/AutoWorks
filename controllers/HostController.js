@@ -103,9 +103,11 @@ const HostController = {
         var total = 0;
         var settled = 0;
 
+        console.log("Requested date: " + year + "/" + month)
+
         requests.forEach(r => {
-            tempdate = new Date(r.date);
-            if(tempdate.getFullYear() <= year && tempdate.getMonth() + 1 <= month) {
+            tempdate = new Date(r.date); // month is 0 indexed using getMonth()
+            if(tempdate.getFullYear() == year && tempdate.getMonth() + 1 == month) {
                 if(r.status == 'Accepted' || r.status == 'Settled') {
                     revenue += r.paid;
                     total += r.price;
