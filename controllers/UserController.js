@@ -171,8 +171,8 @@ const UserController = {
     },
 
     getEditRequest: function(req, res) {
-        console.log(req.query.reqid);
-        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
+        console.log(req.body.reqid);
+        db.findOne(request, {_id: req.body.reqid}, {}, (result) => {
             if (result) {
                 res.render("./onSession/ueditrequest", {image: result.image, car: result.car, type: result.type, description: result.description, ogid:result._id, isHost: false, username: req.session.name});
             }

@@ -26,7 +26,7 @@ app.get("/uviewallpending", isPrivate, UserController.getUserRequests);
 app.get("/uviewpending", isPrivate, UserController.renderUserRequest);
 app.get("/acceptreq", isPrivate, UserController.acceptRequest);
 app.get("/declinereq", isPrivate, UserController.declineRequest);
-app.get("/ueditrequest", isPrivate, UserController.getEditRequest);
+app.post("/ueditrequest", isPrivate, UserController.getEditRequest);
 app.post("/ueditrequestconfirm", isPrivate, UserController.getEditRequestAction);
 
 // [CLIENT] Active Jobs
@@ -34,7 +34,7 @@ app.get("/uviewactive", isPrivate, UserController.getUserAcceptedRequests);
 
 // [HOST] Customer Estimation Requests
 app.get("/hviewallpending", isHost, HostController.getPendingRequests);
-app.get("/hviewpending", isHost, HostController.viewRequest);
+app.post("/hviewpending", isHost, HostController.viewRequest);
 app.post("/sendquotation", isHost, HostController.sendQuotation);
 app.post("/addpaidbalance", isHost, HostController.addPaidBalance);
 app.post("/settle", isHost, HostController.settleRequest);

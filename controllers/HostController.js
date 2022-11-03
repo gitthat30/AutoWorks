@@ -19,7 +19,7 @@ const HostController = {
     },
 
     viewRequest: async function(req, res) {
-        db.findOne(request, {_id: req.query.reqid}, {}, async (result) => {
+        db.findOne(request, {_id: req.body.reqid}, {}, async (result) => {
             if (result) {        
                 var response = {
                     car: result.car,
