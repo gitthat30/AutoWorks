@@ -23,7 +23,7 @@ app.post("/submitreq", isPrivate, UserController.submitRequest);
 
 // [CLIENT] Pending for Confirmation
 app.get("/uviewallpending", isPrivate, UserController.getUserRequests);
-app.get("/uviewpending", isPrivate, UserController.renderUserRequest);
+app.post("/uviewpending", isPrivate, UserController.renderUserRequest);
 app.get("/acceptreq", isPrivate, UserController.acceptRequest);
 app.get("/declinereq", isPrivate, UserController.declineRequest);
 app.post("/ueditrequest", isPrivate, UserController.getEditRequest);

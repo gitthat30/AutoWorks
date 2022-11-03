@@ -19,6 +19,9 @@ const HostController = {
     },
 
     viewRequest: async function(req, res) {
+        if(!req.body.reqid)
+            console.log("ASFIONASOFN")
+
         db.findOne(request, {_id: req.body.reqid}, {}, async (result) => {
             if (result) {        
                 var response = {
@@ -33,10 +36,10 @@ const HostController = {
                     price: result.price,
                     isHost: true,
                     username: req.session.name,
-                    _id: req.query.reqid,
+                    _id: req.body.reqid,
                     messages: result.messages
                 };        
-                res.render('./onSession/hviewrequest', response)
+                res.render('./onSession/hviewrequest', response) 
             }
             else {
                 console.log("failed");
@@ -45,8 +48,31 @@ const HostController = {
     },
 
     sendQuotation: async function(req, res) {
+        console.log(req.body.reqid)
         db.updateOne(request, {_id: req.body.reqid}, {price: req.body.price, outstanding: req.body.price}, (result) => {
-            res.redirect('/hviewpending?reqid=' + req.body.reqid);
+            db.findOne(request, {_id: req.body.reqid}, {}, async (result) => {
+                if (result) {        
+                    var response = {
+                        car: result.car,
+                        type: result.type,
+                        image: result.image,
+                        description: result.description,
+                        client_username: result.username,
+                        contact: result.contact,
+                        date: result.date,
+                        status: result.status,
+                        price: result.price,
+                        isHost: true,
+                        username: req.session.name,
+                        _id: req.body.reqid,
+                        messages: result.messages
+                    };        
+                    res.render('./onSession/hviewrequest', response) 
+                }
+                else {
+                    console.log("failed");
+                }
+            })  
         });
     },
 

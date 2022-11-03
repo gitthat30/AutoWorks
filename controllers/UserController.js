@@ -125,7 +125,7 @@ const UserController = {
     },
 
     renderUserRequest: async function(req, res) {
-        db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
+        db.findOne(request, {_id: req.body.reqid}, {}, (result) => {
             if (result) {
                 var response = {
                     car: result.car,
@@ -137,7 +137,7 @@ const UserController = {
                     price: result.price,
                     isHost: false,
                     username: req.session.name,
-                    _id: req.query.reqid,
+                    _id: req.body.reqid,
                     messages: result.messages
                 };
                 res.render('./onSession/uviewrequest', response)

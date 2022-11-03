@@ -8,5 +8,8 @@
     <p>Job Type: {{type}}, Date: {{date}}</p>
     <a href="/acceptreq?reqid={{_id}}" class="global-button">ACCEPT</a>
     <a href="/declinereq?reqid={{_id}}" class="global-button">DECLINE</a> <br>
-    <a href="/uviewpending?reqid={{_id}}" class="global-button">VIEW INFO</a>
+    <form method = "post" action = "/uviewpending">
+        <input type="hidden" name="reqid" value= "{{_id}}">
+        <button class="global-button" type="submit">VIEW INFO</a>
+    </form>
 </div>
