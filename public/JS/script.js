@@ -1,13 +1,14 @@
+/* For Suppliers' Contact */
 var supplyData = [
     {
-        supply_type: ['windshield', 'paint'],
+        supply_type: ['glass', 'paint'],
         exotic: true,
         name: 'ABC supply',
         number: '09111111111',
         address: 'ABC add',
     },
     {
-        supply_type: ['window', 'parts', 'paint'],
+        supply_type: ['glass', 'parts', 'paint'],
         exotic: false,
         name: 'DEF supply',
         number: '09222222222',
@@ -21,7 +22,7 @@ var supplyData = [
         address: 'GHI add',
     },
     {
-        supply_type: ['paint', 'parts', 'window'],
+        supply_type: ['paint', 'parts', 'glass'],
         exotic: true,
         name: 'JKL supply',
         number: '09444444444',
@@ -65,3 +66,20 @@ $('#copy-number').click(function() {
     navigator.clipboard.writeText(num);
     alert("Copied " + num + " to clipboard!");
 });
+
+/* End of Suppliers' Contact */
+
+
+
+
+/* For fullpage view of images*/
+$('.request-images img').click(function() {
+    $('#fullpage').css('background-image', 'url(' + $(this).attr('src') + ')');
+    $('#fullpage').css('display', 'block');
+});
+
+$('#fullpage button').click(function() {
+    $('#fullpage').css('display', 'none');
+});
+
+/* End of fullpage view of images*/

@@ -11,7 +11,7 @@
 
 
 
-/* View request as host and message thread */
+/* View request and message thread */
 .view-request-container {
     display: flex;
     gap: 20px;
@@ -44,6 +44,26 @@
     height: 30px;
     width: 200px;
     margin-right: 5px;
+}
+
+/* Fullpage view of images */
+#fullpage {
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat no-repeat;
+    background-position: center center;
+    background-color: black;
+}
+
+#fullpage button {
+    margin: 10px;
+    border-radius: 50%;
 }
 
 /* Messages */
@@ -96,7 +116,7 @@
         position: static;
     }
 }
-/* End of View request as host and message thread */
+/* End of View request and message thread */
 
 
 
