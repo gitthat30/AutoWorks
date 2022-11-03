@@ -30,9 +30,15 @@
     position: relative;
 }
 
+.request-images {
+    margin-top: 15px;
+}
+
 .request-images img {
     width: 180px;
     height: 180px;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .quotation-input {
