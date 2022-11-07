@@ -5,6 +5,8 @@ const cloudinary = require('../util/cloudinary')
 const app = require('../routes/routes.js');
 const db = require('../models/db.js');
 const path = require('path');
+const fs = require('fs');
+const https = require('https');
 const account = require('../models/Accounts.js');
 const request = require('../models/Requests.js');
 const { totalmem } = require('os');
@@ -81,8 +83,29 @@ const UserController = {
         }
     },
 
-    download: function(req, res) {
+    download: async function(req, res) {
+        var request_id = req.body.request_id;
+        var message_id = req.body.message_id;
+        var foundReq = await request.findById(request_id);
 
+        var message = {};
+
+        foundReq.messages.forEach(m => {
+            if(m._id == message_id)
+                message = m;
+        });
+    
+        var filePath = path.resolve(__dirname,'../public/UPLOADED', message.content);
+    
+        const file = fs.createWriteStream(filePath);
+        https.get(message.url, function(response) {
+            response.pipe(file);
+            file.on("finish", () => {
+                file.close();
+                console.log(message.content + " in file system.");
+                res.send({filename: message.content});
+            });
+        });
     },
 
     getUserRequestCreation: async function(req, res) {

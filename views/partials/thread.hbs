@@ -4,8 +4,17 @@
     {{#each messages}}
         <div class="thread-message">
             <p>{{username}}:</p>
+
+            {{#if url}}
+            <p class="request_id" hidden>{{../_id}}</p>
+            <p class="message_id" hidden>{{_id}}</p>
+            <a class="download-btn">{{content}}</a>
+            <p><small>(Tap to download)</small></p>
+            {{else}}
             <p>{{content}}</p>
-            <p>sent {{sentdate}}</p>
+            {{/if}}
+
+            <p class="message-date">sent {{sentdate}}</p>
         </div>
     {{/each}}
     </div>

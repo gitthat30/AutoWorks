@@ -11,7 +11,7 @@ a {
     text-decoration: none;
 }
 
-p {
+p, .download-btn {
     word-wrap: break-word;
 }
 

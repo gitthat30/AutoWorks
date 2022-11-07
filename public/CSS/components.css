@@ -96,6 +96,20 @@
     padding: 3px;
 }
 
+.message-date {
+    font-size: 12px;
+    text-align: right;
+}
+
+.download-btn {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.download-btn:hover {
+    text-decoration: none;
+}
+
 .message-input {
     display: flex;
     justify-content: space-between;

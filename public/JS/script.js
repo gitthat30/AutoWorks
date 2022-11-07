@@ -88,6 +88,7 @@ $('#fullpage button').click(function() {
 
 
 /* For message thread file-upload */
+// Checks if file was selected
 $('#file').change(function() {
     var fileName = $(this).val().substring($(this).val().lastIndexOf('\\') + 1)
 
@@ -102,3 +103,28 @@ $('#file').change(function() {
     }
 
 });
+
+// Checks if download button was clicked
+$('.download-btn').click(function() {
+    var request_id = $(this).siblings('.request_id');
+    var message_id = $(this).siblings('.message_id');
+    var parent = $(this).parent();
+
+    $.ajax({
+        type: 'POST',
+        url: '/downloadFile',
+        data: {message_id: message_id.html(), request_id: request_id.html()},
+        success: function(result) {
+            console.log(result);
+            var filename = result.filename;
+            var downloadLink = $("<a download hidden></a>");
+            downloadLink.attr('href', '../UPLOADED/' + filename);
+            downloadLink.attr('id', 'download');
+            parent.append(downloadLink);
+
+            $('#download').get(0).click();
+            $('#download').remove();
+        }
+    });
+});
+/* End of message thread file-upload */
