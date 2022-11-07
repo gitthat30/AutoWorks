@@ -76,12 +76,13 @@ $('#copy-number').click(function() {
 $('.request-images img').click(function() {
     $('#fullpage').css('background-image', 'url(' + $(this).attr('src') + ')');
     $('#fullpage').css('display', 'block');
+    $('html').css('overflow', 'hidden');
 });
 
 $('#fullpage button').click(function() {
     $('#fullpage').css('display', 'none');
+    $('html').css('overflow', 'visible');
 });
-
 /* End of fullpage view of images*/
 
 
