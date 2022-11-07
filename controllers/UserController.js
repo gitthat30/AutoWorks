@@ -40,16 +40,49 @@ const UserController = {
             sentdate: today
         };
 
-        console.log("msg")
-        console.log(req.body.reqid)
-        console.log("msg")
+        // If message sent is not attachment
+        if(!req.files) {
+            console.log('Sending message as plain text.');
+            console.log(message);
+            db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function() {
+                if(req.session.host)
+                    res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
+                else
+                    res.redirect(307, '/uviewpending');
+            });
+        }
+        // If message sent is attachment
+        else {
+            console.log('Sending message as attachment.');
+            var {file} = req.files;
+            var filePath = path.resolve(__dirname,'../public/UPLOADED', file.name);
 
-        db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function() {
-            if(req.session.host)
-                res.redirect('/hviewpending?reqid=' + req.body.reqid);
-            else
-                res.redirect('/uviewpending?reqid=' + req.body.reqid);
-        });
+            console.log(filePath);
+
+            file.mv(filePath, (error) => {
+                console.log("File in filesystem");
+                cloudinary.uploader.upload(filePath, {
+                    resource_type: "raw",
+                    use_filename: true
+                }).then(function(file) {
+                    console.log("Attachment available at: " + file.secure_url);
+                    message.content = file.public_id;
+                    message.url = file.secure_url;
+
+                    console.log(message);
+                    db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function() {
+                        if(req.session.host)
+                            res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
+                        else
+                            res.redirect(307, '/uviewpending');
+                    });
+                });
+            });
+        }
+    },
+
+    download: function(req, res) {
+
     },
 
     getUserRequestCreation: async function(req, res) {

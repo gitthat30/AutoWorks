@@ -83,3 +83,22 @@ $('#fullpage button').click(function() {
 });
 
 /* End of fullpage view of images*/
+
+
+
+
+/* For message thread file-upload */
+$('#file').change(function() {
+    var fileName = $(this).val().substring($(this).val().lastIndexOf('\\') + 1)
+
+    if(fileName.length == 0) {
+        $('.message-input textarea').val('');
+        $('.message-input textarea').prop('disabled', false);
+    }
+
+    else {
+        $('.message-input textarea').val(fileName);
+        $('.message-input textarea').prop('disabled', true);
+    }
+
+});

@@ -108,6 +108,18 @@
     width: 100%;
 }
 
+.message-input img {
+    height: 34px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.message-input input {
+    display: none;
+}
+
 @media only screen and (max-width: 750px) {
     .view-request-container {
         flex-direction: column;

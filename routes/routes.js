@@ -16,6 +16,7 @@ app.get('/home', isPrivate, UserController.getUser);
 app.get('/hhome', isHost, HostController.getHost);
 app.get('/logout', isPrivate, UserController.logoutUser);
 app.post("/sendmessage", isPrivate, UserController.sendMessage);
+app.post('/downloadFile', isPrivate, UserController.download);
 
 // [CLIENT] Create Estimation Request
 app.get("/createreq", isPrivate, UserController.getUserRequestCreation);

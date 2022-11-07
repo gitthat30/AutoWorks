@@ -10,10 +10,16 @@
     {{/each}}
     </div>
 
-    <form action="/sendmessage" method="POST">
+    <form action="/sendmessage" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="reqid" value="{{_id}}">
         <div class="message-input">
             <textarea name="content" placeholder="Write your message here..." required></textarea>
+
+            <label for="file">
+                <img src="./IMAGES/attach.png" alt="attachment icon">
+            </label>
+            <input id="file" type="file" name="file">
+
             <button class="global-button" type="submit">SEND</button>
         </div>
     </form>

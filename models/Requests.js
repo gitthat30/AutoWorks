@@ -19,6 +19,7 @@ var RequestSchema = new mongoose.Schema({
     messages: [{
         username: String,
         content: String,
+        url: String,
         sentdate: String,
     }]
 });
