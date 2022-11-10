@@ -12,7 +12,9 @@
             <p>Request status: {{status}}</p>
             <p>Request Price: {{price}}</p>
             <div class="request-images">
-                <img src="{{image}}" alt="job-image">
+                <div>
+                    <img src="{{image}}" alt="{{image_id}}">
+                </div>
             </div>
             <form method = "post" action = "/sendquotation">
                 <input type="hidden" name="reqid" value= "{{_id}}">
@@ -27,7 +29,12 @@
     </div>
 </div>
 
-<div id="fullpage"><button class="global-button">X</button></div>
+<div id="fullpage">
+    <button class="global-button">X</button>
+    <button class="global-button" id="download-button">Download</button>
+    <p id="img-url" hidden></p>
+    <p id="img-name" hidden></p>
+</div>
 
 
 

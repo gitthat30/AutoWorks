@@ -28,6 +28,7 @@ const HostController = {
                     car: result.car,
                     type: result.type,
                     image: result.image,
+                    image_id: result.image_id,
                     description: result.description,
                     client_username: result.username,
                     contact: result.contact,

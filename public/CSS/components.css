@@ -32,13 +32,20 @@
 
 .request-images {
     margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.request-images img {
-    width: 180px;
+.request-images div, .thread-message div {
+    max-width: 180px;
     height: 180px;
     overflow: hidden;
-    cursor: pointer;
+}
+
+.request-images div img, .thread-message img {
+    height: 180px;
+    cursor: zoom-in;
 }
 
 .quotation-input {
@@ -55,7 +62,7 @@
 /* Fullpage view of images */
 #fullpage {
     display: none;
-    position: absolute;
+    position: fixed;
     z-index: 9999;
     top: 0;
     left: 0;
@@ -69,7 +76,6 @@
 
 #fullpage button {
     margin: 10px;
-    border-radius: 50%;
 }
 
 /* Messages */
@@ -99,11 +105,6 @@
 .message-date {
     font-size: 12px;
     text-align: right;
-}
-
-.download-btn {
-    text-decoration: underline;
-    cursor: pointer;
 }
 
 .download-btn:hover {

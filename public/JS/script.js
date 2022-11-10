@@ -73,15 +73,16 @@ $('#copy-number').click(function() {
 
 
 /* For fullpage view of images*/
-$('.request-images img').click(function() {
+$('.request-images img, .thread-message img').click(function() {
     $('#fullpage').css('background-image', 'url(' + $(this).attr('src') + ')');
     $('#fullpage').css('display', 'block');
-    $('html').css('overflow', 'hidden');
+
+    $('#img-name').html($(this).attr('alt'));
+    $('#img-url').html($(this).attr('src'));
 });
 
 $('#fullpage button').click(function() {
     $('#fullpage').css('display', 'none');
-    $('html').css('overflow', 'visible');
 });
 /* End of fullpage view of images*/
 
@@ -106,23 +107,19 @@ $('#file').change(function() {
 });
 
 // Checks if download button was clicked
-$('.download-btn').click(function() {
-    var request_id = $(this).siblings('.request_id');
-    var message_id = $(this).siblings('.message_id');
-    var parent = $(this).parent();
+$('#download-button').click(function() {
+    var img_url = $('#img-url').html();
+    var img_name = $('#img-name').html();
 
     $.ajax({
         type: 'POST',
         url: '/downloadFile',
-        data: {message_id: message_id.html(), request_id: request_id.html()},
+        data: {img_url, img_name},
         success: function(result) {
-            console.log(result);
-            var filename = result.filename;
             var downloadLink = $("<a download hidden></a>");
-            downloadLink.attr('href', '../UPLOADED/' + filename);
+            downloadLink.attr('href', '../UPLOADED/' + result.filename);
             downloadLink.attr('id', 'download');
-            parent.append(downloadLink);
-
+            $('#fullpage').append(downloadLink);
             $('#download').get(0).click();
             $('#download').remove();
         }

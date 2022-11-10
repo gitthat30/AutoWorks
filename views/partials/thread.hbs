@@ -8,8 +8,8 @@
             {{#if url}}
             <p class="request_id" hidden>{{../_id}}</p>
             <p class="message_id" hidden>{{_id}}</p>
-            <a class="download-btn">{{content}}</a>
-            <p><small>(Tap to download)</small></p>
+            <div><img src="{{url}}" alt="{{content}}"></div>
+            
             {{else}}
             <p>{{content}}</p>
             {{/if}}
@@ -27,7 +27,7 @@
             <label for="file">
                 <img src="./IMAGES/attach.png" alt="attachment icon">
             </label>
-            <input id="file" type="file" name="file">
+            <input id="file" type="file" name="file" accept="image/*">
 
             <button class="global-button" type="submit">SEND</button>
         </div>
