@@ -1,5 +1,5 @@
 const { connect } = require('mongoose');
-const { ObjectId } = require('mongodb');
+const { ObjectId, GridFSBucketReadStream } = require('mongodb');
 const imgur = require('imgur');
 const cloudinary = require('../util/cloudinary')
 const app = require('../routes/routes.js');
@@ -14,7 +14,19 @@ const { totalmem } = require('os');
 const UserController = {
     getUser: async function(req, res) {
         console.log(req.session.name);
-        res.render('./onSession/uhome', {isHost: false, username: req.session.name});
+        notifcount = 0
+        if(req.session.host)
+            res.redirect('/hhome')
+        else {
+            db.findOne(account, {_id: req.session.user}, {}, function(result) {
+                console.log(typeof result.notifications)
+                result.notifications.forEach(n => {
+                    if(!n.read)
+                        notifcount++;
+                })
+                res.render('./onSession/uhome', {isHost: false, username: req.session.name, notifcount});
+            })
+        }
     },
 
     logoutUser: function(req, res) {
@@ -46,11 +58,36 @@ const UserController = {
         if(!req.files) {
             console.log('Sending message as plain text.');
             console.log(message);
-            db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function() {
-                if(req.session.host)
-                    res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
-                else
-                    res.redirect(307, '/uviewpending');
+            db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function(result) {
+                //Start of Notification Code
+                db.findOne(request, {_id: req.body.reqid}, {}, function(result) { //Find the request in DB to get vars
+                    var notification = { //Create notification for a sent message
+                        message: "You recieved a message from \"" + req.session.name +"\" on order \"" + result.description +"\"",
+                        read: false,
+                        sentdate: today,
+                        reqid: result._id    
+                    }
+                    
+                    if(req.session.user != result.userid) { //If someone other than user messages, push it into the notifications array of user
+                        db.updateOne(account, {_id: result.userid}, {$push: {notifications: notification}}, function(result) {
+                            console.log(result)
+                            if(req.session.host)
+                                res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
+                            else
+                                res.redirect(307, '/uviewpending');
+                        });
+                    }
+                    else { //If the user places a message on his own request, notify HOST
+                        console.log("NOTIFYING HOST")
+                        db.updateOne(account, {username: "HOST"}, {$push: {notifications: notification}}, function(result) {
+                            console.log(result)
+                            if(req.session.host)
+                                res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
+                            else
+                                res.redirect(307, '/uviewpending');
+                        });
+                    }
+                });
             });
         }
         // If message sent is attachment
@@ -73,10 +110,32 @@ const UserController = {
 
                     console.log(message);
                     db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function() {
-                        if(req.session.host)
-                            res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
-                        else
-                            res.redirect(307, '/uviewpending');
+                        db.findOne(request, {_id: req.body.reqid}, {}, function(result) {
+                            var notification = {
+                                message: "You recieved a message on your order \"" + result.description +"\"",
+                                read: false,
+                                sentdate: today,
+                                reqid: result._id    
+                            }
+                            if(req.session.user != result.userid) { //If someone other than user messages
+                                db.updateOne(account, {_id: result.userid}, {$push: {notifications: notification}}, function(result) {
+                                    console.log(result)
+                                    if(req.session.host)
+                                        res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
+                                    else
+                                        res.redirect(307, '/uviewpending');
+                                });
+                            }
+                            else { //If the user places a message on his own request, notify HOST
+                                db.updateOne(account, {username: "HOST"}, {$push: {notifications: notification}}, function(result) {
+                                    console.log(result)
+                                    if(req.session.host)
+                                        res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
+                                    else
+                                        res.redirect(307, '/uviewpending');
+                                });
+                            }
+                        });
                     });
                 });
             });
@@ -169,7 +228,7 @@ const UserController = {
         var requests = await request.find({userid: req.session.user, status: 'Pending'});
         console.log("requests")
         console.log(requests);
-        res.render('./onSession/uviewpending', {req: requests, isHost: false, username: req.session.name});
+        res.render('./onSession/uviewpending', {req: requests.reverse(), isHost: false, username: req.session.name});
     },
 
     renderUserRequest: async function(req, res) {
@@ -214,8 +273,39 @@ const UserController = {
     },
 
     declineRequest: function(req, res) {
-        db.deleteOne(request, {_id: req.query.reqid}, (error) => {
-            res.redirect("/uviewallpending");
+        //Getting Date
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        today = yyyy+'-'+mm+'-'+dd;
+        
+        db.updateOne(request, {_id: req.query.reqid}, {status: "Deleted"}, (error) => {
+            console.log(req.query.reqid)
+            db.findOne(request, {_id: req.query.reqid}, {}, function(result) { //Find the request in DB to get vars
+                console.log(result)
+                var notification = { //Create notification for a sent message
+                    message: "User \"" + req.session.name + "\" declined order \"" + result.description + "\"",
+                    read: false,
+                    sentdate: today,
+                    reqid: result._id    
+                }
+                
+                if(req.session.user != result.userid) { //If someone other than user declines, push it into the notifications array of user
+                    db.updateOne(account, {_id: result.userid}, {$push: {notifications: notification}}, function(result) {
+                        console.log(result)
+                        res.redirect("/uviewallpending");
+                    });
+                }
+                else { //If the user declines his own request, notify HOST
+                    console.log("NOTIFYING HOST")
+                    db.updateOne(account, {username: "HOST"}, {$push: {notifications: notification}}, function(result) {
+                        console.log(result)
+                        res.redirect("/uviewallpending");
+                    });
+                }
+            });
+            
         });
     },
 
@@ -292,6 +382,23 @@ const UserController = {
     getUserAcceptedRequests: async function(req, res) {
         var requests = await request.find({userid: req.session.user, status: 'Accepted'});
         res.render('./onSession/uviewongoing', {req: requests, isHost: false, username: req.session.name}); 
+    },
+
+    viewNotifications: async function(req, res) {
+        db.findOne(account, {_id: req.session.user}, {}, function(result) {
+            read = [];
+            unread = [];
+            result.notifications.forEach(n => {
+                if(!n.read)
+                    read.push(n)
+                else
+                    unread.push(n)
+            })
+            db.updateOne(account, {_id: req.session.user}, {$set: {"notifications.$[].read": true}}, (result) => { //Sets all notifications as read
+                res.render('./onSession/unotifications', {isHost: false, username: req.session.name, read: read.reverse(), unread: unread.reverse()});
+            })
+            
+        })
     },
 }
 

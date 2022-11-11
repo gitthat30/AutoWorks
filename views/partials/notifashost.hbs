@@ -1,0 +1,13 @@
+<script>
+    function test() {
+        $(event.currentTarget).closest('.test').find('.myform').submit();
+    }
+</script>
+
+<div class="request-user">
+    {{message}}
+    <form method = "post" action = "/hviewpending">
+        <input type="hidden" name="reqid" value= "{{reqid}}">
+        <button class="global-button" type="submit">VIEW ORDER</a>
+    </form>
+</div>

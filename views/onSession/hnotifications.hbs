@@ -1,0 +1,19 @@
+{{> wrapper_header}}
+
+<div class="container">
+	<h1 class="title">Notifications</h1>
+	<h2><u><b>Unread</b></u></h2>
+	<br>
+	{{#each read}}
+		{{>notifashost}}
+	{{/each}}
+	<br><br>
+	<h2><u><b>Read</b></u></h2>
+	<br>
+	{{#each unread}}
+		{{>notifashost}}
+	{{/each}}
+	<br>
+</div>
+
+{{> wrapper_footer}}

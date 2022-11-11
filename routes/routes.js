@@ -33,6 +33,9 @@ app.post("/ueditrequestconfirm", isPrivate, UserController.getEditRequestAction)
 // [CLIENT] Active Jobs
 app.get("/uviewactive", isPrivate, UserController.getUserAcceptedRequests);
 
+//[CLIENT] View Notifications
+app.get("/uviewnotifications", isPrivate, UserController.viewNotifications); 
+
 // [HOST] Customer Estimation Requests
 app.get("/hviewallpending", isHost, HostController.getPendingRequests);
 app.post("/hviewpending", isHost, HostController.viewRequest);
@@ -52,5 +55,7 @@ app.get("/generatereport", isHost, HostController.generateReport);
 app.get("/viewsuppliers", isHost, HostController.viewSuppliers);
 app.get("/viewsupplier", isHost, HostController.viewSupplier);
 
+//[HOST] View Notifications
+app.get("/hviewnotifications", isHost, HostController.viewNotifications); 
 
 module.exports = app;
