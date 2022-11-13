@@ -208,7 +208,7 @@ const UserController = {
                             nrequest.image_id = image.public_id;
                             nrequest.image = image.url; 
                             request.create(nrequest, (error,request) => {
-                                res.redirect('/home');
+                                res.redirect('/uviewallpending');
                             })
                         })
                         .catch(function (err) {

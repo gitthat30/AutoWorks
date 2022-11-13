@@ -10,13 +10,20 @@ const { totalmem } = require('os');
 const HostController = {
     getHost: async function(req, res) {
         console.log(req.session.name);
-        notifcount = 0;
+
+        var today = new Date();
+        var date = today.toLocaleString('default', {year:"numeric", month:"long", day:"numeric"});
+
+        var num_pending = await request.find({status: 'Pending'}).count();
+        var num_active = await request.find({status: 'Active'}).count();
+
+        var notifcount = 0;
         db.findOne(account, {_id: req.session.user}, {}, function(result) {
             result.notifications.forEach(n => {
                 if(!n.read)
                     notifcount++;
             })
-            res.render('./onSession/hhome', {isHost: true, username: req.session.name, notifcount});
+            res.render('./onSession/hhome', {isHost: true, username: req.session.name, notifcount, date, num_pending, num_active});
         })
     },
 
@@ -212,7 +219,7 @@ const HostController = {
                     unread.push(n)
             })
             db.updateOne(account, {_id: req.session.user}, {$set: {"notifications.$[].read": true}}, (result) => { //Sets all notifications as read
-                res.render('./onSession/hnotifications', {isHost: false, username: req.session.name, read: read.reverse(), unread: unread.reverse()});
+                res.render('./onSession/hnotifications', {isHost: true, username: req.session.name, read: read.reverse(), unread: unread.reverse()});
             })
         })
     },
