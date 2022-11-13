@@ -1,11 +1,10 @@
 {{> wrapper_header}}
 
-<div class="nav-button-container container">
-    <a href = "/hviewallpending">Customer Estimation Requests</ahref>
-    <a href = "/hviewactive">Active Jobs</ahref>
-    <a href = "/viewgeneratereport">Generate Report</ahref>
-    <a href = "/viewsuppliers">View Suppliers' Contacts</ahref>
-    <a href = "/hviewnotifications">Notifications {{#if notifcount}} ({{notifcount}}) {{/if}}</ahref>
+<div class="container" id="home-container">
+    <img src="IMAGES/AutoWork.png" alt="logo">
+    <p>TODAY IS: {{date}}</p>
+    <p>PENDING FOR ESTIMATION: {{num_pending}}</p>
+    <p>ACTIVE JOBS: {{num_active}}</p>
 </div>
 
 {{> wrapper_footer}}

@@ -10,10 +10,6 @@
     margin-bottom: 5px;
 }
 
-.login-info button, .login-info a {
-    background-color: #DFE3E8;
-}
-
 .login-info form input {
     border: 2px solid black;
     border-radius: 10px;
@@ -21,6 +17,10 @@
     padding: 5px;
     height: 30px;
     width: 300px;
+}
+
+.login-info button {
+    border-width: 0;
 }
 
 .short-hr {

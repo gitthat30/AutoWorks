@@ -1,3 +1,27 @@
+/* Home pages */
+#home-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#home-container p, #home-container a {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#home-container img {
+    height: 150px;
+}
+
+#home-container a {
+    margin-top: 30px;
+    padding: 10px 20px;
+}
+/* End of home pages */
+
+
+
+
 /* Request as host on view pending requests */
 .request-host {
     border: 1px solid black;
