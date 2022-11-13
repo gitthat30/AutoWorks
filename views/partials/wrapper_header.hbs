@@ -10,18 +10,32 @@
 		<link rel="stylesheet" href="CSS/components.css">
 	</head>
 	<body>
-		<div class="on-session-header">
-			<img class="logo" src="IMAGES/AutoWork.png" alt="AutoWorks Logo">
-			<div class="user-info">
-				<div>
-					<p class="welcome">WELCOME,</p>
-					<p class="user-name">{{username}}</p>
-					{{#if isHost}}
-					<p class="admin">(ADMIN)</p>
-					{{/if}}
-				</div>
-				<a href="/logout" class="global-button">SIGN-OUT</a>
-			</div>
+		<nav>
+			{{#if isHost}}
+			<a href="/hhome">
+			{{else}}
+			<a href="/home">
+			{{/if}}
+				<img src="IMAGES/AutoWork.png" alt="AutoWorks Logo" id="logo">
+			</a>
 			
-		</div>
-		<hr class="long-hr">
+			<img src="IMAGES/menu.png" alt="menu icon" id="menu-icon">
+			
+			<div>
+				<img src="IMAGES/close.png" alt="close icon" id="close-icon">
+				{{#if isHost}}
+				<a href = "/hviewallpending">CUSTOMER ESTIMATION REQUESTS</a>
+				<a href = "/hviewactive">ACTIVE JOBS</a>
+				<a href = "/viewgeneratereport">GENERATE REPORT</a>
+				<a href = "/viewsuppliers">SUPPLIERS</a>
+				<a href = "/hviewnotifications">NOTIFICATIONS {{#if notifcount}} ({{notifcount}}) {{/if}}</a>
+				{{else}}
+				<a href = "/createreq">CREATE ESTIMATION REQUEST</a>
+				<a href = "/uviewallpending">PENDING FOR CONFIRMATION</a>
+				<a href = "/uviewactive">ONGOING JOBS</a>
+				<a href = "/uviewnotifications">NOTIFICATIONS {{#if notifcount}} ({{notifcount}}) {{/if}}</a>
+				{{/if}}
+
+				<p>{{username}}<a href="/logout"> (SIGN-OUT)</a></p>
+			</div>
+		</nav>

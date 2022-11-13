@@ -126,3 +126,15 @@ $('#download-button').click(function() {
     });
 });
 /* End of message thread file-upload */
+
+
+
+/* Hamburger navbar */
+$('#menu-icon').click(function() {
+    $('nav div').addClass('show-nav');
+});
+
+$('#close-icon').click(function() {
+    $('nav div').removeClass('show-nav');
+});
+/* End of hamburger navbar */
