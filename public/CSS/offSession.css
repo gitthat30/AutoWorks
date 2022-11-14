@@ -1,30 +1,56 @@
 /* For styling login, signup, and forgot password pages */
 
-.login-info, .error-msg {
-    text-align: center;
+.off-session-container {
+    justify-content: center;
 }
 
-.login-info p {
-    font-size: 22px;
-    font-weight: semibold;
-    margin-bottom: 5px;
-}
-
-.login-info form input {
-    border: 2px solid black;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    padding: 5px;
-    height: 30px;
-    width: 300px;
-}
-
-.login-info button {
-    border-width: 0;
-}
-
-.short-hr {
+.off-session-form {
     border: 1px solid black;
-    width: 300px;
-    margin: 20px auto;
+    padding: 0 20px 30px;
+    border-radius: 15px;
+    margin-bottom: 100px;
+}
+
+.off-session-form img {
+    height: 120px;
+}
+
+.off-session-back {
+    color: #651400;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.off-session-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.off-session-form input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.off-session-form div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.off-session-form div a, .off-session-form div button {
+    padding: 8px 20px;
+}
+
+#login-btn {
+    margin-bottom: 5px;
+}
+
+#forgot-pass-btn {
+    color: #DB2E03;
+    text-decoration: underline;
+}
+
+#forgot-pass-btn:hover {
+    text-decoration: none;
 }

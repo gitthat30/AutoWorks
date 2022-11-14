@@ -18,6 +18,21 @@ a {
     text-decoration: none;
 }
 
+button {
+    border-width: 0;
+}
+
+input {
+    border-width: 0;
+}
+
+input[type="text"], input[type="password"], input[type="tel"], input[type="number"] {
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 10px;
+    background-color: #DFE3E8;
+}
+
 p, .download-btn {
     word-wrap: break-word;
 }
@@ -241,5 +256,6 @@ footer p {
 .error-msg {
     color: #BF0000;
     margin-bottom: 10px;
+    text-align: center;
 }
 /* End of flash error messages */
