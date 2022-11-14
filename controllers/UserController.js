@@ -400,6 +400,10 @@ const UserController = {
             
         })
     },
+
+    viewContact: function(req, res) {
+        res.render('./onSession/ucontact', {isHost: false, username: req.session.name});
+    },
 }
 
 module.exports = UserController;

@@ -29,7 +29,7 @@ select {
 .global-button {
     border-radius: 10px;
     padding: 5px 10px;
-    background-color: maroon;
+    background-color: #651400;
     color: white;
     cursor: pointer;
     font-size: 14px;

@@ -36,6 +36,9 @@ app.get("/uviewactive", isPrivate, UserController.getUserAcceptedRequests);
 //[CLIENT] View Notifications
 app.get("/uviewnotifications", isPrivate, UserController.viewNotifications); 
 
+// [CLIENT] View Contact
+app.get("/uviewcontact", isPrivate, UserController.viewContact);
+
 // [HOST] Customer Estimation Requests
 app.get("/hviewallpending", isHost, HostController.getPendingRequests);
 app.post("/hviewpending", isHost, HostController.viewRequest);

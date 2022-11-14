@@ -328,3 +328,92 @@
     text-align: left;
 }
 /* End of Generate report page */
+
+
+
+/* Contact page */
+#contact-container {
+    text-align: center;
+}
+
+#contact-name-num {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    align-items: center;
+
+    padding: 20px 30px;
+    background-color: #DFE3E8;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 20px;
+}
+
+#contact-vist {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#contact-add {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#map-hours {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#map {
+    padding-right: 30px;
+    border-right: 4px solid #651400;
+}
+
+#map iframe {
+    width: 500px;
+    height: 375px;
+}
+
+#hours p {
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+#hours p:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.contact-maroon-bold {
+    color: #651400;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 900px) {
+    #map-hours {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #map {
+        border-width: 0;
+        padding-right: 0;
+    }
+
+    #map, #map iframe {
+        width: min(500px, 100%);
+    }
+
+    #contact-add {
+        font-size: 18px;
+    }
+
+    #hours p {
+        margin-top: 0;
+    }
+}
+/* End of contact page */
