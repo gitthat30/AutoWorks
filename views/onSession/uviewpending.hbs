@@ -3,9 +3,17 @@
 <div class="container">
 	<h1 class="title">Pending for Confirmation</h1>
 	<p class="error-msg">{{error_msg}}</p>
+
+	{{#if req}}
 	{{#each req}}
 		{{>requestsasuser}}
 	{{/each}}
+
+	{{else}}
+	<p>No requests at the moment.</p>
+	<p>Create one now!</p>
+	<a href="/createreq" class="global-button">CREATE ESTIMATION REQUEST</a>
+	{{/if}}
 </div>
 
 {{> wrapper_footer}}

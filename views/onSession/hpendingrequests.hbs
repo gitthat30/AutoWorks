@@ -2,9 +2,15 @@
 
 <div class="container">
 	<h1 class="title">Customer Estimation Requests</h1>
+
+	{{#if req}}
 	{{#each req}}
 		{{>requestsashost}}
 	{{/each}}
+
+	{{else}}
+	<p>No customer requests at the moment.</p>
+	{{/if}}
 </div>
 
 {{> wrapper_footer}}

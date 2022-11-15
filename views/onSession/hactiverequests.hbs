@@ -2,9 +2,15 @@
 
 <div class="container">
 	<h1 class="title">Active Jobs</h1>
+
+	{{#if req}}
 	{{#each req}}
 		{{>activeashost}}
 	{{/each}}
+
+	{{else}}
+	<p>No active jobs at the moment.</p>
+	{{/if}}
 </div>
 
 {{> wrapper_footer}}

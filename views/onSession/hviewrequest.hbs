@@ -9,7 +9,6 @@
             <p>Car: {{car}}</p>
             <p>Client: {{client_username}}</p>
             <p>Contact No: {{contact}}</p>
-            <p>Request status: {{status}}</p>
             <p>Request Price: {{price}}</p>
             <div class="request-images">
                 <div>
@@ -32,8 +31,10 @@
 </div>
 
 <div id="fullpage">
-    <button class="global-button">X</button>
-    <button class="global-button" id="download-button">Download</button>
+    <div>
+        <img src="IMAGES/download.png" id="download-button" alt="download button">
+        <img src="IMAGES/close-full.png" id="close-full-button" alt="close button">
+    </div>
     <p id="img-url" hidden></p>
     <p id="img-name" hidden></p>
 </div>

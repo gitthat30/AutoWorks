@@ -79,10 +79,13 @@ $('.request-images img, .thread-message img').click(function() {
 
     $('#img-name').html($(this).attr('alt'));
     $('#img-url').html($(this).attr('src'));
+
+    $('body').css('overflow', 'hidden');
 });
 
-$('#fullpage button').click(function() {
+$('#close-full-button').click(function() {
     $('#fullpage').css('display', 'none');
+    $('body').css('overflow', 'visible');
 });
 /* End of fullpage view of images*/
 
@@ -132,9 +135,28 @@ $('#download-button').click(function() {
 /* Hamburger navbar */
 $('#menu-icon').click(function() {
     $('nav div').addClass('show-nav');
+    $('body').css('overflow', 'hidden');
 });
 
 $('#close-icon').click(function() {
     $('nav div').removeClass('show-nav');
+    $('body').css('overflow', 'visible');
 });
 /* End of hamburger navbar */
+
+
+
+/* Toggle hide/show password */
+$('#password-container img').click(function() {
+    var passInput = $('#password-container input');
+    
+    if(passInput.attr('type') == 'password') {
+        passInput.attr('type', 'text');
+        $(this).attr('src', 'IMAGES/eye-hide.png');
+    }
+    else {
+        passInput.attr('type', 'password');
+        $(this).attr('src', 'IMAGES/eye-show.png');
+    }
+});
+/* End of toggle hide/show password */

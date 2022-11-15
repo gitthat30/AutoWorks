@@ -54,3 +54,14 @@
 #forgot-pass-btn:hover {
     text-decoration: none;
 }
+
+#password-container {
+    position: relative;
+}
+
+#password-container img {
+    position: absolute;
+    height: 20px;
+    top: 5px;
+    right: 5px;
+}

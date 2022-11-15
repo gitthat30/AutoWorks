@@ -15,7 +15,7 @@ const HostController = {
         var date = today.toLocaleString('default', {year:"numeric", month:"long", day:"numeric"});
 
         var num_pending = await request.find({status: 'Pending'}).count();
-        var num_active = await request.find({status: 'Active'}).count();
+        var num_active = await request.find({status: 'Accepted'}).count();
 
         var notifcount = 0;
         db.findOne(account, {_id: req.session.user}, {}, function(result) {

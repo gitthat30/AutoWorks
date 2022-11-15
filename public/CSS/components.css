@@ -98,8 +98,22 @@
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-#fullpage button {
-    margin: 10px;
+#fullpage div {
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+#fullpage img {
+    margin-left: 15px;
+    height: 35px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 750px) {
+    #fullpage img {
+        height: 20px;
+    }
 }
 
 /* Messages */

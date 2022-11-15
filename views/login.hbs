@@ -14,7 +14,10 @@
 				<p class="error-msg">{{error_msg}}</p>
 				<p class="off-session-title">LOGIN</p>
 				<input type="text" name="name" placeholder="USERNAME"><br>
-				<input type="password" name="pass" placeholder="PASSWORD"><br>
+				<div id="password-container">
+					<input type="password" name="pass" placeholder="PASSWORD">
+					<img src="IMAGES/eye-show.png" alt="show pass icon">
+				</div>
 				<a href="" id="forgot-pass-btn">Forgot Password</a>
 				<div>
 					<button type="submit" class="global-button" id="login-btn">LOGIN</button>
