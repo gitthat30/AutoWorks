@@ -61,7 +61,7 @@ $('#select-supplier').change(function() {
 });
 
 // Checks if "Copy Number to Clipboard" button was clicked
-$('#copy-number').click(function() {
+$('#supplier-number').click(function() {
     var num = $('#supplier-number').text();
     navigator.clipboard.writeText(num);
     alert("Copied " + num + " to clipboard!");
@@ -134,13 +134,11 @@ $('#download-button').click(function() {
 
 /* Hamburger navbar */
 $('#menu-icon').click(function() {
-    $('nav div').addClass('show-nav');
-    $('body').css('overflow', 'hidden');
+    $('#nav-buttons').css('display', 'flex');
 });
 
 $('#close-icon').click(function() {
-    $('nav div').removeClass('show-nav');
-    $('body').css('overflow', 'visible');
+    $('#nav-buttons').removeAttr('style');
 });
 /* End of hamburger navbar */
 
@@ -160,3 +158,10 @@ $('#password-container img').click(function() {
     }
 });
 /* End of toggle hide/show password */
+
+
+
+/* Makes scrollbar down by default */
+var thread = $('.thread');
+thread.scrollTop(thread.prop('scrollHeight') - thread.height())
+/* End of scrollbar */

@@ -1,7 +1,6 @@
-{{> wrapper_header}}
+{{> wrapper_header page_title='EDIT REQUEST INFORMATION'}}
 
 <div class="container">
-	<h1 class="title">Edit Request Information</h1>
 	<form class="create-edit-req" action = "/ueditrequestconfirm" method = "POST" enctype="multipart/form-data">
 		<p class="error-msg">{{error_msg}}</p>
 		<div>
@@ -15,10 +14,10 @@
 				<option value="Engine">Engine</option>
 			</select> <br>
 			<textarea name="rdesc" cols="60" rows="10" placeholder="Description...">{{description}}</textarea> <br>
-			<input type="file" name="image" accept="image/*">
+			<input type="file" name="image" accept="image/*"> <br>
 			<input type="hidden" name="ogid" value="{{ogid}}">
 			<input type="hidden" name="ogpic" value="{{image}}">
-			<button type = "submit" class="global-button">EDIT</button>
+			<div class="create-edit-btn"><button type = "submit" class="global-button">EDIT</button></div>
 		</div>
 	</form>
 </div>

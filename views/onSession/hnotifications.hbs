@@ -1,19 +1,25 @@
-{{> wrapper_header}}
+{{> wrapper_header page_title='NOTIFICATIONS'}}
 
-<div class="container">
-	<h1 class="title">Notifications</h1>
-	<h2><u><b>Unread</b></u></h2>
-	<br>
+<div class="container notif-container">
+	<p class="title">Unread</p>
+	{{#if read}}
 	{{#each read}}
 		{{>notifashost}}
 	{{/each}}
+	{{else}}
+	<p>No unread notifications.</p>
+	{{/if}}
+
 	<br><br>
-	<h2><u><b>Read</b></u></h2>
-	<br>
+
+	<p class="title">Read</p>
+	{{#if unread}}
 	{{#each unread}}
 		{{>notifashost}}
 	{{/each}}
-	<br>
+	{{else}}
+	<p>Your read notifications are shown here.</p>
+	{{/if}}
 </div>
 
 {{> wrapper_footer}}

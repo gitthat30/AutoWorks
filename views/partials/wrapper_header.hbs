@@ -10,33 +10,43 @@
 		<link rel="stylesheet" href="CSS/components.css">
 	</head>
 	<body>
-		<nav>
-			{{#if isHost}}
-			<a href="/hhome">
+		<header{{#if background-full}} style="background-color: transparent"{{/if}}>
+			{{#if background-full}}
 			{{else}}
-			<a href="/home">
+			<div class="background background-partial"></div>
 			{{/if}}
-				<img src="IMAGES/AutoWork.png" alt="AutoWorks Logo" id="logo">
-			</a>
-			
-			<img src="IMAGES/menu.png" alt="menu icon" id="menu-icon">
-			
-			<div>
-				<img src="IMAGES/close.png" alt="close icon" id="close-icon">
-				{{#if isHost}}
-				<a href = "/hviewallpending">CUSTOMER ESTIMATION REQUESTS</a>
-				<a href = "/hviewactive">ACTIVE JOBS</a>
-				<a href = "/viewgeneratereport">GENERATE REPORT</a>
-				<a href = "/viewsuppliers">SUPPLIERS</a>
-				<a href = "/hviewnotifications">NOTIFICATIONS {{#if notifcount}} ({{notifcount}}) {{/if}}</a>
-				{{else}}
-				<a href = "/createreq">CREATE ESTIMATION REQUEST</a>
-				<a href = "/uviewallpending">PENDING FOR CONFIRMATION</a>
-				<a href = "/uviewactive">ONGOING JOBS</a>
-				<a href = "/uviewnotifications">NOTIFICATIONS {{#if notifcount}} ({{notifcount}}) {{/if}}</a>
-				<a href = "/uviewcontact">CONTACT US</a>
-				{{/if}}
 
-				<p>{{username}}<a href="/logout"> (SIGN-OUT)</a></p>
-			</div>
-		</nav>
+			<nav>
+				{{#if isHost}}
+				<a href="/hhome">
+				{{else}}
+				<a href="/home">
+				{{/if}}
+					<img src="IMAGES/AutoWork.png" alt="AutoWorks Logo" id="logo">
+				</a>
+				
+				<img src="IMAGES/menu.png" alt="menu icon" id="menu-icon">
+				
+				<div id="nav-buttons">
+					<img src="IMAGES/close.png" alt="close icon" id="close-icon">
+					{{#if isHost}}
+					<a href = "/hviewallpending">CUSTOMER ESTIMATION REQUESTS</a>
+					<a href = "/hviewactive">ACTIVE JOBS</a>
+					<a href = "/viewgeneratereport">GENERATE REPORT</a>
+					<a href = "/viewsuppliers">SUPPLIERS</a>
+					<a href = "/hviewnotifications">NOTIFICATIONS {{#if notifcount}} ({{notifcount}}) {{/if}}</a>
+					{{else}}
+					<a href = "/createreq">CREATE ESTIMATION REQUEST</a>
+					<a href = "/uviewallpending">PENDING FOR CONFIRMATION</a>
+					<a href = "/uviewactive">ONGOING JOBS</a>
+					<a href = "/uviewnotifications">NOTIFICATIONS {{#if notifcount}} ({{notifcount}}) {{/if}}</a>
+					<a href = "/uviewcontact">CONTACT US</a>
+					{{/if}}
+
+					<p>{{username}}<a href="/logout"> (SIGN-OUT)</a></p>
+				</div>
+
+				
+			</nav>
+			<h1 id="page-title">{{page_title}}</h1>
+		</header>

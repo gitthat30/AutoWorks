@@ -1,4 +1,5 @@
-{{> wrapper_header}}
+{{> wrapper_header page_title='VIEW REQUEST INFORMATION'}}
+
 <script>
     function test() {
         $(event.currentTarget).closest('.test').find('.myform').submit();
@@ -6,32 +7,36 @@
 </script>
 
 <div class="container">
-    <h1 class="title">View Request Information</h1>
     <div class="view-request-container">
         <div class="request-info">
-            <p>Car: {{car}}</p>
-            <p>Request Type: {{type}}</p>
-            <p>Request Description: {{description}}</p>
-            <p>Request Date: {{date}}</p>
-            <p>Request Price:
-                {{#if (Equal price -1)}}
-                <i>Pending...</i>
-                {{else}}
-                ₱{{price}}
-                {{/if}}
-            </p>
-            <div class="request-images">
+            <div class="request-info-top">
                 <div>
-                    <img src="{{image}}" alt="{{image_id}}">
+                    <p id="title">{{car}}</p>
+                    <p id="date">{{date}}</p>
+                </div>
+                <p><strong>Job Type</strong>: {{type}}</p>
+                <p><strong>Description</strong>: {{description}}</p>
+                <p><strong>Estimation</strong>:
+                    {{#if (Equal price -1)}}
+                    <i>Pending...</i>
+                    {{else}}
+                    ₱{{price}}
+                    {{/if}}
+                </p>
+                <div class="request-images">
+                    <div>
+                        <img src="{{image}}" alt="{{image_id}}">
+                    </div>
                 </div>
             </div>
+            
 
             {{#if (Equal price -1)}}
                 {{#unless (Equal status "Deleted")}} {{!So the edit button doesn't appear when viewing a deleted request}}
-                    <div class = "test">
+                    <div class = "test request-info-btn">
                         <form class="myform" method="POST" action="/ueditrequest">
                             <input type="hidden" name="reqid" value= "{{_id}}">
-                            <button class="global-button edit-button" onclick="test()">Edit Request</button>
+                            <button class="global-button edit-button" onclick="test()">EDIT</button>
                         </form>
                     </div>
                 {{/unless}}

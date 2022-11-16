@@ -4,7 +4,8 @@
     }
 </script>
 
-<div class="request-user">
+<div class="request-user card">
+    <p class="title">{{car}}</p>
     <p>Job Type: {{type}}, Date: {{date}}</p>
     <p>Estimation:
         {{#if (Equal price -1)}}
@@ -14,9 +15,9 @@
         {{/if}}
     </p>
     <a href="/acceptreq?reqid={{_id}}" class="global-button">ACCEPT</a>
-    <a href="/declinereq?reqid={{_id}}" class="global-button">DECLINE</a> <br>
+    <a href="/declinereq?reqid={{_id}}" class="global-button gray-button">DECLINE</a> <br>
     <form method = "post" action = "/uviewpending">
         <input type="hidden" name="reqid" value= "{{_id}}">
-        <button class="global-button" type="submit">VIEW INFO</a>
+        <button class="global-button white-button" type="submit">VIEW INFO</a>
     </form>
 </div>

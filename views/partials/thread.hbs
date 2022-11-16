@@ -1,22 +1,24 @@
 <div class="thread-container">
-    <h2 class="messages-thread-text">Messages Thread</h2>
-    <div class="thread">
-    {{#each messages}}
-        <div class="thread-message">
-            <p>{{username}}:</p>
+    <div>
+        <h2 class="messages-thread-text">Messages Thread</h2>
+        <div class="thread">
+        {{#each messages}}
+            <div class="thread-message {{#if (Equal username ../username)}}thread-message-you{{else}}thread-message-them{{/if}}">
+                <p class="sender">{{username}}{{#if (Equal username ../username)}} (You){{/if}}:</p>
 
-            {{#if url}}
-            <p class="request_id" hidden>{{../_id}}</p>
-            <p class="message_id" hidden>{{_id}}</p>
-            <div><img src="{{url}}" alt="{{content}}"></div>
-            
-            {{else}}
-            <p>{{content}}</p>
-            {{/if}}
+                {{#if url}}
+                <p class="request_id" hidden>{{../_id}}</p>
+                <p class="message_id" hidden>{{_id}}</p>
+                <div><img src="{{url}}" alt="{{content}}"></div>
+                
+                {{else}}
+                <p class="content">{{content}}</p>
+                {{/if}}
 
-            <p class="message-date">sent {{sentdate}}</p>
+                <p class="message-date">sent {{sentdate}}</p>
+            </div>
+        {{/each}}
         </div>
-    {{/each}}
     </div>
 
     {{#unless (Equal status "Deleted")}} {{!So the comment function doesn't render on deleted requests}}

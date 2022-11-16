@@ -10,7 +10,8 @@
 }
 
 #home-container img {
-    height: 150px;
+    height: 60px;
+    margin: 50px 0 40px;
 }
 
 #home-container a {
@@ -21,15 +22,18 @@
 
 
 
-
 /* Request as host on view pending requests */
-.request-host {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 10px 30px;
+.pending-host-card {
     text-align: center;
-    margin-bottom: 10px;
-    width: min(400px, 100%);
+}
+
+.pending-host-card #title {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.pending-host-card form {
+    margin-top: 10px;
 }
 /* End of Request as host on view pending requests */
 
@@ -40,18 +44,46 @@
     display: flex;
     gap: 20px;
     width: min(100%, 1000px);
-    /* margin-inline: auto; */
 }
 
 .request-info, .thread-container {
-    border: 1px solid black;
     border-radius: 5px;
     padding: 10px;
+    max-height: 500px;
+    background-color: #DFE3E8;
 }
 
 .request-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 60%;
-    position: relative;
+}
+
+.request-info .request-info-top {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.request-info-top div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.request-info-top #title {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.request-info-btn {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.request-info-btn button {
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .request-images {
@@ -65,6 +97,7 @@
     max-width: 180px;
     height: 180px;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 .request-images div img, .thread-message img {
@@ -72,15 +105,11 @@
     cursor: zoom-in;
 }
 
-.quotation-input {
-    position: absolute;
-    bottom: 10px;
-}
-
 .quotation-input input {
     height: 30px;
     width: 200px;
     margin-right: 5px;
+    background-color: white;
 }
 
 /* Fullpage view of images */
@@ -123,21 +152,52 @@
 }
 
 .thread-container {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 40%;
 }
 
 .thread {
-    height: 300px;
+    height: 400px;
     overflow-y: auto;
     margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .thread-message {
-    border: 1px solid black;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    padding: 3px;
+    margin-bottom: 6px;
+    padding: 5px;
+    max-width: 260px;
+}
+
+.thread-message-you {
+    background-color: white;
+    border-radius: 10px 10px 0 10px;
+    margin-right: 0;
+    margin-left: auto;
+    align-self: flex-end;
+}
+
+.thread-message-them {
+    /* background-color: #9f9f9f; */
+    background-color: white;
+    border-radius: 10px 10px 10px 0;
+}
+
+/* .thread-message-them p {
+    color: white;
+} */
+
+.thread-message .sender {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.thread-message .content {
+    font-size: 14px;
 }
 
 .message-date {
@@ -153,17 +213,20 @@
     display: flex;
     justify-content: space-between;
     gap: 5px;
+    /* min-height: 32px; */
+    height: 32px;
+    /* max-height: 60px; */
 }
 
 .message-input textarea {
     padding: 5px;
     resize: none;
     width: 100%;
+    border-radius: 10px;
 }
 
 .message-input img {
     height: 34px;
-    border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
@@ -192,28 +255,66 @@
 
 
 /* Active requests as host (where you can add paid balances) */
-.active-host {
-    border: 1px solid black;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    padding: 10px;
+.active-host-card {
+    width: min(600px, 100%);
+}
+
+#active-host-card-bottom {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    gap: 30px;
-    width: 506px;
+    /* gap: 20px; */
+    /* width: min(506px, 100%); */
 }
 
-.active-host form input[type=number]{
+.active-host-card #title, .active-host-card #top-details {
+    text-align: center;
+}
+
+.active-host-card #title {
+    color: #651400;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.active-host-info {
+    margin-top: 10px;
+}
+
+#active-host-card-bottom form {
+    margin-top: 10px;
+}
+
+.active-host-info div {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.active-host-card form input[type=number]{
     height: 30px;
     width: 150px;
+    background-color: white;
 }
 
 @media only screen and (max-width: 535px) {
-    .active-host {
+    #active-host-card-bottom {
         flex-direction: column;
         align-items: center;
+    }
+
+    #active-host-card-bottom form {
         width: 100%;
+    }
+
+    #active-host-card-bottom form div {
+        display: flex;
+        gap: 8px;
+    }
+
+    .active-host-card form input[type=number]{
+        flex-grow: 1;
     }
 }
 /* End of Active requests as host */
@@ -222,17 +323,22 @@
 
 /* Request as client on view pending requests */
 .request-user {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
     text-align: center;
-    width: min(310px, 100%);
+}
+
+.request-user .title {
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .request-user a {
     display: inline-block;
-    margin: 5px 5px 0;
+    margin: 5px 5px 5px;
+}
+
+.request-user a, .request-user button {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 /* End of Request as client on view pending requests */
 
@@ -240,11 +346,22 @@
 
 /* Ongoing requests as client */
 .active-user {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    width: min(300px, 100%);
+    text-align: center;
+}
+
+.active-user .title {
+    font-weight: bold;
+    color: #651400;
+    text-transform: uppercase;
+}
+
+.active-user-details {
+    margin-top: 10px;
+}
+
+.active-user-details div {
+    display: flex;
+    justify-content: space-between;
 }
 /* End of Ongoing requests as client */
 
@@ -252,46 +369,38 @@
 
 /* Create/edit request */
 .create-edit-req {
-    position: relative;
+    width: min(500px, 100%);
 }
 
-.create-edit-req div {
-    text-align: left;
+.create-edit-req input[type='text'], .create-edit-req select {
+    width: min(280px, 100%);
+    margin-bottom: 10px;
 }
 
 .create-edit-req textarea {
     resize: none;
-    width: 500px;
+    width: 100%;
+    background-color: #DFE3E8;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
-.create-edit-req input[type=text], .create-edit-req select , .create-edit-req textarea{
-    border: 1px solid black;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    padding: 5px;
+.create-edit-btn {
+    text-align: right;
+    margin-top: 10px;
 }
 
-.create-edit-req button {
-    position: absolute;
-    right: 0;
+.create-edit-btn button {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.edit-button {
-    position: absolute;
-    bottom: 10px;
-}
 
-@media only screen and (max-width: 750px) {
-    .edit-button {
-        margin-top: 10px;
-        position: static;
-    }
-}
+.create-edit-req input[type='file'] {
+    height: auto;
+    padding: 10px;
 
-@media only screen and (max-width: 530px) {
-    .create-edit-req, .create-edit-req textarea {
-        width: 100%;
-    }
 }
 /* End of Create/edit request */
 
@@ -303,27 +412,51 @@
     margin-bottom: 30px;
 }
 
+#supplier-form #select {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+#supplier-form #enter {
+    text-align: right;
+}
+
 #supplier-form select{
     width: 230px;
 }
 
 #supplier-form button {
-    margin-top: 10px;
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-#supplier-details {
-    border: 1px solid black;
+#contact-title {
+    color: #651400;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.supplier-details {
     border-radius: 5px;
     padding: 10px 40px;
     text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 
-#copy-number {
-    margin-top: 10px;
+#supplier-number {
+    cursor: pointer;
+}
+
+#supplier-number:hover {
+    text-decoration: underline;
 }
 
 .exotic-supplier {
-    background-color: yellow;
+    background-color: yellow !important;
 }
 /* End of Supplier page */
 
@@ -431,3 +564,22 @@
     }
 }
 /* End of contact page */
+
+
+
+/* Notification pages */
+.notif-container {
+    text-align: center;
+}
+
+.notif-container .title {
+    font-weight: bold;
+    color: #651400;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.notif button {
+    margin-top: 10px;
+}
+/* ENd of notification pages */

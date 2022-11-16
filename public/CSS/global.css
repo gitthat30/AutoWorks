@@ -22,11 +22,11 @@ button {
     border-width: 0;
 }
 
-input {
+input, textarea, select {
     border-width: 0;
 }
 
-input[type="text"], input[type="password"], input[type="tel"], input[type="number"] {
+input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="file"] {
     height: 30px;
     padding: 0 10px;
     border-radius: 10px;
@@ -39,6 +39,16 @@ p, .download-btn {
 
 select {
     height: 30px;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #DFE3E8;
+}
+
+
+select:disabled {
+    background-color: #EAEAEA;
+    color: #9F9F9F;
+    opacity: 1;
 }
 
 .global-button {
@@ -48,6 +58,7 @@ select {
     color: white;
     cursor: pointer;
     font-size: 14px;
+    font-weight: bold;
 }
 
 .gray-button {
@@ -68,21 +79,44 @@ select {
     padding: 15px;
 }
 
-.logo-off-session {
-    display: block;
-    margin: 0 auto;
-    height: 150px;
+.background {
+    background-image: url('../IMAGES/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
 }
+
+.background-partial {
+    background-position: 0 -100px;
+}
+
+.card {
+    background-color: #DFE3E8;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    width: min(400px, 100%);
+}
+
 /* End of General styles */
 
 
 
 /* For On-session Header */
-.show-nav {
-    display: flex;
+header {
+    position: sticky;
+    top: 0;
+    background-color: white;
 }
 
-nav, nav div {
+nav, #nav-buttons {
     display: flex;
 }
 
@@ -92,6 +126,12 @@ nav {
     width: 100%;
 }
 
+#page-title {
+    text-align: center;
+    font-size: 24px;
+    padding: 20px 0;
+}
+
 #menu-icon, #close-icon {
     height: 26px;
     cursor: pointer;
@@ -99,27 +139,31 @@ nav {
 
 #menu-icon {
     margin-right: 30px;
+    margin-top: 30px;
 }
 
 #close-icon {
     align-self: flex-end;
 }
 
+nav #logo {
+    height: 50px;
+    margin-top: 30px;
+    margin-left: 30px;
+    padding-right: 40px;
+}
+
 @media only screen and (min-width: 1001px) {
-    nav div {
+    #nav-buttons {
         display: flex;
         gap: 20px;
         text-align: center;
         margin-right: 40px;
     }
     
-    nav div > *:not(:last-child) {
+    #nav-buttons > *:not(:last-child) {
         border-right: 2px solid #651400;
         padding-right: 20px;
-    }
-    
-    #logo {
-        height: 150px;
     }
     
     #menu-icon, #close-icon {
@@ -129,34 +173,30 @@ nav {
 
 
 @media only screen and (max-width: 1000px) {
-    nav {
-        position: relative;
-    }
-
-    nav div {
+    #nav-buttons {
         flex-direction: column;
-        display: none; /*CHANGE BACK TO none WHEN DONE STYLING*/
+        display: none;
         align-items: flex-start;
         gap: 30px;
-        position: absolute;
+        position: fixed;
         right: 0;
         top: 0;
         z-index: 1000;
 
         background-color: white;
-        border-left: 1px solid black;
         margin-right: 0;
         padding: 20px;
         height: 100vh;
         width: min(80%, 350px);
     }
 
-    nav div * {
+    #nav-buttons * {
         font-weight: bold;
     }
 
-    #logo {
-        height: 100px;
+    nav #logo {
+        height: 30px;
+        margin: 30px 0 0 20px;
     }
     
     #menu-icon, #close-icon {
@@ -174,7 +214,7 @@ nav {
 
 /* Footer */
 footer {
-    background-color: #9F9F9F;
+    background-color: white;
     display: flex;
     justify-content: space-between;
     padding: 0 100px;
@@ -187,8 +227,13 @@ footer p {
     font-size: 10px;
 }
 
+footer div {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
 #footer-est img {
-    height: 70px;
+    height: 22px;
 }
 
 #footer-est {
@@ -197,8 +242,6 @@ footer p {
 
 .footer-title {
     font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 20px;
 }
 
 @media only screen and (max-width: 650px) {
@@ -217,38 +260,6 @@ footer p {
     }
 }
 /* End of Footer */
-
-
-
-/* Title bars and navigation buttons */
-.title {
-    font-size: 22px;
-    margin: 30px auto;
-    text-align: center;
-}
-
-.nav-button-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    width: min(350px, 100%);
-    margin: 20px auto;
-}
-
-.title, .nav-button-container a {
-    background-color: #DFE3E8;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px 10px;
-}
-
-.nav-button-container a {
-    /* display: block; */
-    margin-bottom: 7px;
-    text-align: center;
-}
-/* End of Title bars and navigation buttons */
 
 
 

@@ -1,6 +1,19 @@
-<div class="active-user">
-    <p>Car: {{car}}, Job Type: {{type}}</p> <br>
-    <p>Quotation Amount: ₱{{price}}</p>
-    <p>Paid Balance: ₱{{paid}}</p>
-    <p>Outstanding Balance: ₱{{outstanding}}</p>
+<div class="active-user card">
+    <p class="title">{{car}}</p>
+    <p>Job Type: {{type}}</p>
+    
+    <div class="active-user-details">
+        <div>
+            <p>Quotation Amount:</p>
+            <p>₱{{price}}</p>
+        </div>
+        <div>
+            <p>Paid Balance:</p>
+            <p>₱{{paid}}</p>
+        </div>
+        <div>
+            <p>Outstanding Balance:</p>
+            <p>₱{{outstanding}}</p>
+        </div>
+    </div>
 </div>

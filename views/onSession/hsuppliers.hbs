@@ -1,36 +1,35 @@
-{{> wrapper_header}}
+{{> wrapper_header page_title='VIEW SUPPLIERS\' CONTACT'}}
 
 <div class="container">
-	<h1 class="title">View Suppliers' Contact</h1>
-	<form id="supplier-form" action="/viewsupplier" method="GET">
-		<select name="supply-type" id="select-supply-type" required>
-			<option value="" selected hidden>Select supply type...</option>
-			<option value="glass">Glass</option>
-			<option value="parts">Spare Parts</option>
-			<option value="paint">Paint</option>
-		</select> <br>
+	{{#if name}}
+	<p id="contact-title">CONTACT DETAILS</p>
+	<div class="supplier-details card">
+		<p><strong>{{name}}</strong></p>
+		<p id="supplier-number"><strong><i>{{number}}</i></strong></p>
+		<p>{{address}}</p>
+	</div>
+	{{/if}}
 
-		<select name="supplier" id="select-supplier" disabled required>
-			<option value="" selected hidden>Pick supplier...</option>
-		</select> <br>
+	<form id="supplier-form" action="/viewsupplier" method="GET">
+		<div id="select">
+			<select name="supply-type" id="select-supply-type" required>
+				<option value="" selected hidden>Supply type...</option>
+				<option value="glass">Glass</option>
+				<option value="parts">Spare Parts</option>
+				<option value="paint">Paint</option>
+			</select>
+
+			<select name="supplier" id="select-supplier" disabled required>
+				<option value="" selected hidden>Supplier...</option>
+			</select>
+		</div>
 
 		<input type="hidden" name="sname" id="sname">
 		<input type="hidden" name="snumber" id="snumber">
 		<input type="hidden" name="saddress" id="saddress">
 
-		<button type="submit" class="global-button">Enter</button>
+		<div id="enter"><button type="submit" class="global-button">FIND SUPPLIER</button></div>
 	</form>
-
-	{{#if name}}
-	<p>CONTACT DETAILS</p>
-	<div id="supplier-details">
-		<p>{{name}}</p>
-		<p id="supplier-number">{{number}}</p>
-		<p>{{address}}</p>
-
-		<button id="copy-number" class="global-button">Copy Number to Clipboard</button>
-	</div>
-	{{/if}}
 </div>
 
 

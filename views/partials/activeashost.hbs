@@ -1,20 +1,31 @@
-<div class="active-host">
-    <div class="active-host-info">
-        <p>Client: {{username}}</p>
-        <p>Contact No: {{contact}}</p>
-        <p>Car: {{car}}</p>
-        <p>Job Type: {{type}}</p> <br>
-        <p>Quotation Amount: ₱{{price}}</p>
-        <p>Paid Balance: ₱{{paid}}</p>
-        <p>Outstanding Balance: ₱{{outstanding}}</p>
-    </div>
+<div class="card active-host-card">
+    <p id="title">{{car}}</p>
+    <p id="top-details">Job Type: {{type}}, Client: {{username}}, Contact No: {{contact}}</p>
+    <div id="active-host-card-bottom">
+        <div class="active-host-info">
+            <div>
+                <p><strong>Quotation Amount</strong>:</p>
+                <p>₱{{price}}</p>
+            </div>
+            <div>
+                <p><strong>Paid Balance</strong>:</p>
+                <p>₱{{paid}}</p>
+            </div>
+            <div>
+                <p><strong>Outstanding Balance</strong>:</p>
+                <p>₱{{outstanding}}</p>
+            </div>
+        </div>
 
-    <form action="/addpaidbalance" method="POST">
-        <p>Add Paid Balance:</p>
-        <input type="number" min="0" max="{{outstanding}}" name="amount" placeholder="Enter amount here..." required>
-        <input type="hidden" name="reqid" value="{{_id}}">
-        <button type="submit" class="global-button">ENTER</button>
-    </form>
+        <form action="/addpaidbalance" method="POST">
+            <p><small>Add Paid Balance:</small></p>
+            <input type="hidden" name="reqid" value="{{_id}}">
+            <div>
+                <input type="number" min="0" max="{{outstanding}}" name="amount" placeholder="Enter amount here..." required>
+                <button type="submit" class="global-button">ENTER</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <!--

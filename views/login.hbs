@@ -8,9 +8,11 @@
 	</head>
 	<body>
 
+		<div class="background"></div>
+
 		<div class="container off-session-container">
 			<form action="/loginpost" method="POST" class="off-session-form">
-				<img src="IMAGES/AutoWork.png" alt="logo">
+				<img src="IMAGES/AutoWork.png" alt="logo" id="logo">
 				<p class="error-msg">{{error_msg}}</p>
 				<p class="off-session-title">LOGIN</p>
 				<input type="text" name="name" placeholder="USERNAME"><br>

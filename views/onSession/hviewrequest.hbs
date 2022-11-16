@@ -1,24 +1,33 @@
-{{> wrapper_header}}
+{{> wrapper_header page_title='VIEW REQUEST INFORMATION'}}
 
 <div class="container">
-    <h1 class="title">View Request Information</h1>
     <div class="view-request-container">
         <div class="request-info">
-            <p>Job Type: {{type}}, Date: {{date}}</p>
-            <p>Description: {{description}}</p>
-            <p>Car: {{car}}</p>
-            <p>Client: {{client_username}}</p>
-            <p>Contact No: {{contact}}</p>
-            <p>Request Price: {{price}}</p>
-            <div class="request-images">
+            <div class="request-info-top">
                 <div>
-                    <img src="{{image}}" alt="{{image_id}}">
+                    <p id="title">{{car}}</p>
+                    <p id="date">{{date}}</p>
+                </div>
+                <p><strong>Job Type</strong>: {{type}}</p>
+                <p><strong>Description</strong>: {{description}}</p>
+                <p><strong>Estimation</strong>:
+                    {{#if (Equal price -1)}}
+                    <i>Pending...</i>
+                    {{else}}
+                    ₱{{price}}
+                    {{/if}}
+                </p>
+                <div class="request-images">
+                    <div>
+                        <img src="{{image}}" alt="{{image_id}}">
+                    </div>
                 </div>
             </div>
+            
             {{#unless (Equal status "Deleted")}} {{!So the send button doesn't appear when viewing a deleted request}}
                 <form method = "post" action = "/sendquotation">
                     <input type="hidden" name="reqid" value= "{{_id}}">
-                    <div class="quotation-input">
+                    <div class="quotation-input request-info-btn">
                         <input type="number" name="price" placeholder="Input quotation..." min="0" required>
                         <button class="global-button" type = "submit">SEND</button>
                     </div>
