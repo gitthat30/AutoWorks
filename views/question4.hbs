@@ -15,11 +15,12 @@
 			$('#login-btn').click(function() {
 				console.log($("input[name=answer]").val())
 				console.log($("input[type=answercon]").val())
-				if($("input[name=answer]").val() != $("input[name=answercon]").val()) {
+				if(($("input[name=answer]").val() != $("input[name=answercon]").val()) || ($("input[name=answer]").val() == '' || $("input[name=answer]").val() == '')) {
 					$("p.error-msg").html("Make sure both fields are filled out and have the same answer!")
-					return false;
 				}
-				
+				else {
+					$(event.currentTarget).closest('body').find('.off-session-form').submit()
+				}
 			});
 		});
 
@@ -55,7 +56,7 @@
 				<input type="text" name="answer" placeholder="Enter Here" required><br>
 				<input type="text" name="answercon" placeholder="Confirm Answer" required><br>
 				<div>
-					<button type="submit" class="global-button" id="login-btn">SUBMIT</button>
+					<button type="button" class="global-button" id="login-btn">SUBMIT</button>
 				</div>
 			</form>
 		</div>
