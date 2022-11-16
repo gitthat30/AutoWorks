@@ -26,9 +26,12 @@
 			<input type="hidden" name="userid" value="{{userid}}">
 			<input type="hidden" name="method" value="OTP">
 		</form>
+		
+		<div class="background"></div>
+		
 		<div class="container off-session-container">
 			<form action="/" method="POST" class="off-session-form">
-				<img src="IMAGES/AutoWork.png" alt="logo">
+				<img src="IMAGES/AutoWork.png" alt="logo" id="logo">
 				<p class="error-msg">{{error_msg}}</p>
 				<a href="/login" class="off-session-back">< BACK</a><br><br>
 				<p class="off-session-title">Recover Password</p><br>

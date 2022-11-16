@@ -25,6 +25,8 @@
 
 		</script>
 
+		<div class="background"></div>
+		
 		<div class="container off-session-container">
 			<form action="/checkforquestion4" method="POST" class="off-session-form">
 				{{!Carrying values over}}
@@ -44,7 +46,7 @@
 					<input type="hidden" value="1" name="question3flag">
 				{{/if}}
 
-				<img src="IMAGES/AutoWork.png" alt="logo">
+				<img src="IMAGES/AutoWork.png" alt="logo" id="logo">
 				<p class="error-msg">{{error_msg}}</p>
 				<p class="off-session-title"><h2>SIGN-UP</h2></p><br>
 				Security Questions #3<br>

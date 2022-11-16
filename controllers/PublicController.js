@@ -45,10 +45,11 @@ const PublicController = {
                 else if (result.contact == newaccount.con)
                     req.flash('error_msg', 'This contact number is already registered');
                 else if (result.email == newaccount.email)
-                req.flash('error_msg', 'This email is already registered');
+                    ('error_msg', 'This email is already registered');
                 res.redirect('/register');
             }
             else {
+                console.log("RENDER")
                 res.render('register1', newaccount);
             }
         })  
