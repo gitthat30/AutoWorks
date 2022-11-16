@@ -5,6 +5,12 @@ var AccountSchema = new mongoose.Schema({
     password: String,
     contact: String,
     host: Boolean,
+    email: String,
+    questions: [{
+        question: String,
+        answer: String
+    }],
+    answer: String,
     notifications: [{
         message: String,
         read: Boolean,

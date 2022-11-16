@@ -6,6 +6,7 @@ const path = require('path');
 const account = require('../models/Accounts.js');
 const request = require('../models/Requests.js');
 const { totalmem } = require('os');
+const { localsAsTemplateData } = require('hbs');
 
 const PublicController = {
     getIndex: async function(req, res) {
@@ -29,33 +30,263 @@ const PublicController = {
     },
 
     registerUser: async function(req, res) {
-        var user = req.body.name;
-        var pass = req.body.pass;
-        var con = req.body.contact;
-
-        db.findOne(account, { $or: [{username: user}, {contact: con}]}, {}, (result) => {
+        newaccount = {
+            user: req.body.name,
+            pass: req.body.pass,
+            con: req.body.contact,
+            email: req.body.email
+        }
+        
+        db.findOne(account, { $or: [{username: newaccount.user}, {contact: newaccount.con}, {email: newaccount.email}]}, {}, (result) => {
             if (result) {
                 console.log(result);
-                if (result.username == user)
+                if (result.username == newaccount.user)
                     req.flash('error_msg', 'User already exists. Please login.');
-                else if (result.contact == con)
+                else if (result.contact == newaccount.con)
                     req.flash('error_msg', 'This contact number is already registered');
+                else if (result.email == newaccount.email)
+                req.flash('error_msg', 'This email is already registered');
                 res.redirect('/register');
             }
             else {
-                console.log(result);
-                newuser = {
-                    username: user,
-                    password: pass,
-                    contact: con,
-                    host: false,
-                }
-
-                account.create(newuser);
-                res.redirect('/');
+                res.render('register1', newaccount);
             }
-        })        
+        })  
     },
+
+    getQuestion1: async function(req, res) {
+        newaccount = {
+            user: req.body.user,
+            pass: req.body.pass,
+            con: req.body.con,
+            email: req.body.email
+        }
+
+        console.log(req.body.question)
+        console.log(newaccount)
+
+        
+        var questions = []
+        count = 0;
+        req.body.question.forEach(element => {
+            
+            var temp = {
+                question: String,
+                answer: String,
+                pos: Number
+            }
+            temp.question = element;
+            temp.pos = count;
+            questions.push(temp)
+            count++;
+        });
+        newaccount.questions = questions
+        res.render('question1', newaccount);
+    },
+
+    getQuestion2: async function(req, res) {
+        //Assign answer to first question, then render the next question
+        assign = 0;
+
+        newaccount = {
+            user: req.body.user,
+            pass: req.body.pass,
+            con: req.body.con,
+            email: req.body.email
+        }
+
+        questions = []
+        
+        count = 0;
+        req.body.questions.forEach(element => {
+            
+            var temp = {
+                question: String,
+                answer: String,
+                pos: Number
+            }
+            temp.question = element;
+            temp.pos = count;
+            if(temp.pos == assign)
+                temp.answer = req.body.answer
+            questions.push(temp)
+            count++;
+        });
+        count = 0;
+
+        newaccount.questions = questions
+        console.log(assign)
+        console.log(newaccount)
+        res.render('question2', newaccount);
+    },
+
+    getQuestion3: async function(req, res) {
+       //Assign answer to second question, then render the next question
+        assign = 1;
+        console.log(assign)
+        console.log(req.body.answers)
+        newaccount = {
+            user: req.body.user,
+            pass: req.body.pass,
+            con: req.body.con,
+            email: req.body.email
+        }
+
+        questions = []
+        
+        count = 0;
+        req.body.questions.forEach(element => {
+            
+            var temp = {
+                question: String,
+                answer: String,
+                pos: Number
+            }
+            temp.question = element;
+            temp.pos = count;
+            if(temp.pos == assign)
+                temp.answer = req.body.answer
+            questions.push(temp)
+            count++;
+        });
+        count = 0;
+        req.body.answers.forEach(element => {
+            if(count != assign)
+                questions[count].answer = element;
+            count++;
+        });
+        newaccount.questions = questions
+        console.log(newaccount)
+        res.render('question3', newaccount);
+    },
+
+    checkforQuestion4: async function(req, res) {
+        //Assign answer to third question, then render the next question (if there is one)
+         assign = 2;
+         console.log("Testinagina")
+         console.log(assign)
+         newaccount = {
+            username: req.body.user,
+            password: req.body.pass,
+            contact: req.body.con,
+            email: req.body.email
+         }
+ 
+         questions = []
+         
+         count = 0;
+         req.body.questions.forEach(element => {
+             
+             var temp = {
+                 question: String,
+                 answer: String,
+                 pos: Number
+             }
+             temp.question = element;
+             temp.pos = count;
+             if(temp.pos == assign)
+                 temp.answer = req.body.answer
+             questions.push(temp)
+             count++;
+         });
+         count = 0;
+         req.body.answers.forEach(element => {
+             if(count != assign)
+                 questions[count].answer = element;
+             count++;
+         });
+         newaccount.questions = questions
+         console.log("Testinagina")
+         console.log(newaccount)
+         if(req.body.question3flag)
+            res.render('question4', newaccount);
+         else {
+            account.create(newaccount);
+            res.redirect('/');
+         }
+     },
+
+     registerUser2: async function(req, res) {
+        //Assign answer to third question, then render the next question (if there is one)
+        assign = 3;
+        console.log("Testinagina")
+        console.log(assign)
+        newaccount = {
+           username: req.body.user,
+           password: req.body.pass,
+           contact: req.body.con,
+           email: req.body.email
+        }
+
+        questions = []
+        
+        count = 0;
+        req.body.questions.forEach(element => {
+            
+            var temp = {
+                question: String,
+                answer: String,
+                pos: Number
+            }
+            temp.question = element;
+            temp.pos = count;
+            if(temp.pos == assign)
+                temp.answer = req.body.answer
+            questions.push(temp)
+            count++;
+        });
+        count = 0;
+        req.body.answers.forEach(element => {
+            if(count != assign)
+                questions[count].answer = element;
+            count++;
+        });
+        newaccount.questions = questions
+        console.log("Testinagina")
+        console.log(newaccount)  
+        account.create(newaccount)    
+        res.redirect('/');
+    },
+    /* 
+    registerUser2: async function(req, res) {
+        //Assign answer to third question, then render the next question (if there is one)
+         assign = 2;
+         console.log("Testinagina")
+         console.log(assign)
+         newaccount = {
+            username: req.body.user,
+            password: req.body.pass,
+            contact: req.body.con,
+            email: req.body.email
+         }
+ 
+         questions = []
+         
+         count = 0;
+         req.body.questions.forEach(element => {
+             
+             var temp = {
+                 question: String,
+                 answer: String,
+                 pos: Number
+             }
+             temp.question = element;
+             temp.pos = count;
+             if(temp.pos == assign)
+                 temp.answer = req.body.answer
+             questions.push(temp)
+             count++;
+         });
+         count = 0;
+         req.body.answers.forEach(element => {
+             if(count != assign)
+                 questions[count].answer = element;
+             count++;
+         });
+         newaccount.questions = questions
+         console.log("Testinagina")
+         console.log(newaccount)       
+    },*/
 
     getLogin: async function(req, res) {
         res.render('login');
@@ -94,6 +325,243 @@ const PublicController = {
 
     getRegister: async function(req, res) {
         res.render('register');
+    },
+
+    forgotPassword: async function(req, res) {
+        res.render('forgotpass');
+    },
+
+    chooseRecovery: async function(req, res) {
+        db.findOne(account, { $or: [{username: req.body.user}, {email: req.body.user}]}, {}, (result) => {
+            console.log(result)
+            if (!result) {
+                req.flash('error_msg2', 'Please enter a valid username or email!');
+                res.redirect('/forgot')
+            }
+            else {
+                res.render('chooserecovery', {userid: result._id})
+            }
+        });
+    },
+
+    getAnswer1: async function(req, res) {
+        //Answer question 1
+        db.findOne(account, {_id: req.body.userid}, {}, (result) => {
+            console.log(result) //No need to check with an if statement cus this is inaccessible without having a valid user (I THINK)
+            
+            res.render('answer1', result)
+        });
+    },
+
+    getAnswer2: async function(req, res) {
+        //Check Question 1 -> Add Boolean if Correct -> Render Question 2 Regardless
+        assign = 0;
+        
+        if(req.body.answers[assign] == req.body.answer)
+            correct = true
+        else
+            correct = false
+
+        corrects = []
+        questions = []
+
+        count = 0;
+        req.body.questions.forEach(element => {
+            var temp = {
+                question: String,
+                answer: String,
+                correct: Boolean
+            }
+            temp.question = element;
+            questions.push(temp)
+            count++;
+        });
+        
+        count = 0;
+        req.body.answers.forEach(element => {
+            questions[count].answer = element;
+            count++;
+        });
+        
+        //No corrects to count yet (First Correct)
+        questions[assign].correct = correct;
+
+        vars = {
+            userid: req.body.userid,
+            questions: questions
+        }
+
+        console.log(vars)
+        res.render('answer2', vars)
+    },
+
+    getAnswer3: async function(req, res) {
+        //Check Question 2 -> Add Boolean if Correct -> Render Question 3 Regardless
+        assign = 1;
+        if(req.body.answers[assign] == req.body.answer)
+            correct = true
+        else
+            correct = false
+
+        corrects = []
+        questions = []
+
+        count = 0;
+        req.body.questions.forEach(element => {
+            var temp = {
+                question: String,
+                answer: String,
+                correct: Boolean
+            }
+            temp.question = element;
+            questions.push(temp)
+            count++;
+        });
+        
+        count = 0;
+        req.body.answers.forEach(element => {
+            questions[count].answer = element;
+            count++;
+        });
+        
+        //Count Corrects
+        count = 0;
+        req.body.corrects.forEach(element => {
+            questions[count].correct = element;
+            count++;
+        });
+        questions[assign].correct = correct;
+
+        vars = {
+            userid: req.body.userid,
+            questions: questions
+        }
+
+        console.log(vars)
+        res.render('answer3', vars)
+    },
+
+    getAnswer4: async function(req, res) {
+        //Check Question 2 -> Add Boolean if Correct -> Render Question 3 Regardless
+        assign = 2;
+        if(req.body.answers[assign] == req.body.answer)
+            correct = true
+        else
+            correct = false
+
+        corrects = []
+        questions = []
+
+        count = 0;
+        req.body.questions.forEach(element => {
+            var temp = {
+                question: String,
+                answer: String,
+                correct: Boolean
+            }
+            temp.question = element;
+            questions.push(temp)
+            count++;
+        });
+        
+        count = 0;
+        req.body.answers.forEach(element => {
+            questions[count].answer = element;
+            count++;
+        });
+        
+        //Count Corrects
+        count = 0;
+        req.body.corrects.forEach(element => {
+            questions[count].correct = element;
+            count++;
+        });
+        questions[assign].correct = correct;
+
+        vars = {
+            userid: req.body.userid,
+            questions: questions
+        }
+
+        console.log("3")
+        console.log(vars)
+        if(vars.questions[3])
+            res.render('answer4', vars);
+        else {
+            passed = true;
+            vars.questions.forEach(element => {
+                if(!element.correct)
+                    passed = false;
+            });
+            if(passed) {
+                db.findOne(account, {_id: req.body.userid}, {}, (result) => {
+                    result.passed = passed;
+                    
+                    res.render('passworddisplay', result)
+                })    
+            }
+            else
+                res.render('passworddisplay', passed)
+        }
+    },
+
+    finishAnswer4: async function(req, res) {
+        //Check Question 2 -> Add Boolean if Correct -> Render Question 3 Regardless
+        assign = 3;
+        if(req.body.answers[assign] == req.body.answer)
+            correct = true
+        else
+            correct = false
+
+        corrects = []
+        questions = []
+
+        count = 0;
+        req.body.questions.forEach(element => {
+            var temp = {
+                question: String,
+                answer: String,
+                correct: Boolean
+            }
+            temp.question = element;
+            questions.push(temp)
+            count++;
+        });
+        
+        count = 0;
+        req.body.answers.forEach(element => {
+            questions[count].answer = element;
+            count++;
+        });
+        
+        //Count Corrects
+        count = 0;
+        req.body.corrects.forEach(element => {
+            questions[count].correct = element;
+            count++;
+        });
+        questions[assign].correct = correct;
+
+        vars = {
+            userid: req.body.userid,
+            questions: questions
+        }
+
+        
+        passed = true;
+        vars.questions.forEach(element => {
+            if(!element.correct)
+                passed = false;
+        });
+        if(passed) {
+            db.findOne(account, {_id: req.body.userid}, {}, (result) => {
+                result.passed = passed;
+                
+                res.render('passworddisplay', result)
+            })    
+        }
+        else
+            res.render('passworddisplay', passed)
     },
 }
 

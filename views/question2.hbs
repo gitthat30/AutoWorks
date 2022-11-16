@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>AutoWorks</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/global.css">
+		<link rel="stylesheet" href="CSS/offSession.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+		$(document).ready(function () {
+			console.log("{{user}}")
+			console.log($("input[type=checkbox]:checked").length)
+			$('#login-btn').click(function() {
+				console.log($("input[name=answer]").val())
+				console.log($("input[type=answercon]").val())
+				if($("input[name=answer]").val() != $("input[name=answercon]").val()) {
+					$("p.error-msg").html("Make sure both fields are filled out and have the same answer!")
+					return false;
+				}
+				
+			});
+		});
+
+		</script>
+
+		<div class="container off-session-container">
+			<form action="/question3" method="POST" class="off-session-form">
+				{{!Carrying values over}}
+				<input type="hidden" value="{{user}}" name="user">
+				<input type="hidden" value="{{pass}}" name="pass">
+				<input type="hidden" value="{{con}}" name="con">
+				<input type="hidden" value="{{email}}" name="email">
+				
+				{{!Questions}}
+				<input type="hidden" value="{{questions.0.question}}" name="questions[]">
+				<input type="hidden" value="{{questions.1.question}}" name="questions[]">
+				<input type="hidden" value="{{questions.2.question}}" name="questions[]">
+				<input type="hidden" value="{{questions.0.answer}}" name="answers[]">
+				{{#if questions.3.question}}
+					<input type="hidden" value="{{questions.3.question}}" name="questions[]">
+					<input type="hidden" value="1" name="question3flag">
+				{{/if}}
+
+				
+				<img src="IMAGES/AutoWork.png" alt="logo">
+				<p class="error-msg">{{error_msg}}</p>
+				<p class="off-session-title"><h2>SIGN-UP</h2></p><br>
+				Security Questions #2<br>
+				{{questions.1.question}}<br><br>
+				<input type="text" name="answer" placeholder="Enter Here" required><br>
+				<input type="text" name="answercon" placeholder="Confirm Answer" required><br>
+				<div>
+					<button type="submit" class="global-button" id="login-btn">SUBMIT</button>
+				</div>
+			</form>
+		</div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <script src="JS/script.js"></script>
+    </body>
+</html>

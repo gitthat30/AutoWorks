@@ -190,19 +190,11 @@ const HostController = {
                     reqid: result._id    
                 }
                 
-                if(req.session.user != result.userid) { //If someone other than user declines, push it into the notifications array of user
-                    db.updateOne(account, {_id: result.userid}, {$push: {notifications: notification}}, function(result) {
-                        console.log(result)
-                        res.redirect("/hviewallpending");
-                    });
-                }
-                else { //If the user declines his own request, notify HOST
-                    console.log("NOTIFYING HOST")
-                    db.updateOne(account, {username: "HOST"}, {$push: {notifications: notification}}, function(result) {
-                        console.log(result)
-                        res.redirect("/hviewallpending");
-                    });
-                }
+                 //If someone other than user declines, push it into the notifications array of user
+                db.updateOne(account, {_id: result.userid}, {$push: {notifications: notification}}, function(result) {
+                    console.log(result)
+                    res.redirect("/hviewallpending");
+                });
             });
             
         });
