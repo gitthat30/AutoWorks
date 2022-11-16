@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>AutoWorks</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="CSS/global.css">
+		<link rel="stylesheet" href="CSS/offSession.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+		$(document).ready(function () {
+			console.log("{{user}}")
+			console.log($("input[type=checkbox]:checked").length)
+			$('#subbtn').click(function() {
+				console.log($("input[type=checkbox]:checked").length)
+				checked = $("input[type=checkbox]:checked").length;
+
+				if(checked < 3) {
+					alert("You must check at least three checkboxes.");
+					return false;
+				}
+
+			});
+		});
+
+		</script>
+		
+		<div class="container off-session-container">
+			<form action="/question1" method="POST" class="off-session-form">
+				{{!Carrying values over}}
+				<input type="hidden" value="{{user}}" name="user">
+				<input type="hidden" value="{{pass}}" name="pass">
+				<input type="hidden" value="{{con}}" name="con">
+				<input type="hidden" value="{{email}}" name="email">
+				
+
+				<img src="IMAGES/AutoWork.png" alt="logo"> <br>
+				<a href="/login" class="off-session-back">< BACK</a>
+				<p class="error-msg">{{error_msg}}</p>
+				<p class="off-session-title"><h2>SIGN-UP</h2></p><br>
+				(Security Questions)<br>
+				Choose at least <b>3 questions</b> for password recovery:<br><br>
+				<left> {{!avoid class so checkbox will space properly}}
+				<input class="avoid" type="checkbox" id="question1" name="question[]" value="What is your favorite number">
+				<label for="question1">What is your favorite number?</label><br><br>
+				<input class="avoid" type="checkbox" id="question2" name="question[]" value="What is your mom's maiden name?">
+				<label for="question2">What is your mom's maiden name?</label><br><br>
+				<input class="avoid" type="checkbox" id="question3" name="question[]" value="What is your favorite food?">
+				<label for="question3">What is your favorite food?</label><br><br>
+				<input class="avoid" type="checkbox" id="question4" name="question[]" value="What is the name of your first pet?">
+				<label for="question4">What is the name of your first pet?</label><br><br>
+				</left>
+				<div>
+					<button type="submit" class="global-button" id="subbtn">SUBMIT</button>
+				</div>
+			</form>
+		</div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <script src="JS/script.js"></script>
+    </body>
+</html>

@@ -126,8 +126,8 @@ const UserController = {
                                         res.redirect(307, '/uviewpending');
                                 });
                             }
-                            else { //If the user places a message on his own request, notify HOST
-                                db.updateOne(account, {username: "HOST"}, {$push: {notifications: notification}}, function(result) {
+                            else { //If the user places a message on his own request, notify HOST accounts
+                                db.updateOne(account, {host: true}, {$push: {notifications: notification}}, function(result) {
                                     console.log(result)
                                     if(req.session.host)
                                         res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
@@ -161,7 +161,15 @@ const UserController = {
     },
 
     getUserRequestCreation: async function(req, res) {
-        res.render('./onSession/ucreaterequest', {isHost: false, username: req.session.name});
+        notifcount = 0;
+        db.findOne(account, {_id: req.session.user}, {}, function(result) {
+            console.log(typeof result.notifications)
+            result.notifications.forEach(n => {
+                if(!n.read)
+                    notifcount++;
+            })
+            res.render('./onSession/ucreaterequest', {isHost: false, username: req.session.name, notifcount});
+        })
     },
 
     submitRequest: async function(req, res) {
@@ -208,7 +216,20 @@ const UserController = {
                             nrequest.image_id = image.public_id;
                             nrequest.image = image.url; 
                             request.create(nrequest, (error,request) => {
-                                res.redirect('/uviewallpending');
+                                var notification = { //Create notification for a sent message
+                                    message: "User \"" + req.session.name + "\" submited request \"" + request.description + "\"",
+                                    read: false,
+                                    sentdate: today,
+                                    reqid: request._id    
+                                }
+                                
+                                
+                                //If the user declines his own request, notify HOST accounts
+                                console.log("NOTIFYING HOST")
+                                db.updateOne(account, {host: true}, {$push: {notifications: notification}}, function(result) {
+                                    console.log(result)
+                                    res.redirect("/uviewallpending");
+                                });
                             })
                         })
                         .catch(function (err) {
@@ -228,10 +249,19 @@ const UserController = {
         var requests = await request.find({userid: req.session.user, status: 'Pending'});
         console.log("requests")
         console.log(requests);
-        res.render('./onSession/uviewpending', {req: requests.reverse(), isHost: false, username: req.session.name});
+        notifcount = 0;
+        db.findOne(account, {_id: req.session.user}, {}, function(result) {
+            console.log(typeof result.notifications)
+            result.notifications.forEach(n => {
+                if(!n.read)
+                    notifcount++;
+            })
+            res.render('./onSession/uviewpending', {req: requests.reverse(), isHost: false, username: req.session.name, notifcount});
+        })
     },
 
     renderUserRequest: async function(req, res) {
+        notifcount = 0;
         db.findOne(request, {_id: req.body.reqid}, {}, (result) => {
             if (result) {
                 var response = {
@@ -246,9 +276,17 @@ const UserController = {
                     isHost: false,
                     username: req.session.name,
                     _id: req.body.reqid,
-                    messages: result.messages
+                    messages: result.messages,
+                    notifcount: notifcount
                 };
-                res.render('./onSession/uviewrequest', response)
+                db.findOne(account, {_id: req.session.user}, {}, function(result) {
+                    console.log(typeof result.notifications)
+                    result.notifications.forEach(n => {
+                        if(!n.read)
+                            response.notifcount++;
+                    })
+                    res.render('./onSession/uviewrequest', response);
+                })
             }
             else {
                 console.log("failed");
@@ -291,29 +329,31 @@ const UserController = {
                     reqid: result._id    
                 }
                 
-                if(req.session.user != result.userid) { //If someone other than user declines, push it into the notifications array of user
-                    db.updateOne(account, {_id: result.userid}, {$push: {notifications: notification}}, function(result) {
-                        console.log(result)
-                        res.redirect("/uviewallpending");
-                    });
-                }
-                else { //If the user declines his own request, notify HOST
-                    console.log("NOTIFYING HOST")
-                    db.updateOne(account, {username: "HOST"}, {$push: {notifications: notification}}, function(result) {
-                        console.log(result)
-                        res.redirect("/uviewallpending");
-                    });
-                }
+                
+                //If the user declines his own request, notify HOST accounts
+                console.log("NOTIFYING HOST")
+                db.updateOne(account, {host: true}, {$push: {notifications: notification}}, function(result) {
+                    console.log(result)
+                    res.redirect("/uviewallpending");
+                });
+                
             });
             
         });
     },
 
     getEditRequest: function(req, res) {
-        console.log(req.body.reqid);
+        notifcount = 0;
         db.findOne(request, {_id: req.body.reqid}, {}, (result) => {
             if (result) {
-                res.render("./onSession/ueditrequest", {image: result.image, car: result.car, type: result.type, description: result.description, ogid:result._id, isHost: false, username: req.session.name});
+                db.findOne(account, {_id: req.session.user}, {}, function(result) {
+                    console.log(typeof result.notifications)
+                    result.notifications.forEach(n => {
+                        if(!n.read)
+                            notifcount++;
+                    })
+                    res.render("./onSession/ueditrequest", {image: result.image, car: result.car, type: result.type, description: result.description, ogid:req.body.reqid, isHost: false, username: req.session.name, notifcount});
+                })
             }
             else {
                 console.log("not found")
@@ -328,11 +368,25 @@ const UserController = {
             description: req.body.rdesc,
         };
 
+        var notification = { //Create notification for edited request
+            message: "User \"" + req.session.name + "\" edited order \"" + updatedReq.description + "\"",
+            read: false,
+            sentdate: today,
+            reqid: req.body.ogid    
+        }
+
         // If no new image
         if(!req.files) {
+            console.log("ogid")
+            console.log(req.body.ogid)
+            console.log(updatedReq)
             console.log("Updating with no new image");
             db.updateOne(request, {_id: req.body.ogid}, updatedReq, (result) => {
-                res.redirect('/uviewallpending');
+                //If the user edits his request, notify HOST accounts
+                console.log("NOTIFYING HOST")
+                db.updateOne(account, {host: true}, {$push: {notifications: notification}}, function(result) {
+                    res.redirect("/uviewallpending");
+                });
             });
         }
         // If have new image
@@ -361,7 +415,9 @@ const UserController = {
                             updatedReq.image = image.url; 
                             
                             db.updateOne(request, {_id: req.body.ogid}, updatedReq, (result) => {
-                                res.redirect('/uviewallpending');
+                                db.updateOne(account, {host: true}, {$push: {notifications: notification}}, function(result) {
+                                    res.redirect("/uviewallpending");
+                                });
                             });
                         })
                         .catch(function (err) {
@@ -380,11 +436,20 @@ const UserController = {
     },
 
     getUserAcceptedRequests: async function(req, res) {
+        notifcount = 0;
         var requests = await request.find({userid: req.session.user, status: 'Accepted'});
-        res.render('./onSession/uviewongoing', {req: requests, isHost: false, username: req.session.name}); 
+        db.findOne(account, {_id: req.session.user}, {}, function(result) {
+            console.log(typeof result.notifications)
+            result.notifications.forEach(n => {
+                if(!n.read)
+                    notifcount++;
+            })
+            res.render('./onSession/uviewongoing', {req: requests, isHost: false, username: req.session.name, notifcount}); 
+        })
     },
 
     viewNotifications: async function(req, res) {
+        notifcount = 0;
         db.findOne(account, {_id: req.session.user}, {}, function(result) {
             read = [];
             unread = [];
@@ -402,7 +467,15 @@ const UserController = {
     },
 
     viewContact: function(req, res) {
-        res.render('./onSession/ucontact', {isHost: false, username: req.session.name});
+        notifcount = 0;
+        db.findOne(account, {_id: req.session.user}, {}, function(result) {
+            console.log(typeof result.notifications)
+            result.notifications.forEach(n => {
+                if(!n.read)
+                    notifcount++;
+            })
+            res.render('./onSession/ucontact', {isHost: false, username: req.session.name, notifcount});
+        })
     },
 }
 

@@ -28,12 +28,12 @@
     font-size: 18px;
 }
 
-.off-session-form input {
+.off-session-form input:not(.avoid) {
     width: 100%;
     margin-bottom: 10px;
 }
 
-.off-session-form div {
+.off-session-form div:not(.avoid) {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -41,6 +41,16 @@
 
 .off-session-form div a, .off-session-form div button {
     padding: 8px 20px;
+}
+
+.off-session-form button.recovery-btn{
+    border-radius: 5px;
+    padding: 5px 50px;
+    background-color: #651400;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    Margin: 0 auto;
 }
 
 #login-btn {

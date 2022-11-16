@@ -6,11 +6,28 @@ const PublicController = require('../controllers/PublicController.js');
 const UserController = require('../controllers/UserController.js');
 const HostController = require('../controllers/HostController.js');
 
+// [PUBLIC] Account Creation
 app.get('/', isPublic, PublicController.getIndex);
 app.post('/registeruser', isPublic, PublicController.registerUser);
+app.post('/question1', isPublic, PublicController.getQuestion1);
+app.post('/question2', isPublic, PublicController.getQuestion2);
+app.post('/question3', isPublic, PublicController.getQuestion3);
+app.post('/checkforquestion4', isPublic, PublicController.checkforQuestion4);
+app.post('/finish', isPublic, PublicController.registerUser2);
 app.get('/login', isPublic, PublicController.getLogin);
 app.post('/loginpost', isPublic, PublicController.loginUser);
 app.get('/register', isPublic, PublicController.getRegister);
+
+// [PUBLIC] Account Recovery
+app.get('/forgot', isPublic, PublicController.forgotPassword);
+app.post('/chooserecovery', isPublic, PublicController.chooseRecovery);
+
+// [PUBLIC] Security Questions
+app.post('/answer1', isPublic, PublicController.getAnswer1);
+app.post('/answer2', isPublic, PublicController.getAnswer2);
+app.post('/answer3', isPublic, PublicController.getAnswer3);
+app.post('/checkanswer4', isPublic, PublicController.getAnswer4);
+app.post('/finishanswer4', isPublic, PublicController.finishAnswer4);
 
 app.get('/home', isPrivate, UserController.getUser);
 app.get('/hhome', isHost, HostController.getHost);
