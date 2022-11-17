@@ -31,12 +31,14 @@ const PublicController = {
 
     registerUser: async function(req, res) {
         newaccount = {
+            fname: req.body.fname,
+            lname: req.body.lname,
             user: req.body.name,
             pass: req.body.pass,
             con: req.body.contact,
             email: req.body.email
         }
-        
+        console.log(req.body)
         db.findOne(account, { $or: [{username: newaccount.user}, {contact: newaccount.con}, {email: newaccount.email}]}, {}, (result) => {
             if (result) {
                 console.log(result);
@@ -57,6 +59,8 @@ const PublicController = {
 
     getQuestion1: async function(req, res) {
         newaccount = {
+            fname: req.body.fname,
+            lname: req.body.lname,
             user: req.body.user,
             pass: req.body.pass,
             con: req.body.con,
@@ -90,6 +94,8 @@ const PublicController = {
         assign = 0;
 
         newaccount = {
+            fname: req.body.fname,
+            lname: req.body.lname,
             user: req.body.user,
             pass: req.body.pass,
             con: req.body.con,
@@ -127,6 +133,8 @@ const PublicController = {
         console.log(assign)
         console.log(req.body.answers)
         newaccount = {
+            fname: req.body.fname,
+            lname: req.body.lname,
             user: req.body.user,
             pass: req.body.pass,
             con: req.body.con,
@@ -164,9 +172,9 @@ const PublicController = {
     checkforQuestion4: async function(req, res) {
         //Assign answer to third question, then render the next question (if there is one)
          assign = 2;
-         console.log("Testinagina")
-         console.log(assign)
          newaccount = {
+            fname: req.body.fname,
+            lname: req.body.lname,
             username: req.body.user,
             password: req.body.pass,
             contact: req.body.con,
@@ -213,6 +221,8 @@ const PublicController = {
         console.log("Testinagina")
         console.log(assign)
         newaccount = {
+           fname: req.body.fname,
+           lname: req.body.lname,
            username: req.body.user,
            password: req.body.pass,
            contact: req.body.con,

@@ -63,6 +63,12 @@ const HostController = {
     },
 
     sendQuotation: async function(req, res) {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        today = yyyy+'-'+mm+'-'+dd;
+
         console.log(req.body.reqid)
         db.updateOne(request, {_id: req.body.reqid}, {price: req.body.price, outstanding: req.body.price}, (result) => {
             db.findOne(request, {_id: req.body.reqid}, {}, async (result) => {
@@ -81,8 +87,22 @@ const HostController = {
                         username: req.session.name,
                         _id: req.body.reqid,
                         messages: result.messages
-                    };        
-                    res.render('./onSession/hviewrequest', response) 
+                    };
+                    
+                    var notification = { //Create notification for a sent message
+                        message: "User \"" + req.session.name + "\" sent quotation on order on car: \"" + result.car + "\"",
+                        read: false,
+                        sentdate: today,
+                        reqid: result._id    
+                    }
+                    
+                     //Notify user that order has quotation
+                    db.updateOne(account, {_id: result.userid}, {$push: {notifications: notification}}, function(result) {
+                        console.log(result)
+                        res.render('./onSession/hviewrequest', response) 
+                    });
+
+                    
                 }
                 else {
                     console.log("failed");
@@ -184,7 +204,7 @@ const HostController = {
             db.findOne(request, {_id: req.query.reqid}, {}, function(result) { //Find the request in DB to get vars
                 console.log(result)
                 var notification = { //Create notification for a sent message
-                    message: "User \"" + req.session.name + "\" declined order \"" + result.description + "\"",
+                    message: "User \"" + req.session.name + "\" declined order on car: \"" + result.car + "\"",
                     read: false,
                     sentdate: today,
                     reqid: result._id    

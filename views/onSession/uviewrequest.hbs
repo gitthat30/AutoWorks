@@ -40,6 +40,12 @@
                         </form>
                     </div>
                 {{/unless}}
+            {{else}}
+                {{#unless (Equal status "Accepted")}} {{!So this doesn't show on an accepted/deleted request}}
+                    {{#unless (Equal status "Deleted")}}
+                Quotation has been sent! <br>Please go to the 'Pending for Confirmations' page to accept or decline!
+                    {{/unless}}
+                {{/unless}}
             {{/if}}
         </div>
 

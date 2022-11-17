@@ -31,6 +31,8 @@
 		<div class="container off-session-container">
 			<form action="/finish" method="POST" class="off-session-form">
 				{{!Carrying values over}}
+				<input type="hidden" value="{{fname}}" name="fname">
+				<input type="hidden" value="{{lname}}" name="lname">
 				<input type="hidden" value="{{username}}" name="user">
 				<input type="hidden" value="{{password}}" name="pass">
 				<input type="hidden" value="{{contact}}" name="con">

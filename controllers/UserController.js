@@ -62,7 +62,7 @@ const UserController = {
                 //Start of Notification Code
                 db.findOne(request, {_id: req.body.reqid}, {}, function(result) { //Find the request in DB to get vars
                     var notification = { //Create notification for a sent message
-                        message: "You received a message from \"" + req.session.name +"\" on order \"" + result.description +"\"",
+                        message: "You received a message from \"" + req.session.name +"\" on order on car: \"" + result.car + "\"",
                         read: false,
                         sentdate: today,
                         reqid: result._id    
@@ -112,7 +112,7 @@ const UserController = {
                     db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function() {
                         db.findOne(request, {_id: req.body.reqid}, {}, function(result) {
                             var notification = {
-                                message: "You received a message on your order \"" + result.description +"\"",
+                                message: "You received a message on your order on car: \"" + result.car + "\"",
                                 read: false,
                                 sentdate: today,
                                 reqid: result._id    
@@ -217,7 +217,7 @@ const UserController = {
                             nrequest.image = image.url; 
                             request.create(nrequest, (error,request) => {
                                 var notification = { //Create notification for a sent message
-                                    message: "User \"" + req.session.name + "\" submitted request \"" + request.description + "\"",
+                                    message: "User \"" + req.session.name + "\" submitted request order on car: \"" + nrequest.car + "\"",
                                     read: false,
                                     sentdate: today,
                                     reqid: request._id    
@@ -295,11 +295,34 @@ const UserController = {
     },
 
     acceptRequest: function(req, res) {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        today = yyyy+'-'+mm+'-'+dd;
+
         db.findOne(request, {_id: req.query.reqid}, {}, (result) => {
             // If request has been quoted already
             if (result.price != -1) {
                 db.updateOne(request, {_id: req.query.reqid}, {status: "Accepted"}, (result) => {
-                    res.redirect('/uviewallpending');
+                    db.findOne(request, {_id: req.query.reqid}, {}, function(result) { //Find the request in DB to get vars
+                        console.log(result)
+                        var notification = { //Create notification for a sent message
+                            message: "User \"" + req.session.name + "\" accepted order on car: \"" + result.car + "\"",
+                            read: false,
+                            sentdate: today,
+                            reqid: result._id    
+                        }
+                        
+                        
+                        //If the user declines his own request, notify HOST accounts
+                        console.log("NOTIFYING HOST")
+                        db.updateOne(account, {host: true}, {$push: {notifications: notification}}, function(result) {
+                            console.log(result)
+                            res.redirect("/uviewallpending");
+                        });
+                        
+                    });
                 });
             }
             else {
@@ -323,7 +346,7 @@ const UserController = {
             db.findOne(request, {_id: req.query.reqid}, {}, function(result) { //Find the request in DB to get vars
                 console.log(result)
                 var notification = { //Create notification for a sent message
-                    message: "User \"" + req.session.name + "\" declined order \"" + result.description + "\"",
+                    message: "User \"" + req.session.name + "\" declined order on car: \"" + result.car + "\"",
                     read: false,
                     sentdate: today,
                     reqid: result._id    
@@ -368,7 +391,7 @@ const UserController = {
         };
 
         var notification = { //Create notification for edited request
-            message: "User \"" + req.session.name + "\" edited order \"" + updatedReq.description + "\"",
+            message: "User \"" + req.session.name + "\" edited order on car: \"" + updatedReq.car + "\"",
             read: false,
             sentdate: today,
             reqid: req.body.ogid    
