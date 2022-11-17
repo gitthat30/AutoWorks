@@ -13,7 +13,7 @@
 			$(event.currentTarget).closest('body').find('.security').submit();
 		}
 		function OTP() {
-			$(event.currentTarget).closest('body').find('.OTP').submit();;
+			$(event.currentTarget).closest('body').find('.OTP').submit();
 		}
 	</script>
 
@@ -31,13 +31,14 @@
 		
 		<div class="container off-session-container">
 			<form action="/" method="POST" class="off-session-form">
-				<img src="IMAGES/AutoWork.png" alt="logo" id="logo">
+				<img src="IMAGES/AutoWork.png" alt="logo" id="logo"> <br>
 				<p class="error-msg">{{error_msg}}</p>
-				<a href="/login" class="off-session-back">< BACK</a><br><br>
-				<p class="off-session-title">Recover Password</p><br>
-				<div>
-					<button type="button" class="recovery-btn" onclick="secQuestion()">Security Question</button> <br>
-					<button type="button" class="recovery-btn" onclick="OTP()">OTP</button>
+				<a href="/login" class="off-session-back">< BACK</a>
+				<p class="off-session-title">Recover Password</p>
+				<p id="choose-text">Choose a method for password recovery:</p>
+				<div id="recovery-options">
+					<button type="button" class="global-button" onclick="secQuestion()">SECURITY QUESTIONS</button>
+					<button type="button" class="global-button" onclick="OTP()">OTP</button>
 				</div>
 			</form>
 		</div>

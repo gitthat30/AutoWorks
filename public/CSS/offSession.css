@@ -43,14 +43,17 @@
     padding: 8px 20px;
 }
 
-.off-session-form button.recovery-btn{
-    border-radius: 5px;
-    padding: 5px 50px;
-    background-color: #651400;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-    Margin: 0 auto;
+#choose-text {
+    margin-bottom: 20px;
+}
+
+#recovery-options {
+    align-items: center;
+    gap: 10px;
+}
+
+#recovery-options button {
+    width: 200px;
 }
 
 #login-btn {

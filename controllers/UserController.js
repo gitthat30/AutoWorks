@@ -62,7 +62,7 @@ const UserController = {
                 //Start of Notification Code
                 db.findOne(request, {_id: req.body.reqid}, {}, function(result) { //Find the request in DB to get vars
                     var notification = { //Create notification for a sent message
-                        message: "You recieved a message from \"" + req.session.name +"\" on order \"" + result.description +"\"",
+                        message: "You received a message from \"" + req.session.name +"\" on order \"" + result.description +"\"",
                         read: false,
                         sentdate: today,
                         reqid: result._id    
@@ -112,7 +112,7 @@ const UserController = {
                     db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function() {
                         db.findOne(request, {_id: req.body.reqid}, {}, function(result) {
                             var notification = {
-                                message: "You recieved a message on your order \"" + result.description +"\"",
+                                message: "You received a message on your order \"" + result.description +"\"",
                                 read: false,
                                 sentdate: today,
                                 reqid: result._id    
@@ -217,7 +217,7 @@ const UserController = {
                             nrequest.image = image.url; 
                             request.create(nrequest, (error,request) => {
                                 var notification = { //Create notification for a sent message
-                                    message: "User \"" + req.session.name + "\" submited request \"" + request.description + "\"",
+                                    message: "User \"" + req.session.name + "\" submitted request \"" + request.description + "\"",
                                     read: false,
                                     sentdate: today,
                                     reqid: request._id    
@@ -346,9 +346,8 @@ const UserController = {
         notifcount = 0;
         db.findOne(request, {_id: req.body.reqid}, {}, (result) => {
             if (result) {
-                db.findOne(account, {_id: req.session.user}, {}, function(result) {
-                    console.log(typeof result.notifications)
-                    result.notifications.forEach(n => {
+                db.findOne(account, {_id: req.session.user}, {}, function(acc_result) {
+                    acc_result.notifications.forEach(n => {
                         if(!n.read)
                             notifcount++;
                     })
@@ -429,7 +428,7 @@ const UserController = {
             }
             else {
                 req.flash('error_msg', 'Only select image files.');
-                res.redirect('/ueditrequest?reqid=' + req.body.ogid);
+                res.render('./onSession/editreq_holder', {reqid: req.body.ogid})
             }
         }
         

@@ -26,7 +26,7 @@ input, textarea, select {
     border-width: 0;
 }
 
-input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="file"] {
+input[type="text"], input[type="password"], input[type="tel"], input[type="email"], input[type="number"], input[type="file"] {
     height: 30px;
     padding: 0 10px;
     border-radius: 10px;
@@ -46,7 +46,7 @@ select {
 
 
 select:disabled {
-    background-color: #EAEAEA;
+    background-color: rgba(223,227,232, 0.5);
     color: #9F9F9F;
     opacity: 1;
 }
@@ -61,14 +61,31 @@ select:disabled {
     font-weight: bold;
 }
 
+.global-button-disabled {
+    background-color: rgba(101,20,0, 0.3);
+}
+
 .gray-button {
     background-color: #9F9F9F;
     color: black;
 }
 
+.gray-button-disabled {
+    background-color: rgba(159,159,159, 0.3);
+}
+
 .white-button {
     background-color: white;
     color: black;
+}
+
+.white-button-disabled {
+    background-color: rgba(255,255,255, 0.3);
+}
+
+.disabled-button {
+    color: rgba(0,0,0, 0.5);
+    pointer-events: none;
 }
 
 .container {
@@ -103,6 +120,18 @@ select:disabled {
     padding: 10px 20px;
     margin-bottom: 10px;
     width: min(400px, 100%);
+}
+
+.default-text {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.back-button {
+    background-color: transparent;
+    font-weight: bold;
+    color: #651400;
+    cursor: pointer;
 }
 
 /* End of General styles */
@@ -230,6 +259,7 @@ footer p {
 footer div {
     margin-top: 20px;
     margin-bottom: 5px;
+    flex: 1 1 0px;
 }
 
 #footer-est img {
@@ -240,23 +270,22 @@ footer div {
     text-align: center;
 }
 
+#footer-why {
+    /* align-self: flex-end; */
+    text-align: end;
+}
+
 .footer-title {
     font-weight: bold;
 }
 
 @media only screen and (max-width: 650px) {
     footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+        padding: 0 20px;
+        padding-bottom: 15px;
     }
-
     footer p {
         font-size: 8px;
-    }
-
-    #footer-est {
-        order: -1;
     }
 }
 /* End of Footer */
