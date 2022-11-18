@@ -7,8 +7,10 @@ var RequestSchema = new mongoose.Schema({
     car: String,
     type: String,
     description: String,
-    image: String,
-    image_id: String,
+    images: [{
+        image_link: String,
+        image_id: String
+    }],
     date: String,
     status: String,
     price: Number,

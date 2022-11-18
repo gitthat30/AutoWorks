@@ -41,8 +41,7 @@ const HostController = {
                 var response = {
                     car: result.car,
                     type: result.type,
-                    image: result.image,
-                    image_id: result.image_id,
+                    images: result.images,
                     description: result.description,
                     client_username: result.username,
                     contact: result.contact,

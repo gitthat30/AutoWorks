@@ -1,5 +1,13 @@
 {{> wrapper_header page_title='CREATE ESTIMATION REQUEST'}}
+<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script></head>
 
+<script type="text/javascript">
+		$(document).ready(function () {
+			$('#phadder').click(function() {
+				$('#more-photos').append('<input type="file" name="images" accept="image/*" required> <br><br>');
+			});
+		});
+</script>
 <div class="container">
 	<form class="create-edit-req " action = "/submitreq" method = "POST" enctype="multipart/form-data">
 		<p class="error-msg">{{error_msg}}</p>
@@ -15,8 +23,11 @@
 			</select> <br>
 			<textarea name="rdesc" rows="10" placeholder="Optional description..."></textarea> <br>
 			<p>Add Photos:</p>
-			<input type="file" name="image" accept="image/*" required> <br>
+			<input type="file" name="images" accept="image/*" required> <br><br>
+			<div id="more-photos"></div>
+			<button type="button" class="global-button" id="phadder">Add Photo</button>
 			<div class="create-edit-btn"><button type = "submit" class="global-button">SUBMIT</button></div>
+			
 		</div>
 	</form>
 </div>

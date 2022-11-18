@@ -1,4 +1,13 @@
 {{> wrapper_header page_title='EDIT REQUEST INFORMATION'}}
+<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script></head>
+
+<script type="text/javascript">
+		$(document).ready(function () {
+			$('#phadder').click(function() {
+				$('#more-photos').append('<input type="file" name="images" accept="image/*" required> <br><br>');
+			});
+		});
+</script>
 
 <div class="container">
 	<div>
@@ -19,9 +28,11 @@
 					<option value="Engine">Engine</option>
 				</select> <br>
 				<textarea name="rdesc" cols="60" rows="10" placeholder="Description...">{{description}}</textarea> <br>
-				<input type="file" name="image" accept="image/*"> <br>
+				<input type="file" name="images" accept="image/*"> <br><br>
 				<input type="hidden" name="ogid" value="{{ogid}}">
 				<input type="hidden" name="ogpic" value="{{image}}">
+				<div id="more-photos"></div>
+				<button type="button" class="global-button" id="phadder">Add Photo</button>
 				<div class="create-edit-btn"><button type = "submit" class="global-button">EDIT</button></div>
 			</div>
 		</form>

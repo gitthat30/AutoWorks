@@ -24,9 +24,9 @@
                     {{/if}}
                 </p>
                 <div class="request-images">
-                    <div>
-                        <img src="{{image}}" alt="{{image_id}}">
-                    </div>
+                    {{#each images}}
+                            <img src="{{image_link}}" alt="{{image_id}}"><br>
+                    {{/each}}
                 </div>
             </div>
             
