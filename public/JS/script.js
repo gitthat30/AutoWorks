@@ -165,3 +165,21 @@ $('#password-container img').click(function() {
 var thread = $('.thread');
 thread.scrollTop(thread.prop('scrollHeight') - thread.height())
 /* End of scrollbar */
+
+
+
+/* Add photos */
+if($('#more-photos div').length == 5)
+    $('#phadder').hide();
+
+$('#phadder').click(function() {
+    $('#more-photos').append('<div><input type="file" name="images" accept="image/*" required><img src="IMAGES/delete.png" alt="delete icon" class="delete-image"></div>');
+    if($('#more-photos div').length == 5)
+        $('#phadder').hide();
+});
+
+$('#more-photos').on('click', '.delete-image', function() {
+    $(this).parent().remove();
+    $('#phadder').show();
+});
+/* End of add photos */

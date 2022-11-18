@@ -4,7 +4,7 @@
     <div class="view-request-container">
         <div class="request-info">
             <div class="request-info-top">
-                <div>
+                <div id="request-title-date">
                     <p id="title">{{car}}</p>
                     <p id="date">{{date}}</p>
                 </div>
@@ -19,7 +19,9 @@
                 </p>
                 <div class="request-images">
                     {{#each images}}
-                            <img src="{{image_link}}" alt="{{image_id}}"><br>
+                    <div>
+                        <img src="{{image_link}}" alt="{{image_id}}">
+                    </div>
                     {{/each}}
                 </div>
             </div>

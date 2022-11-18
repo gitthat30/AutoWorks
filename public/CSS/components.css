@@ -57,7 +57,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 60%;
+    width: 65%;
 }
 
 .request-info .request-info-top {
@@ -65,7 +65,7 @@
     overflow-x: hidden;
 }
 
-.request-info-top div {
+#request-title-date {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -401,6 +401,29 @@
     height: auto;
     padding: 10px;
 
+}
+
+#more-photos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#more-photos div {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.delete-image {
+    height: 10px;
+    cursor: pointer;
+}
+
+.uploaded-image {
+    height: 140px;
+    border-radius: 10px;
 }
 /* End of Create/edit request */
 
