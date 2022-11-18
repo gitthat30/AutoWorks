@@ -25,15 +25,15 @@
             </div>
             
             {{#unless (Equal status "Deleted")}} {{!So the send button doesn't appear when viewing a deleted request}}
-                {{#if (Equal price -1)}}  {{!So the send button doesn't appear when viewing a request with a set price}}
+                {{#unless (Equal status "Accepted")}}  {{!So the send button doesn't appear when viewing a request with a set price}}
                     <form method = "post" action = "/sendquotation">
                         <input type="hidden" name="reqid" value= "{{_id}}">
                         <div class="quotation-input request-info-btn">
                             <input type="number" name="price" placeholder="Input quotation..." min="0" required>
-                            <button class="global-button" type = "submit">SEND</button>
+                            <button class="global-button" type = "submit">{{#if (Equal price -1)}}SEND{{else}}Edit{{/if}}</button>
                         </div>
                     </form>
-                {{/if}}
+                {{/unless}}
             {{/unless}}
         </div>
 
