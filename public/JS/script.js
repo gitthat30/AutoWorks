@@ -183,7 +183,7 @@ if($('#more-photos div').length == 5)
     $('#phadder').hide();
 
 $('#phadder').click(function() {
-    $('#more-photos').append('<div><input type="file" name="images" accept="image/*" required><img src="IMAGES/delete.png" alt="delete icon" class="delete-image"></div>');
+    $('#more-photos').append('<div><input class="photo-sub" type="file" name="images" accept="image/*" required><img src="IMAGES/delete.png" alt="delete icon" class="delete-image"></div>');
     if($('#more-photos div').length == 5)
         $('#phadder').hide();
 });
@@ -191,5 +191,31 @@ $('#phadder').click(function() {
 $('#more-photos').on('click', '.delete-image', function() {
     $(this).parent().remove();
     $('#phadder').show();
+});
+
+$('#edit-btn').click(function() {
+    if(!$('.job-type').val()) {
+        $('.error-msg').html('Please select a job type!');
+    }
+    else if(!$.trim($('#more-photos').html()).length) {
+        $('.error-msg').html('Please add a photo!');
+    }
+    else if ($(':input[type=file]').length) {
+        flag = true;
+        $('.photo-sub').each(function() {
+            if(!$(this).val())
+                flag = false;
+        })
+
+        if(!flag){
+            $('.error-msg').html('Please add a photo!');;
+        }
+        else {
+            $(event.currentTarget).closest('body').find('.create-edit-req').submit();
+        }
+    }
+    else {
+        $(event.currentTarget).closest('body').find('.create-edit-req').submit();
+    }
 });
 /* End of add photos */

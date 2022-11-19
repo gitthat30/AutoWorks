@@ -402,6 +402,13 @@ const UserController = {
     },
 
     getEditRequestAction: async function(req, res) {
+        //Getting Date
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        today = yyyy+'-'+mm+'-'+dd;
+
         var updatedReq = {
             car: req.body.rcar,
             type: req.body.rtype,
@@ -415,6 +422,26 @@ const UserController = {
             reqid: req.body.ogid    
         }
 
+        image_links = req.body.image_links;
+
+        if(!Array.isArray(image_links) && req.body.image_links) {
+            image_links = [];
+            image_links.push(req.body.image_links)
+            console.log("AAA")
+        }    
+
+        image_ids = req.body.image_ids;
+
+        if(!Array.isArray(image_ids) && req.body.image_ids) {
+            image_ids = [];
+            image_ids.push(req.body.image_ids)
+            console.log("AAA")
+        }  
+
+        updatedReq.images = []
+
+        console.log(updatedReq.images)
+        
         // If no new image
         if(!req.files) {
             console.log("ogid")
@@ -430,8 +457,7 @@ const UserController = {
             });
         }
         // If have new image
-        else {  
-            updatedReq.images = []
+        else { 
 
             console.log('Updating with new image')
             images = req.files.images;
@@ -455,6 +481,20 @@ const UserController = {
                 var mm = today.getMonth() + 1;
                 var yyyy = today.getFullYear();
                 today = yyyy+'-'+mm+'-'+dd;
+
+                updatedReq.images = []
+
+                if(image_links) {
+                    counter = 0;
+                    image_links.forEach(n => {
+                        temp = {
+                            image_link: n,
+                            image_id: image_ids[counter]
+                        }
+                        updatedReq.images.push(temp)
+                        counter++;
+                    })
+                }
 
                 counter = 0; 
                 await new Promise((resolve) => {
@@ -505,7 +545,6 @@ const UserController = {
                 res.render('./onSession/editreq_holder', {reqid: req.body.ogid})
             }
         }
-        
     },
 
     getUserAcceptedRequests: async function(req, res) {

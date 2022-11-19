@@ -10,7 +10,7 @@
 			<p class="error-msg">{{error_msg}}</p>
 			<div>
 				<input type="text" name="rcar" placeholder="Car Model/manufacturer" value="{{car}}" required> <br>
-				<select name="rtype" value="{{type}}" required>
+				<select class="job-type" name="rtype" value="{{type}}" required>
 					<option value="" selected hidden>Select job type...</option>
 					<option value="Auto Detailing">Auto Detailing</option>
 					<option value="Auto Repair">Auto Repair</option>
@@ -23,17 +23,20 @@
 				<textarea name="rdesc" cols="60" rows="10" placeholder="Description...">{{description}}</textarea> <br>
 				<input type="hidden" name="ogid" value="{{ogid}}">
 				<input type="hidden" name="ogpic" value="{{image}}">
-
 				<p><small>Edit Photos:</small></p>
 				<div id="more-photos">
 					{{#each images}}
-					<div><img src="{{image_link}}" alt="{{image_id}}" class="uploaded-image"><img src="IMAGES/delete.png" alt="delete icon" class="delete-image"></div>
+						<div>
+							<input type="hidden" name="image_links" value="{{image_link}}">
+							<input type="hidden" name="image_ids" value="{{image_id}}">
+							<img src="{{image_link}}" alt="{{image_id}}" class="uploaded-image"><img src="IMAGES/delete.png" alt="delete icon" class="delete-image">
+						</div>
 					{{/each}}
 					{{!-- <div><input type="file" name="images" accept="image/*" required></div> --}}
 				</div>
 				<button type="button" class="global-button" id="phadder">ADD PHOTO</button>
 				
-				<div class="create-edit-btn"><button type = "submit" class="global-button">EDIT</button></div>
+				<div class="create-edit-btn"><button type = "button" class="global-button" id="edit-btn">EDIT</button></div>
 			</div>
 		</form>
 	</div>
