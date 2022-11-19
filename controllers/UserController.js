@@ -440,10 +440,25 @@ const UserController = {
 
         updatedReq.images = []
 
-        console.log(updatedReq.images)
+        console.log("LINKS AND IDS")
+        console.log(image_links)
+        console.log(image_ids)
         
         // If no new image
         if(!req.files) {
+            if(image_links) {
+                console.log("Pushed")
+                counter = 0;
+                image_links.forEach(n => {
+                    temp = {
+                        image_link: n,
+                        image_id: image_ids[counter]
+                    }
+                    updatedReq.images.push(temp)
+                    counter++;
+                })
+            }
+
             console.log("ogid")
             console.log(req.body.ogid)
             console.log(updatedReq)
@@ -483,8 +498,8 @@ const UserController = {
                 today = yyyy+'-'+mm+'-'+dd;
 
                 updatedReq.images = []
-
                 if(image_links) {
+                    console.log("Pushed")
                     counter = 0;
                     image_links.forEach(n => {
                         temp = {
