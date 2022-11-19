@@ -67,25 +67,19 @@ const UserController = {
                         reqid: result._id    
                     }
                     
-                    if(req.session.user != result.userid) { //If someone other than user messages, push it into the notifications array of user
-                        db.updateOne(account, {_id: result.userid}, {$push: {notifications: notification}}, function(result) {
-                            console.log(result)
-                            if(req.session.host)
-                                res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
-                            else
-                                res.redirect(307, '/uviewpending');
-                        });
-                    }
+                    if(req.session.user != result.userid) //If someone other than user messages, push it into the notifications array of user
+                        var query = {_id: result.userid};
                     else { //If the user places a message on his own request, notify HOST
-                        console.log("NOTIFYING HOST")
-                        db.updateOne(account, {username: "HOST"}, {$push: {notifications: notification}}, function(result) {
-                            console.log(result)
-                            if(req.session.host)
-                                res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
-                            else
-                                res.redirect(307, '/uviewpending');
-                        });
+                        var query = {username: "HOST"};
+                        console.log("NOTIFYING HOST");
                     }
+                    db.updateOne(account, query, {$push: {notifications: notification}}, function(result) {
+                        console.log(result)
+                        if(req.session.host)
+                            res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
+                        else
+                            res.redirect(307, '/uviewpending');
+                    });
                 });
             });
         }
@@ -116,24 +110,19 @@ const UserController = {
                                 sentdate: today,
                                 reqid: result._id    
                             }
-                            if(req.session.user != result.userid) { //If someone other than user messages
-                                db.updateOne(account, {_id: result.userid}, {$push: {notifications: notification}}, function(result) {
-                                    console.log(result)
-                                    if(req.session.host)
-                                        res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
-                                    else
-                                        res.redirect(307, '/uviewpending');
-                                });
-                            }
-                            else { //If the user places a message on his own request, notify HOST accounts
-                                db.updateOne(account, {host: true}, {$push: {notifications: notification}}, function(result) {
-                                    console.log(result)
-                                    if(req.session.host)
-                                        res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
-                                    else
-                                        res.redirect(307, '/uviewpending');
-                                });
-                            }
+                            if(req.session.user != result.userid) //If someone other than user messages
+                                var query = {_id: result.userid};
+                            else //If the user places a message on his own request, notify HOST accounts
+                                var query = {host: true};
+
+                            db.updateOne(account, query, {$push: {notifications: notification}}, function(result) {
+                                console.log(result)
+                                if(req.session.host)
+                                    res.redirect(307, '/hviewpending'); // status code 307 redirects with original body data
+                                else
+                                    res.redirect(307, '/uviewpending');
+                            });
+
                         });
                     });
                 });
@@ -225,29 +214,29 @@ const UserController = {
                             resource_type: "raw",
                             use_filename: true
                         }).then(function (image) {
-                                    console.log(filePath);
-                                    console.log("** File Upload (Promise)");
-                                    console.log("* public_id for the uploaded image is generated by Cloudinary's service.");
-                                    console.log("* " + image.public_id);
-                                    console.log("* " + image.url);
-                                    
-                                    temp = {
-                                        image_link: String,
-                                        image_id: String
-                                    }
-                                    temp.image_link = image.url;
-                                    temp.image_id = image.public_id; 
-                                    nrequest.images.push(temp)
-                                    counter++;
-                                    if(counter == images.length) {
-                                        resolve()
-                                    };
-                                })
-                                .catch(function (err) {
-                                    console.log();
-                                    console.log("** File Upload (Promise)");
-                                    if (err) { console.warn(err); }
-                            });
+                            console.log(filePath);
+                            console.log("** File Upload (Promise)");
+                            console.log("* public_id for the uploaded image is generated by Cloudinary's service.");
+                            console.log("* " + image.public_id);
+                            console.log("* " + image.url);
+                            
+                            temp = {
+                                image_link: String,
+                                image_id: String
+                            }
+                            temp.image_link = image.url;
+                            temp.image_id = image.public_id; 
+                            nrequest.images.push(temp)
+                            counter++;
+                            if(counter == images.length) {
+                                resolve()
+                            };
+                        })
+                        .catch(function (err) {
+                            console.log();
+                            console.log("** File Upload (Promise)");
+                            if (err) { console.warn(err); }
+                        });
                     })
                 })
             })
@@ -403,7 +392,7 @@ const UserController = {
                         if(!n.read)
                             notifcount++;
                     })
-                    res.render("./onSession/ueditrequest", {image: result.image, car: result.car, type: result.type, description: result.description, images: result.images, ogid:req.body.reqid, isHost: false, username: req.session.name, notifcount});
+                    res.render("./onSession/ueditrequest", {car: result.car, type: result.type, description: result.description, images: result.images, ogid:req.body.reqid, isHost: false, username: req.session.name, notifcount});
                 })
             }
             else {
@@ -478,29 +467,29 @@ const UserController = {
                                 resource_type: "raw",
                                 use_filename: true
                             }).then(function (image) {
-                                        console.log(filePath);
-                                        console.log("** File Upload (Promise)");
-                                        console.log("* public_id for the uploaded image is generated by Cloudinary's service.");
-                                        console.log("* " + image.public_id);
-                                        console.log("* " + image.url);
-                                        
-                                        temp = {
-                                            image_link: String,
-                                            image_id: String
-                                        }
-                                        temp.image_link = image.url;
-                                        temp.image_id = image.public_id; 
-                                        updatedReq.images.push(temp)
-                                        counter++;
-                                        if(counter == images.length) {
-                                            resolve()
-                                        };
-                                    })
-                                    .catch(function (err) {
-                                        console.log();
-                                        console.log("** File Upload (Promise)");
-                                        if (err) { console.warn(err); }
-                                });
+                                console.log(filePath);
+                                console.log("** File Upload (Promise)");
+                                console.log("* public_id for the uploaded image is generated by Cloudinary's service.");
+                                console.log("* " + image.public_id);
+                                console.log("* " + image.url);
+                                
+                                temp = {
+                                    image_link: String,
+                                    image_id: String
+                                }
+                                temp.image_link = image.url;
+                                temp.image_id = image.public_id; 
+                                updatedReq.images.push(temp)
+                                counter++;
+                                if(counter == images.length) {
+                                    resolve()
+                                };
+                            })
+                            .catch(function (err) {
+                                console.log();
+                                console.log("** File Upload (Promise)");
+                                if (err) { console.warn(err); }
+                            });
                         })
                     })
                 })

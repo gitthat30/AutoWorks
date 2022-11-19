@@ -30,20 +30,20 @@
 				<div id="nav-buttons">
 					<img src="IMAGES/close.png" alt="close icon" id="close-icon">
 					{{#if isHost}}
-					<a href = "/hviewallpending">CUSTOMER ESTIMATION REQUESTS</a>
-					<a href = "/hviewactive">ACTIVE JOBS</a>
-					<a href = "/viewgeneratereport">GENERATE REPORT</a>
-					<a href = "/viewsuppliers">SUPPLIERS</a>
-					<a href = "/hviewnotifications">NOTIFICATIONS {{#if notifcount}} ({{notifcount}}) {{/if}}</a>
+					<a href = "/hviewallpending" class="nav-list-item"><div><p>CUSTOMER REQUESTS</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
+					<a href = "/hviewactive" class="nav-list-item"><div><p>ACTIVE JOBS</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
+					<a href = "/viewgeneratereport" class="nav-list-item"><div><p>GENERATE REPORT</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
+					<a href = "/viewsuppliers" class="nav-list-item"><div><p>SUPPLIERS</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
+					<a href = "/hviewnotifications" class="nav-list-item"><div><p>NOTIFICATIONS {{#if notifcount}} ({{notifcount}}) {{/if}}</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
 					{{else}}
-					<a href = "/createreq">CREATE ESTIMATION REQUEST</a>
-					<a href = "/uviewallpending">PENDING FOR CONFIRMATION</a>
-					<a href = "/uviewactive">ONGOING JOBS</a>
-					<a href = "/uviewnotifications">NOTIFICATIONS {{#if notifcount}} ({{notifcount}}) {{/if}}</a>
-					<a href = "/uviewcontact">CONTACT US</a>
+					<a href = "/createreq" class="nav-list-item"><div><p>CREATE REQUEST</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
+					<a href = "/uviewallpending" class="nav-list-item"><div><p>PENDING REQUESTS</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
+					<a href = "/uviewactive" class="nav-list-item"><div><p>ONGOING JOBS</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
+					<a href = "/uviewnotifications" class="nav-list-item"><div><p>NOTIFICATIONS {{#if notifcount}} ({{notifcount}}) {{/if}}</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
+					<a href = "/uviewcontact" class="nav-list-item"><div><p>CONTACT US</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
 					{{/if}}
-
-					<p>{{username}}<a href="/logout"> (SIGN-OUT)</a></p>
+					
+					<a href = "/logout" class="nav-list-item"><div><p>{{username}} (SIGN-OUT)</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>			
 				</div>
 
 				

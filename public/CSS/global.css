@@ -198,6 +198,10 @@ nav #logo {
     #menu-icon, #close-icon {
         display: none;
     }
+
+    .nav-list-item img {
+        display: none;
+    }
 }
 
 
@@ -205,7 +209,6 @@ nav #logo {
     #nav-buttons {
         flex-direction: column;
         display: none;
-        align-items: flex-start;
         gap: 30px;
         position: fixed;
         right: 0;
@@ -236,6 +239,16 @@ nav #logo {
         margin-top: 20px;
         margin-bottom: 35px;
     }
+
+    .nav-list-item div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-list-item img {
+        height: 10px;
+    }
 }
 /* End of On-session Header */
 
@@ -250,6 +263,7 @@ footer {
     padding-bottom: 15px;
     width: 100vw;
     margin-top: 30px;
+    box-shadow: 0px -3px 30px -12px #9F9F9F;
 }
 
 footer p {

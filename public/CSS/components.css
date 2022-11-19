@@ -442,32 +442,20 @@
     gap: 15px;
 }
 
-#supplier-form #enter {
-    text-align: right;
-}
-
 #supplier-form select{
     width: 230px;
 }
 
 #supplier-form button {
-    margin-top: 20px;
+    margin-top: 10px;
     padding-left: 20px;
     padding-right: 20px;
 }
 
-#contact-title {
+#supplier-list-title, #contact-title {
     color: #651400;
     font-weight: bold;
     margin: 15px 0;
-}
-
-.supplier-details {
-    border-radius: 5px;
-    padding: 10px 40px;
-    text-align: center;
-    font-size: 20px;
-    margin-bottom: 20px;
 }
 
 #supplier-number {
@@ -476,6 +464,41 @@
 
 #supplier-number:hover {
     text-decoration: underline;
+}
+
+#supplier-list {
+    display: none;
+    margin-bottom: 30px;
+}
+
+.supplier-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.supplier-option:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.supplier-option img {
+    height: 10px;
+}
+
+#supplier-list-title, #contact-title, .supplier-details {
+    display: none;
+}
+
+.supplier-details {
+    border-radius: 5px;
+    padding: 10px 40px;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 
 .exotic-supplier {

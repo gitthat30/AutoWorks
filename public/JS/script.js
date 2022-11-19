@@ -32,38 +32,46 @@ var supplyData = [
 
 // Checks if a supply type was chosen
 $('#select-supply-type').change(function() {
-    var supply_type = $(this).find('option:selected').attr('value');
     $('#select-supplier option[value!=""]').remove();
+});
 
-    // Enables supplier selection based on chosen supply type
-    $('#select-supplier').removeAttr('disabled');
+$('#supplier-form button').click(function(event) {
+    event.preventDefault()
+    var supply_type = $('#select-supply-type').find('option:selected').attr('value');
+    $('#supplier-list-title').show();
+    $('#supplier-list').show();
+    $('#supplier-list').empty();
+
+    $('#contact-title').hide();
+    $('.supplier-details').hide();
+
     for(let i = 0; i < supplyData.length; i++) {
         if(supplyData[i].supply_type.includes(supply_type)) {
-            var supplierOption = $('<option></option>');
-            supplierOption.text(supplyData[i].name);
-            supplierOption.attr('value', i);
+            var supplierOption = $('<div class="supplier-option" data-value="' + i +'"><p>' + supplyData[i].name + '</p><small><i>View Info <img src="../IMAGES/right-arrow.png"></i></small></div>');
 
             if(supplyData[i].exotic)
                 supplierOption.addClass('exotic-supplier');
 
-            $('#select-supplier').append(supplierOption);
+            $('#supplier-list').append(supplierOption);
         }
     }
 });
 
-// Checks if a supplier was chosen
-$('#select-supplier').change(function() {
-    //Gets supplier data based on chosen supplier 'value' attribute (index)
-    var supplyIndex = parseInt($(this).find('option:selected').attr('value'));
-    $('#sname').attr('value', supplyData[supplyIndex].name);
-    $('#snumber').attr('value', supplyData[supplyIndex].number);
-    $('#saddress').attr('value', supplyData[supplyIndex].address);
+$('#supplier-list').on('click', '.supplier-option', function() {
+    var index = parseInt($(this).data('value'));
+    console.log(index);
+    $('#contact-title').show();
+    $('.supplier-details').show();
+
+    $('#supplier-name strong').html(supplyData[index].name);
+    $('#supplier-number i').html(supplyData[index].number);
+    $('#supplier-address').html(supplyData[index].address);
 });
 
 // Checks if "Copy Number to Clipboard" button was clicked
-$('#supplier-number').click(function() {
+$('#supplier-number').click(async function() {
     var num = $('#supplier-number').text();
-    navigator.clipboard.writeText(num);
+    await navigator.clipboard.writeText(num);
     alert("Copied " + num + " to clipboard!");
 });
 

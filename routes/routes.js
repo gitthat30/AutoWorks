@@ -73,7 +73,6 @@ app.get("/generatereport", isHost, HostController.generateReport);
 
 // [HOST] View Suppliers' Contacts
 app.get("/viewsuppliers", isHost, HostController.viewSuppliers);
-app.get("/viewsupplier", isHost, HostController.viewSupplier);
 
 //[HOST] View Notifications
 app.get("/hviewnotifications", isHost, HostController.viewNotifications); 

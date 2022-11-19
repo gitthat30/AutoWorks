@@ -1,15 +1,6 @@
 {{> wrapper_header page_title='VIEW SUPPLIERS\' CONTACT'}}
 
 <div class="container">
-	{{#if name}}
-	<p id="contact-title">CONTACT DETAILS</p>
-	<div class="supplier-details card">
-		<p><strong>{{name}}</strong></p>
-		<p id="supplier-number"><strong><i>{{number}}</i></strong></p>
-		<p>{{address}}</p>
-	</div>
-	{{/if}}
-
 	<form id="supplier-form" action="/viewsupplier" method="GET">
 		<div id="select">
 			<select name="supply-type" id="select-supply-type" required>
@@ -18,18 +9,20 @@
 				<option value="parts">Spare Parts</option>
 				<option value="paint">Paint</option>
 			</select>
-
-			<select name="supplier" id="select-supplier" disabled required>
-				<option value="" selected hidden>Supplier...</option>
-			</select>
 		</div>
 
-		<input type="hidden" name="sname" id="sname">
-		<input type="hidden" name="snumber" id="snumber">
-		<input type="hidden" name="saddress" id="saddress">
-
-		<div id="enter"><button type="submit" class="global-button">FIND SUPPLIER</button></div>
+		<div><button class="global-button">FIND SUPPLIER</button></div>
 	</form>
+
+	<p id="supplier-list-title">SUPPLIERS</p>
+	<div id="supplier-list" class="card"></div>
+
+	<p id="contact-title">CONTACT DETAILS</p>
+	<div class="supplier-details card">
+		<p id="supplier-name"><strong></strong></p>
+		<p id="supplier-number"><strong><i></i></strong></p>
+		<p id="supplier-address"></p>
+	</div>
 </div>
 
 
