@@ -33,6 +33,7 @@ var supplyData = [
 // Checks if a supply type was chosen
 $('#select-supply-type').change(function() {
     $('#select-supplier option[value!=""]').remove();
+    $('#supplier-form button').removeClass('disabled-button global-button-disabled');
 });
 
 $('#supplier-form button').click(function(event) {
@@ -143,6 +144,7 @@ $('#download-button').click(function() {
 /* Hamburger navbar */
 $('#menu-icon').click(function() {
     $('#nav-buttons').css('display', 'flex');
+
 });
 
 $('#close-icon').click(function() {
