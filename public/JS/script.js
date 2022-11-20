@@ -208,7 +208,7 @@ $('#edit-btn').click(function() {
         })
 
         if(!flag){
-            $('.error-msg').html('Please add a photo!');;
+            $('.error-msg').html('Please add a photo!');
         }
         else {
             $(event.currentTarget).closest('body').find('.create-edit-req').submit();
@@ -219,3 +219,16 @@ $('#edit-btn').click(function() {
     }
 });
 /* End of add photos */
+
+
+/* Register form validation */
+$('form[action="/registeruser"] input[name="name"], form[action="/registeruser"] input[name="pass"]').on('input', function() {
+    console.log('yun oh');
+    if($(this).val().endsWith(' ')) {
+        $(this).val($(this).val().slice(0, -1));
+        $('.error-msg').html('This field should not contain spaces!');
+    }
+    else
+        $('.error-msg').html('');
+});
+/* End of register form validation */

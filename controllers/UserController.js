@@ -49,7 +49,7 @@ const UserController = {
 
         var message = {
             username: req.session.name,
-            content: req.body.content,
+            content: req.body.content.trim(),
             sentdate: today
         };
 
@@ -192,7 +192,7 @@ const UserController = {
                 contact: req.session.contact,
                 car: req.body.rcar,
                 type: req.body.rtype,
-                description: req.body.rdesc,
+                description: req.body.rdesc.trim(),
                 date: today,
                 status: 'Pending',
                 price: -1,
@@ -412,7 +412,7 @@ const UserController = {
         var updatedReq = {
             car: req.body.rcar,
             type: req.body.rtype,
-            description: req.body.rdesc,
+            description: req.body.rdesc.trim(),
         };
 
         var notification = { //Create notification for edited request

@@ -31,12 +31,12 @@ const PublicController = {
 
     registerUser: async function(req, res) {
         newaccount = {
-            fname: req.body.fname,
-            lname: req.body.lname,
-            user: req.body.name,
-            pass: req.body.pass,
-            con: req.body.contact,
-            email: req.body.email
+            fname: req.body.fname.trim(),
+            lname: req.body.lname.trim(),
+            user: req.body.name.trim(),
+            pass: req.body.pass.trim(),
+            con: req.body.contact.trim(),
+            email: req.body.email.trim()
         }
         console.log(req.body)
         db.findOne(account, { $or: [{username: newaccount.user}, {contact: newaccount.con}, {email: newaccount.email}]}, {}, (result) => {
@@ -45,9 +45,9 @@ const PublicController = {
                 if (result.username == newaccount.user)
                     req.flash('error_msg', 'User already exists. Please login.');
                 else if (result.contact == newaccount.con)
-                    req.flash('error_msg', 'This contact number is already registered');
+                    req.flash('error_msg', 'This contact number is already registered.');
                 else if (result.email == newaccount.email)
-                    ('error_msg', 'This email is already registered');
+                    req.flash('error_msg', 'This email is already registered.');
                 res.redirect('/register');
             }
             else {
@@ -58,7 +58,7 @@ const PublicController = {
     },
 
     getQuestion1: async function(req, res) {
-        newaccount = {
+        var newaccount = {
             fname: req.body.fname,
             lname: req.body.lname,
             user: req.body.user,
@@ -93,7 +93,7 @@ const PublicController = {
         //Assign answer to first question, then render the next question
         assign = 0;
 
-        newaccount = {
+        var newaccount = {
             fname: req.body.fname,
             lname: req.body.lname,
             user: req.body.user,
