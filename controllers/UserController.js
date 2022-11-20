@@ -18,12 +18,11 @@ const UserController = {
             res.redirect('/hhome')
         else {
             db.findOne(account, {_id: req.session.user}, {}, function(result) {
-                console.log(typeof result.notifications)
                 result.notifications.forEach(n => {
                     if(!n.read)
                         notifcount++;
                 })
-                res.render('./onSession/uhome', {isHost: false, username: req.session.name, notifcount});
+                res.render('./onSession/uhome', {isHost: false, username: req.session.name, fname: req.session.fname, lname: req.session.lname, notifcount});
             })
         }
     },
@@ -156,7 +155,7 @@ const UserController = {
                 if(!n.read)
                     notifcount++;
             })
-            res.render('./onSession/ucreaterequest', {isHost: false, username: req.session.name, notifcount});
+            res.render('./onSession/ucreaterequest', {isHost: false, username: req.session.name, fname: req.session.fname, lname: req.session.lname, notifcount});
         })
     },
 
@@ -275,7 +274,7 @@ const UserController = {
                 if(!n.read)
                     notifcount++;
             })
-            res.render('./onSession/uviewpending', {req: requests.reverse(), isHost: false, username: req.session.name, notifcount});
+            res.render('./onSession/uviewpending', {req: requests.reverse(), isHost: false, username: req.session.name, fname: req.session.fname, lname: req.session.lname, notifcount});
         })
     },
 
@@ -293,6 +292,8 @@ const UserController = {
                     price: result.price,
                     isHost: false,
                     username: req.session.name,
+                    fname: req.session.fname, 
+                    lname: req.session.lname, 
                     _id: req.body.reqid,
                     messages: result.messages,
                     notifcount: notifcount
@@ -392,7 +393,7 @@ const UserController = {
                         if(!n.read)
                             notifcount++;
                     })
-                    res.render("./onSession/ueditrequest", {car: result.car, type: result.type, description: result.description, images: result.images, ogid:req.body.reqid, isHost: false, username: req.session.name, notifcount});
+                    res.render("./onSession/ueditrequest", {car: result.car, type: result.type, description: result.description, images: result.images, ogid:req.body.reqid, isHost: false, username: req.session.name, fname: req.session.fname, lname: req.session.lname, notifcount});
                 })
             }
             else {
@@ -571,7 +572,7 @@ const UserController = {
                 if(!n.read)
                     notifcount++;
             })
-            res.render('./onSession/uviewongoing', {req: requests, isHost: false, username: req.session.name, notifcount}); 
+            res.render('./onSession/uviewongoing', {req: requests, isHost: false, username: req.session.name, fname: req.session.fname, lname: req.session.lname, notifcount}); 
         })
     },
 
@@ -587,7 +588,7 @@ const UserController = {
                     unread.push(n)
             })
             db.updateOne(account, {_id: req.session.user}, {$set: {"notifications.$[].read": true}}, (result) => { //Sets all notifications as read
-                res.render('./onSession/unotifications', {isHost: false, username: req.session.name, read: read.reverse(), unread: unread.reverse()});
+                res.render('./onSession/unotifications', {isHost: false, username: req.session.name, fname: req.session.fname, lname: req.session.lname, read: read.reverse(), unread: unread.reverse()});
             })
             
         })
@@ -601,7 +602,7 @@ const UserController = {
                 if(!n.read)
                     notifcount++;
             })
-            res.render('./onSession/ucontact', {isHost: false, username: req.session.name, notifcount});
+            res.render('./onSession/ucontact', {isHost: false, username: req.session.name, fname: req.session.fname, lname: req.session.lname, notifcount});
         })
     },
 }

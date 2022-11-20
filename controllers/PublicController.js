@@ -29,6 +29,39 @@ const PublicController = {
         
     },
 
+    loginUser: async function(req, res) {
+        var user = req.body.name;
+        var pass = req.body.pass;
+        
+        db.findOne(account, {username: user}, {}, (result) => {
+            if (result) {
+                console.log(result);
+                if(result.password == pass) {
+                    req.session.user = result._id;
+                    req.session.name = result.username;
+                    req.session.fname = result.fname;
+                    req.session.lname = result.lname;
+                    req.session.host = result.host;
+                    req.session.contact = result.contact;
+                    console.log(req.session);
+
+                    if(result.host)
+                        res.redirect('/hhome');
+                    else 
+                        res.redirect('/home');
+                }
+                else {
+                    req.flash('error_msg', 'Incorrect password.');   
+                    res.redirect('/login');
+                }
+            }
+            else {
+                req.flash('error_msg', 'This user does not exist. Please register.');
+                res.redirect('/login');
+            }
+        })        
+    },
+
     registerUser: async function(req, res) {
         newaccount = {
             fname: req.body.fname.trim(),
@@ -210,15 +243,46 @@ const PublicController = {
          if(req.body.question3flag)
             res.render('question4', newaccount);
          else {
-            account.create(newaccount);
-            res.redirect('/');
+            create = await account.create(newaccount);
+            
+            var user = newaccount.username;
+            var pass = newaccount.password;
+
+            console.log(user);
+            
+            db.findOne(account, {username: user}, {}, (result) => {
+                if (result) {
+                    console.log(result);
+                    if(result.password == pass) {
+                        req.session.user = result._id;
+                        req.session.name = result.username;
+                        req.session.fname = result.fname;
+                        req.session.lname = result.lname;
+                        req.session.host = result.host;
+                        req.session.contact = result.contact;
+                        console.log(req.session);
+
+                        if(result.host)
+                            res.redirect('/hhome');
+                        else 
+                            res.redirect('/home');
+                    }
+                    else {
+                        req.flash('error_msg', 'Incorrect password.');   
+                        res.redirect('/login');
+                    }
+                }
+                else {
+                    req.flash('error_msg', 'This user does not exist. Please register.');
+                    res.redirect('/login');
+                }
+            })  
          }
      },
 
      registerUser2: async function(req, res) {
         //Assign answer to third question, then render the next question (if there is one)
         assign = 3;
-        console.log("Testinagina")
         console.log(assign)
         newaccount = {
            fname: req.body.fname,
@@ -255,8 +319,42 @@ const PublicController = {
         newaccount.questions = questions
         console.log("Testinagina")
         console.log(newaccount)  
-        account.create(newaccount)    
-        res.redirect('/');
+        create = await account.create(newaccount);
+        
+        console.log(create);
+
+        var user = newaccount.username;
+        var pass = newaccount.password;
+
+        console.log(user);
+        
+        db.findOne(account, {username: user}, {}, (result) => {
+            if (result) {
+                console.log(result);
+                if(result.password == pass) {
+                    req.session.user = result._id;
+                    req.session.name = result.username;
+                    req.session.fname = result.fname;
+                    req.session.lname = result.lname;
+                    req.session.host = result.host;
+                    req.session.contact = result.contact;
+                    console.log(req.session);
+
+                    if(result.host)
+                        res.redirect('/hhome');
+                    else 
+                        res.redirect('/home');
+                }
+                else {
+                    req.flash('error_msg', 'Incorrect password.');   
+                    res.redirect('/login');
+                }
+            }
+            else {
+                req.flash('error_msg', 'This user does not exist. Please register.');
+                res.redirect('/login');
+            }
+        })
     },
     /* 
     registerUser2: async function(req, res) {
@@ -301,37 +399,6 @@ const PublicController = {
 
     getLogin: async function(req, res) {
         res.render('login');
-    },
-
-    loginUser: async function(req, res) {
-        var user = req.body.name;
-        var pass = req.body.pass;
-        
-        db.findOne(account, {username: user}, {}, (result) => {
-            if (result) {
-                console.log(result);
-                if(result.password == pass) {
-                    req.session.user = result._id;
-                    req.session.name = result.username;
-                    req.session.host = result.host;
-                    req.session.contact = result.contact;
-                    console.log(req.session);
-
-                    if(result.host)
-                        res.redirect('/hhome');
-                    else 
-                        res.redirect('/home');
-                }
-                else {
-                    req.flash('error_msg', 'Incorrect password.');   
-                    res.redirect('/login');
-                }
-            }
-            else {
-                req.flash('error_msg', 'This user does not exist. Please register.');
-                res.redirect('/login');
-            }
-        })        
     },
 
     getRegister: async function(req, res) {
@@ -453,7 +520,7 @@ const PublicController = {
     },
 
     getAnswer4: async function(req, res) {
-        //Check Question 2 -> Add Boolean if Correct -> Render Question 3 Regardless
+        //Check Question 3 -> Add Boolean if Correct -> if theres a question 4 -> render else? give pass
         assign = 2;
         if(req.body.answers[assign] == req.body.answer)
             correct = true

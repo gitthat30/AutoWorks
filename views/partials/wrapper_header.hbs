@@ -43,7 +43,11 @@
 					<a href = "/uviewcontact" class="nav-list-item"><div><p>CONTACT US</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
 					{{/if}}
 					
-					<a href = "/logout" class="nav-list-item"><div><p>{{username}} (SIGN-OUT)</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>			
+					{{#if isHost}}
+						<a href = "/logout" class="nav-list-item"><div><p>{{username}} (SIGN-OUT)</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>		
+					{{else}}	
+						<a href = "/logout" class="nav-list-item"><div><p>{{lname}}, {{fname}} (SIGN-OUT)</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
+					{{/if}}
 				</div>
 
 				

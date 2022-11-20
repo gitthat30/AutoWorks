@@ -75,7 +75,7 @@ const HostController = {
                     var response = {
                         car: result.car,
                         type: result.type,
-                        image: result.image,
+                        images: result.images,
                         description: result.description,
                         client_username: result.username,
                         contact: result.contact,
@@ -156,18 +156,21 @@ const HostController = {
 
     generateReport: async function(req, res) {
         var requests = await request.find();
-        var year = parseInt(req.query.date.substring(0,4));
-        var month = parseInt(req.query.date.substring(5,7));
+        var starty = parseInt(req.query.start.substring(0,4));
+        var startm = parseInt(req.query.start.substring(5,7));
+        var endy = parseInt(req.query.end.substring(0,4));
+        var endm = parseInt(req.query.end.substring(5,7));
         var revenue = 0;
         var outstanding = 0;
         var total = 0;
         var settled = 0;
 
-        console.log("Requested date: " + year + "/" + month)
+        console.log("Requested end: " + starty + "/" + startm)
+        console.log("Requested end: " + endy + "/" + endm)
 
         requests.forEach(r => {
             tempdate = new Date(r.date); // month is 0 indexed using getMonth()
-            if(tempdate.getFullYear() == year && tempdate.getMonth() + 1 == month) {
+            if(tempdate.getFullYear() >= starty && tempdate.getMonth() + 1 >= startm && tempdate.getFullYear() <= endy && tempdate.getMonth() + 1 <= endm) {
                 if(r.status == 'Accepted' || r.status == 'Settled') {
                     revenue += r.paid;
                     total += r.price;

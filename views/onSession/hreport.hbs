@@ -1,7 +1,8 @@
 {{> wrapper_header page_title='GENERATE REPORT'}}
 
 <form action="/generatereport" class="container report-form">
-    <input type="month" name="date" max={{date}} value={{date}} required>
+    From: <input type="month" name="start" value={{date}} required>
+    Until: <input type="month" name="end" max={{date}} value={{date}} required>
     <button type="submit" class="global-button">Enter</button>
 </form>
 
