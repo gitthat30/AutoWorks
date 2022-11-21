@@ -26,7 +26,7 @@ input, textarea, select {
     border-width: 0;
 }
 
-input[type="text"], input[type="password"], input[type="tel"], input[type="email"], input[type="number"], input[type="file"] {
+input[type="text"], input[type="password"], input[type="tel"], input[type="email"], input[type="number"], input[type="file"], input[type="month"] {
     height: 30px;
     padding: 0 10px;
     border-radius: 10px;

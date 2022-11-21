@@ -151,7 +151,7 @@ const HostController = {
         var today = new Date();
         var yyyy = today.getFullYear();
         var mm = today.getMonth() + 1;
-        res.render('./onSession/hreport', {date: yyyy+'-'+mm,isHost: true, username: req.session.name});
+        res.render('./onSession/hreport', {date: yyyy+'-'+mm, isHost: true, username: req.session.name});
     },
 
     generateReport: async function(req, res) {
@@ -165,7 +165,7 @@ const HostController = {
         var total = 0;
         var settled = 0;
 
-        console.log("Requested end: " + starty + "/" + startm)
+        console.log("Requested start: " + starty + "/" + startm)
         console.log("Requested end: " + endy + "/" + endm)
 
         requests.forEach(r => {
@@ -181,7 +181,21 @@ const HostController = {
                 }
             }
         })
-        res.render('./onSession/hviewreport', {total, settled, date: req.query.date, outstanding, revenue, isHost: true, username: req.session.name});
+
+        var start = new Date();
+        start.setMonth(startm - 1);
+
+        var end = new Date();
+        end.setMonth(endm - 1);
+
+        var startDate = start.toLocaleString('en-US', {month: 'long'}) + " " + starty
+        var endDate = end.toLocaleString('en-US', {month: 'long'}) + " " + endy
+
+        var today = new Date();
+        var yyyy = today.getFullYear();
+        var mm = today.getMonth() + 1;
+        
+        res.render('./onSession/hreport', {date: yyyy+'-'+mm, total, settled, outstanding, revenue, startDate, endDate, isHost: true, username: req.session.name});
     },
 
     viewSuppliers: async function(req, res) {

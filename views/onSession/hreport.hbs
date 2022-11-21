@@ -1,9 +1,35 @@
 {{> wrapper_header page_title='GENERATE REPORT'}}
 
-<form action="/generatereport" class="container report-form">
-    From: <input type="month" name="start" value={{date}} required>
-    Until: <input type="month" name="end" max={{date}} value={{date}} required>
-    <button type="submit" class="global-button">Enter</button>
-</form>
+<div class="container">
+{{#if startDate}}
+
+    <p class="report-title">REVENUE FOR</p>
+    <p class="report-title">{{startDate}} - {{endDate}}</p>
+    <div class="card report-card">
+        <p>Revenue: ₱{{revenue}}</p>
+        <p>Total Price of Transactions: ₱{{total}}</p>
+        <p>Outstanding Balance Remaining: ₱{{outstanding}}</p>
+        <p>Settled Transactions: {{settled}}</p>
+    </div>
+
+{{/if}}
+
+    <form action="/generatereport" class="report-form">
+        <div id="report-input-container">
+            <div>
+                <p>START DATE:</p>
+                <input type="month" name="start" value={{date}} required>
+            </div>
+            <div>
+                <p>END DATE:</p>
+                <input type="month" name="end" max={{date}} value={{date}} required>
+            </div>
+        </div>
+        
+        <div id="report-enter"><button type="submit" class="global-button">GENERATE REPORT</button></div>
+    </form>
+</div>
+
+
 
 {{> wrapper_footer}}

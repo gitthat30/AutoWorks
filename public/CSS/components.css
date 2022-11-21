@@ -509,16 +509,53 @@
 
 
 /* For report pages */
-.report-form input {
-    margin-bottom: 10px;
-    width: 250px;
+.report-title {
+    color: #651400;
+    font-weight: bold;
+    font-size: 18px;
 }
 
-.report {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 10px 30px;
+.report-card {
+    margin-top: 10px;
+}
+.report-form {
+    margin-top: 30px;
+}
+
+@media only screen and (max-width: 400px) {
+    .report-form {
+        width: 100%;
+    }
+
+    .report-form div {
+        width: 100%;
+    }
+
+    .report-form div input {
+        width: 100%;
+    }
+
+    #report-enter {
+        text-align: center;
+    }
+}
+
+#report-input-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    gap: 20px;
+}
+
+.report-form p {
     text-align: left;
+    font-weight: bold;
+}
+
+#report-enter {
+    text-align: right;
 }
 /* End of Generate report page */
 
