@@ -401,18 +401,33 @@ const PublicController = {
     sendEmail: async function(req, res) {
         db.findOne(account, {_id: req.body.userid}, {}, (result) => {
             console.log(result.email);
+            html1 = 'Hello! These are your account credentials: <br><br>' + 
+                    '<b>User:</b>' + result.username + 
+                    '<br><b>Password:</b> ' + result.password;
+            html2 = '<br><br><b>Security Questions</b><br>' +
+                    '<b>Question 1: </b>' + result.questions[0].question + ' <br><b>Answer: </b>' + result.questions[0].answer +
+                    '<br><br><b>Question 2: </b>' + result.questions[1].question + ' <br><b>Answer: </b>' + result.questions[1].answer +
+                    '<br><br><b>Question 3: </b>' + result.questions[2].question + ' <br><b>Answer: </b>' + result.questions[2].answer;
+
+            if(result.questions[3]) {
+                html2 = html2 + '<br><br><b>Question 4:</b>' + result.questions[3].question + ': ' + result.questions[3].answer
+            }
 
             mail = {
                 from: 'team_autoworks@hotmail.com',
                 to: result.email,
                 subject: 'Team Autoworks - Password Recovery',
-                html: 'Hello! These are your login credentials: <br><br> <b>User:</b> ' + result.username + '<br><b>Password:</b> ' + result.password
+                html: html1 + html2
             }
 
             email(mail);
 
-            res.render('emailed')
+            res.redirect('/emailfinish')
         })
+    },
+
+    emailDone: async function(req, res) {
+        res.render('emailed')
     },
 
 

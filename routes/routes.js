@@ -24,6 +24,7 @@ app.post('/chooserecovery', isPublic, PublicController.chooseRecovery);
 
 // [PUBLIC] Email Recovery
 app.post('/emailrecovery', isPublic, PublicController.sendEmail);
+app.get('/emailfinish', isPublic, PublicController.emailDone);
 
 // [PUBLIC] Security Questions
 app.post('/answer1', isPublic, PublicController.getAnswer1);
