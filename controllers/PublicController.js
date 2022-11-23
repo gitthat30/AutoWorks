@@ -410,7 +410,7 @@ const PublicController = {
                     '<br><br><b>Question 3: </b>' + result.questions[2].question + ' <br><b>Answer: </b>' + result.questions[2].answer;
 
             if(result.questions[3]) {
-                html2 = html2 + '<br><br><b>Question 4:</b>' + result.questions[3].question + ': ' + result.questions[3].answer
+                html2 = html2 + '<br><br><b>Question 4:</b>' + result.questions[3].question + ' <br><b>Answer: </b>' + result.questions[3].answer
             }
 
             mail = {
