@@ -402,7 +402,7 @@ const PublicController = {
         db.findOne(account, {_id: req.body.userid}, {}, (result) => {
             console.log(result.email);
             html1 = 'Hello! These are your account credentials: <br><br>' + 
-                    '<b>User:</b>' + result.username + 
+                    '<b>User: </b>' + result.username + 
                     '<br><b>Password:</b> ' + result.password;
             html2 = '<br><br><b>Security Questions</b><br>' +
                     '<b>Question 1: </b>' + result.questions[0].question + ' <br><b>Answer: </b>' + result.questions[0].answer +
