@@ -22,6 +22,9 @@ app.get('/register', isPublic, PublicController.getRegister);
 app.get('/forgot', isPublic, PublicController.forgotPassword);
 app.post('/chooserecovery', isPublic, PublicController.chooseRecovery);
 
+// [PUBLIC] Email Recovery
+app.post('/emailrecovery', isPublic, PublicController.sendEmail);
+
 // [PUBLIC] Security Questions
 app.post('/answer1', isPublic, PublicController.getAnswer1);
 app.post('/answer2', isPublic, PublicController.getAnswer2);

@@ -13,18 +13,16 @@
 			$(event.currentTarget).closest('body').find('.security').submit();
 		}
 		function OTP() {
-			$(event.currentTarget).closest('body').find('.OTP').submit();
+			$(event.currentTarget).closest('body').find('.email').submit();
 		}
 	</script>
 
 	<body>
 		<form action="/answer1" method="POST" class="security">
 			<input type="hidden" name="userid" value="{{userid}}">
-			<input type="hidden" name="method" value="secquestion">
 		</form>
-		<form action="/otprecovery" method="POST" class="OTP">
+		<form action="/emailrecovery" method="POST" class="email">
 			<input type="hidden" name="userid" value="{{userid}}">
-			<input type="hidden" name="method" value="OTP">
 		</form>
 		
 		<div class="background"></div>
@@ -38,7 +36,7 @@
 				<p id="choose-text">Choose a method for password recovery:</p>
 				<div id="recovery-options">
 					<button type="button" class="global-button" onclick="secQuestion()">SECURITY QUESTIONS</button>
-					<button type="button" class="global-button" onclick="OTP()">OTP</button>
+					<button type="button" class="global-button" onclick="OTP()">EMAIL</button>
 				</div>
 			</form>
 		</div>

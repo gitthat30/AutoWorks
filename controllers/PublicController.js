@@ -5,6 +5,7 @@ const db = require('../models/db.js');
 const path = require('path');
 const account = require('../models/Accounts.js');
 const request = require('../models/Requests.js');
+const email = require('../util/nodemailer.js')
 const { totalmem } = require('os');
 const { localsAsTemplateData } = require('hbs');
 
@@ -396,6 +397,24 @@ const PublicController = {
          console.log("Testinagina")
          console.log(newaccount)       
     },*/
+
+    sendEmail: async function(req, res) {
+        db.findOne(account, {_id: req.body.userid}, {}, (result) => {
+            console.log(result.email);
+
+            mail = {
+                from: 'team_autoworks@hotmail.com',
+                to: result.email,
+                subject: 'Team Autoworks - Password Recovery',
+                html: 'Hello! These are your login credentials: <br><br> <b>User:</b> ' + result.username + '<br><b>Password:</b> ' + result.password
+            }
+
+            email(mail);
+
+            res.render('emailed')
+        })
+    },
+
 
     getLogin: async function(req, res) {
         res.render('login');
