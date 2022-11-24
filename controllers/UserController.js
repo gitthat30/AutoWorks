@@ -48,13 +48,13 @@ const UserController = {
 
         var message = {
             username: req.session.name,
-            content: req.body.content.trim(),
             sentdate: today
         };
 
         // If message sent is not attachment
         if(!req.files) {
             console.log('Sending message as plain text.');
+            message.content = req.body.content.trim();
             console.log(message);
             db.updateOne(request, {_id: req.body.reqid}, {$push: {messages: message}}, function(result) {
                 //Start of Notification Code
