@@ -1,32 +1,28 @@
 /* For Suppliers' Contact */
 var supplyData = [
     {
-        supply_type: ['glass', 'paint'],
+        supply_type: ['glass'],
         exotic: true,
-        name: 'ABC supply',
-        number: '09111111111',
-        address: 'ABC add',
+        name: 'Aguila Glass',
+        number: '09178845277',
     },
     {
-        supply_type: ['glass', 'parts', 'paint'],
+        supply_type: ['parts'],
+        exotic: true,
+        name: 'Peter Pampanga',
+        number: '09491176998',
+    },
+    {
+        supply_type: ['parts'],
         exotic: false,
-        name: 'DEF supply',
-        number: '09222222222',
-        address: 'DEF add',
+        name: 'DDT Autoparts',
+        number: '09054122060',
     },
     {
         supply_type: ['paint'],
         exotic: true,
-        name: 'GHI supply',
-        number: '09333333333',
-        address: 'GHI add',
-    },
-    {
-        supply_type: ['paint', 'parts', 'glass'],
-        exotic: true,
-        name: 'JKL supply',
-        number: '09444444444',
-        address: 'JKL add',
+        name: 'Nicole - Five J Paint Center',
+        number: '85622385',
     }
 ];
 
@@ -223,7 +219,6 @@ $('#edit-btn').click(function() {
 
 /* Register form validation */
 $('form[action="/registeruser"] input[name="name"], form[action="/registeruser"] input[name="pass"]').on('input', function() {
-    console.log('yun oh');
     if($(this).val().endsWith(' ')) {
         $(this).val($(this).val().slice(0, -1));
         $('.error-msg').html('This field should not contain spaces!');
@@ -232,3 +227,42 @@ $('form[action="/registeruser"] input[name="name"], form[action="/registeruser"]
         $('.error-msg').html('');
 });
 /* End of register form validation */
+
+
+/* Setting min of end date on generate report */
+$('#report-input-container input[name="start"]').change(function() {
+    $('#report-input-container input[name="end"]').attr('min', $(this).val());
+})
+/* End of generate report */
+
+
+
+/* Color indicator on client ongoing request */
+$('.active-user .status').css('color', function() {
+    if($(this).html() == 'ONGOING')
+        return '#FFBF00'
+    return '#087830'
+})
+/* End of color indicator */
+
+
+
+/* Edit balance on active requests */
+$('.edit-balance-button').click(function() {
+    $(this).siblings('.settle').hide();
+    $(this).addClass('global-button-disabled disabled-button')
+    $(this).parent().siblings('.active-host-card-bottom').find('.add-button').addClass('global-button-disabled disabled-button')
+    $(this).parent().siblings('.active-host-card-bottom').find('.add-field').prop('disabled', true);
+    $(this).parent().siblings('.active-host-card-bottom').find('.add-field').css('background-color', 'rgba(159,159,159, 0.3)')
+    $(this).siblings('.edit-outstanding').show();
+});
+
+$('.cancel-edit-balance').click(function() {
+    $(this).parent().hide();
+    $(this).parent().siblings('.settle').show();
+    $(this).parent().siblings('.edit-balance-button').removeClass('global-button-disabled disabled-button');
+    $(this).parent().parent().siblings('.active-host-card-bottom').find('.add-button').removeClass('global-button-disabled disabled-button');
+    $(this).parent().parent().siblings('.active-host-card-bottom').find('.add-field').prop('disabled', false);
+    $(this).parent().parent().siblings('.active-host-card-bottom').find('.add-field').css('background-color', 'white')
+});
+/* End of edit balance */

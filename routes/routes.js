@@ -67,9 +67,12 @@ app.post("/sendquotation", isHost, HostController.sendQuotation);
 app.post("/addpaidbalance", isHost, HostController.addPaidBalance);
 app.post("/settle", isHost, HostController.settleRequest);
 app.get("/deletereq", isHost, HostController.hostDeleteRequest);
+app.post("/editoutstanding", isHost, HostController.editOutstanding);
 
 // [HOST] Active Jobs
 app.get("/hviewactive", isHost, HostController.viewActiveRequests);
+app.get("/viewaddnewjob", isHost, HostController.viewAddNewJob);
+app.post("/addnewjob", isHost, HostController.addNewJob);
 
 // [HOST] Generate Report
 app.get("/viewgeneratereport", isHost, HostController.viewGenerateReport);

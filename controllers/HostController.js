@@ -113,19 +113,7 @@ const HostController = {
     addPaidBalance: async function(req, res) {
         var amountPaid = req.body.amount;
         db.updateOne(request, {_id: req.body.reqid}, {$inc: {paid: amountPaid, outstanding: (-1 * amountPaid)}}, (result) => {
-            db.findOne(request, {_id: req.body.reqid}, {}, async (result) => {
-                console.log("test")
-                console.log(result)
-                console.log("test")
-                if(result.outstanding == 0) {
-                    console.log("test2")
-                    db.updateOne(request, {_id: req.body.reqid}, {status: 'Settled'}, (result) => {
-                        res.redirect('/hviewactive')
-                    })  
-                }
-                else
-                    res.redirect('/hviewactive');
-            }) 
+            res.redirect('/hviewactive');
         });
     },
 
@@ -137,14 +125,54 @@ const HostController = {
         today = yyyy+'-'+mm+'-'+dd;
 
         db.updateOne(request, {_id: req.body.reqid}, {status: 'Settled', paiddate: today}, (result) => {
+            console.log("Settled request");
             res.redirect('/hviewactive');
         });
     },
 
-    // Might remove canSettle field if not needed in design
+    editOutstanding: function(req, res) {
+        db.updateOne(request, {_id: req.body.reqid}, {outstanding: req.body.editedOutstanding}, (result) => {
+            console.log("Edited oustanding balance of " + req.body.reqid + " to " + req.body.editedOutstanding);
+            res.redirect('/hviewactive');
+        });
+    },
+
     viewActiveRequests: async function(req, res) {
         var requests = await request.find({status: 'Accepted'});
         res.render('./onSession/hactiverequests', {req: requests.reverse(), isHost: true, username: req.session.name});
+    },
+
+    viewAddNewJob: function(req, res) {
+        res.render('./onSession/hnewjob', {isHost: true, username: req.session.name});
+    },
+
+    addNewJob: function(req, res) {
+        var today = new Date()
+
+        var nrequest = {
+            username: req.body.customer,
+            contact: req.body.contact,
+            car: req.body.model,
+            type: req.body.rtype,
+            date: today,
+            price: req.body.price,
+            paid: req.body.paid,
+            paiddate: 'N/A',
+        }
+
+        nrequest.outstanding = nrequest.price - nrequest.paid;
+
+        if(req.body.finished == "1") {
+            nrequest.status = "Settled";
+            nrequest.paiddate = today;
+        }
+        else
+            nrequest.status = "Accepted";
+
+        request.create(nrequest, (error,request) => {
+            console.log(request);
+            res.redirect("/hviewactive");
+        })
     },
 
     viewGenerateReport: async function(req, res) {

@@ -10,7 +10,7 @@
 }
 
 #home-container img {
-    height: 60px;
+    height: 100px;
     margin: 50px 0 40px;
 }
 
@@ -256,10 +256,10 @@
 
 /* Active requests as host (where you can add paid balances) */
 .active-host-card {
-    width: min(600px, 100%);
+    width: min(700px, 100%);
 }
 
-#active-host-card-bottom {
+.active-host-card-bottom {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -267,11 +267,11 @@
     /* width: min(506px, 100%); */
 }
 
-.active-host-card #title, .active-host-card #top-details {
+.active-host-card .title, .active-host-card .top-details {
     text-align: center;
 }
 
-.active-host-card #title {
+.active-host-card .title {
     color: #651400;
     font-weight: bold;
     text-align: center;
@@ -282,7 +282,7 @@
     margin-top: 10px;
 }
 
-#active-host-card-bottom form {
+.active-host-card-bottom form {
     margin-top: 10px;
 }
 
@@ -292,29 +292,54 @@
     gap: 20px;
 }
 
-.active-host-card form input[type=number]{
+.active-host-card .add-field {
     height: 30px;
     width: 150px;
     background-color: white;
 }
 
+.edit-balance {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.edit-outstanding {
+    text-align: right;
+}
+
+.edit-outstanding input {
+    background-color: white;
+}
+
 @media only screen and (max-width: 535px) {
-    #active-host-card-bottom {
+    .active-host-card-bottom {
         flex-direction: column;
         align-items: center;
     }
 
-    #active-host-card-bottom form {
+    .active-host-card-bottom form {
         width: 100%;
     }
 
-    #active-host-card-bottom form div {
+    .active-host-card-bottom form div {
         display: flex;
         gap: 8px;
     }
 
-    .active-host-card form input[type=number]{
+    .add-field {
         flex-grow: 1;
+    }
+
+    .edit-balance-button, .settle, .settle button, .edit-outstanding, .edit-outstanding input {
+        width: 100%;
+    }
+
+    body .edit-outstanding input {
+        width: 100%;
+        display: block;
+        margin-bottom: 8px;
     }
 }
 /* End of Active requests as host */
@@ -522,24 +547,6 @@
     margin-top: 30px;
 }
 
-@media only screen and (max-width: 400px) {
-    .report-form {
-        width: 100%;
-    }
-
-    .report-form div {
-        width: 100%;
-    }
-
-    .report-form div input {
-        width: 100%;
-    }
-
-    #report-enter {
-        text-align: center;
-    }
-}
-
 #report-input-container {
     display: flex;
     flex-wrap: wrap;
@@ -549,6 +556,10 @@
     gap: 20px;
 }
 
+#report-input-container input {
+    width: 210px;
+}
+
 .report-form p {
     text-align: left;
     font-weight: bold;
@@ -556,6 +567,20 @@
 
 #report-enter {
     text-align: right;
+}
+
+@media only screen and (max-width: 470px) {
+    .report-form {
+        width: 100%;
+    }
+
+    .report-form div {
+        width: 100%;
+    }
+
+    #report-input-container input {
+        width: 100%;
+    }
 }
 /* End of Generate report page */
 
@@ -666,3 +691,60 @@
     margin-top: 10px;
 }
 /* ENd of notification pages */
+
+
+
+/* Add New Job page */
+.newjob-form {
+    margin-top: 40px;
+    /* width: min(600px, 100%); */
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newjob-form .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.newjob-form .finished {
+    margin-bottom: 8px;
+}
+
+
+.newjob-form #submit {
+    text-align: right;
+}
+
+.newjob-form p {
+    color: #651400;
+    font-weight: bold;
+    margin: 10px 0 20px 0;
+    font-size: 18px;
+}
+
+.newjob-form input:not([type=checkbox]), .newjob-form select {
+    background-color: white;
+    width: 250px;
+}
+
+.newjob-form .finished {
+    align-self: flex-start;
+    margin-left: 10px;
+}
+
+.newjob-form #submit {
+    align-self: flex-end;
+}
+
+@media only screen and (max-width: 580px) {
+    .newjob-form input:not([type=checkbox]), .newjob-form select {
+        width: 100%;
+    }
+}
+/* End of New Job page */

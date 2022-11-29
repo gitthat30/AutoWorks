@@ -565,14 +565,22 @@ const UserController = {
 
     getUserAcceptedRequests: async function(req, res) {
         notifcount = 0;
-        var requests = await request.find({userid: req.session.user, status: 'Accepted'});
+        var requests = await request.find({userid: req.session.user, $or: [{status: 'Accepted'}, {status: 'Settled'}]});
         db.findOne(account, {_id: req.session.user}, {}, function(result) {
             console.log(typeof result.notifications)
             result.notifications.forEach(n => {
                 if(!n.read)
                     notifcount++;
             })
-            res.render('./onSession/uviewongoing', {req: requests, isHost: false, username: req.session.name, fname: req.session.fname, lname: req.session.lname, notifcount}); 
+
+            requests.forEach(r => {
+                if(r.status == "Accepted")
+                    r.status = "ONGOING"
+                else if(r.status == "Settled")
+                    r.status = "FINISHED"
+            })
+
+            res.render('./onSession/uviewongoing', {req: requests.reverse(), isHost: false, username: req.session.name, fname: req.session.fname, lname: req.session.lname, notifcount}); 
         })
     },
 

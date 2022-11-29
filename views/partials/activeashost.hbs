@@ -1,7 +1,7 @@
 <div class="card active-host-card">
-    <p id="title">{{car}}</p>
-    <p id="top-details">Job Type: {{type}}, Client: {{username}}, Contact No: {{contact}}</p>
-    <div id="active-host-card-bottom">
+    <p class="title">{{car}}</p>
+    <p class="top-details">Job Type: {{type}}, Client: {{username}}, Contact No: {{contact}}</p>
+    <div class="active-host-card-bottom">
         <div class="active-host-info">
             <div>
                 <p><strong>Quotation Amount</strong>:</p>
@@ -21,17 +21,25 @@
             <p><small>Add Paid Balance:</small></p>
             <input type="hidden" name="reqid" value="{{_id}}">
             <div>
-                <input type="number" min="0" max="{{outstanding}}" name="amount" placeholder="Enter amount here..." required>
-                <button type="submit" class="global-button">ENTER</button>
+                <input type="number" min="0" max="{{outstanding}}" name="amount" class="add-field" placeholder="Enter amount here..." required>
+                <button type="submit" class="global-button add-button">ADD</button>
             </div>
         </form>
     </div>
+    
+    <div class="edit-balance">
+        <button class="global-button edit-balance-button">EDIT OUTSTANDING BALANCE</button>
+        <form action="/settle" method="POST" class="settle">
+            <input type="hidden" name="reqid" value="{{_id}}">
+            <button type="submit" class="global-button">SETTLE TRANSACTION</button>
+        </form>
+        
+        <form action="/editoutstanding" method="POST" class="edit-outstanding" hidden>
+            <input type="hidden" name="reqid" value="{{_id}}">
+            <input type="number" name="editedOutstanding" min="0" placeholder="Enter amount here...">
+            <button type="submit" class="global-button">CONFIRM EDIT</button>
+            <button type="button" class="global-button gray-button cancel-edit-balance">CANCEL</button>
+        </form>
+    </div>
+    
 </div>
-
-<!--
-{{#if (canSettle outstanding)}}
-    <form action="/settle" method="POST">
-        <input type="hidden" name="reqid" value="{{_id}}">
-        <button type="submit">SETTLE</button>
-    </form>
-{{/if}}-->

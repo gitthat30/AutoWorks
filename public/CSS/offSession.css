@@ -12,8 +12,9 @@
 }
 
 .off-session-form #logo {
-    height: 48px;
+    height: 100px;
     margin: 40px 25px 30px;
+    text-align: center;
 }
 
 .off-session-back {

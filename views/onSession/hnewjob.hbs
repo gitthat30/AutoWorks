@@ -1,0 +1,40 @@
+{{> wrapper_header page_title='ACTIVE JOBS'}}
+
+<div class="container">
+    <form action="/addnewjob" method="POST" class="card newjob-form">
+        <p>Add a New Job</p>
+        <div class="row">
+            <input type="text" id="customer" name="customer" placeholder="Customer name..." required>
+            <input type="tel" id="contact" name="contact" size="25" pattern="[0-9]{4}-[0-9]{3}-[0-9]{4}|[0-9]{4}-[0-9]{4}|[0-9]{11}|[0-9]{8}" placeholder="Contact No: 09XXXXXXXXX or 8XXXXXXX" required>
+        </div>
+
+        <div class="row">
+            <input type="text" id="model" name="model" placeholder="Car model..." required>
+            <select id="rtype" name="rtype" required>
+                <option value="" selected hidden>Select job type...</option>
+                <option value="Auto Detailing">Auto Detailing</option>
+                <option value="Auto Repair">Auto Repair</option>
+                <option value="Car Aircon">Car Aircon</option>
+                <option value="Glassworks">Glassworks</option>
+                <option value="Radiator Repair">Radiator Repair</option>
+                <option value="Ceramic Coating">Ceramic Coating</option>
+                <option value="Others">Others</option>
+            </select>
+        </div>
+
+        <div class="finished">
+            <input type="checkbox" name="finished" id="finished" value="1">
+            <label for="finished">FINISHED</label>
+        </div>
+        
+
+        <div class="row">
+            <input type="number" id="price" name="price" placeholder="Quotation amount..." min="1" required>
+            <input type="number" id="paid" name="paid" placeholder="Paid Balance..." min="0" required>
+        </div>
+        
+        <div id="submit"><button type="submit" class="global-button">SUBMIT</button></div>
+    </form>
+</div>
+
+{{> wrapper_footer}}
