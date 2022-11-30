@@ -230,8 +230,8 @@ $('form[action="/registeruser"] input[name="name"], form[action="/registeruser"]
 
 
 /* Setting min of end date on generate report */
-$('#report-input-container input[name="start"]').change(function() {
-    $('#report-input-container input[name="end"]').attr('min', $(this).val());
+$('.report-form div input[name="start"]').change(function() {
+    $('.report-form div input[name="end"]').attr('min', $(this).val());
 })
 /* End of generate report */
 

@@ -545,6 +545,7 @@
 
 .report-form input {
     width: 300px;
+    -webkit-appearance: none;
 }
 
 .report-form p {
