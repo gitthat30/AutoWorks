@@ -20,15 +20,13 @@
 {{/if}}
 
     <form action="/generatereport" class="report-form">
-        <div id="report-input-container">
-            <div>
-                <p>START DATE:</p>
-                <input type="month" name="start" max={{date}} value={{date}} required>
-            </div>
-            <div>
-                <p>END DATE:</p>
-                <input type="month" name="end" max={{date}} value={{date}} required>
-            </div>
+        <div>
+            <p>START DATE:</p>
+            <input type="month" name="start" max={{date}} value={{date}} required>
+        </div>
+        <div>
+            <p>END DATE:</p>
+            <input type="month" name="end" max={{date}} value={{date}} required>
         </div>
         
         <div id="report-enter"><button type="submit" class="global-button">GENERATE REPORT</button></div>

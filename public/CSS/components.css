@@ -182,14 +182,9 @@
 }
 
 .thread-message-them {
-    /* background-color: #9f9f9f; */
     background-color: white;
     border-radius: 10px 10px 10px 0;
 }
-
-/* .thread-message-them p {
-    color: white;
-} */
 
 .thread-message .sender {
     font-size: 12px;
@@ -213,9 +208,7 @@
     display: flex;
     justify-content: space-between;
     gap: 5px;
-    /* min-height: 32px; */
     height: 32px;
-    /* max-height: 60px; */
 }
 
 .message-input textarea {
@@ -263,8 +256,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    /* gap: 20px; */
-    /* width: min(506px, 100%); */
 }
 
 .active-host-card .title, .active-host-card .top-details {
@@ -543,44 +534,22 @@
 .report-card {
     margin-top: 10px;
 }
+
 .report-form {
     margin-top: 30px;
-}
-
-#report-input-container {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-    gap: 20px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
 }
 
-#report-input-container input {
-    width: 210px;
+.report-form input {
+    width: 300px;
 }
 
 .report-form p {
     text-align: left;
     font-weight: bold;
-}
-
-#report-enter {
-    text-align: right;
-}
-
-@media only screen and (max-width: 470px) {
-    .report-form {
-        width: 100%;
-    }
-
-    .report-form div {
-        width: 100%;
-    }
-
-    #report-input-container input {
-        width: 100%;
-    }
 }
 /* End of Generate report page */
 
@@ -697,7 +666,6 @@
 /* Add New Job page */
 .newjob-form {
     margin-top: 40px;
-    /* width: min(600px, 100%); */
     width: auto;
     display: flex;
     flex-direction: column;
