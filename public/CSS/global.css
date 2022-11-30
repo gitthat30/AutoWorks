@@ -190,6 +190,10 @@ nav #logo {
     padding-right: 40px;
 }
 
+.home-nav {
+    justify-content: flex-end;
+}
+
 @media only screen and (min-width: 1001px) {
     #nav-buttons {
         display: flex;
@@ -209,6 +213,10 @@ nav #logo {
 
     .nav-list-item img {
         display: none;
+    }
+
+    .home-nav-buttons {
+        margin-top: 37px;
     }
 }
 

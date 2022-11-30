@@ -10,12 +10,15 @@
 		<link rel="stylesheet" href="CSS/components.css">
 	</head>
 	<body>
-		<header{{#if background-full}} style="background-color: transparent"{{/if}}>
-			{{#if background-full}}
+		<header{{#if home}} style="background-color: transparent"{{/if}}>
+			{{#if home}}
 			{{else}}
 			<div class="background background-partial"></div>
 			{{/if}}
 
+			{{#if home}}
+			<nav class="home-nav">
+			{{else}}
 			<nav>
 				{{#if isHost}}
 				<a href="/hhome">
@@ -24,10 +27,15 @@
 				{{/if}}
 					<img src="IMAGES/AutoWork.png" alt="AutoWorks Logo" id="logo">
 				</a>
+			{{/if}}
 				
 				<img src="IMAGES/menu.png" alt="menu icon" id="menu-icon">
 				
+				{{#if home}}
+				<div id="nav-buttons" class="home-nav-buttons">
+				{{else}}
 				<div id="nav-buttons">
+				{{/if}}
 					<img src="IMAGES/close.png" alt="close icon" id="close-icon">
 					{{#if isHost}}
 					<a href = "/hviewallpending" class="nav-list-item"><div><p>CUSTOMER REQUESTS</p><img src="IMAGES/right-arrow.png" alt="arrow"></div></a>
