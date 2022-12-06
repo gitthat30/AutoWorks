@@ -37,7 +37,7 @@ const UserController = {
           }
     },
 
-    sendMessage: function(req, res) {
+    sendMessage: async function(req, res) {
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth() + 1;
