@@ -110,6 +110,10 @@ select:disabled {
     height: 100%;
 }
 
+.background img {
+    object-position: right bottom;
+}
+
 .background-partial {
     background-position: 0 -100px;
 }
